@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\models",
+    "\\src\\scenes",
+    "\\src\\services",
+    "\\src\\services\\user"
+  ],
+  "SelectedNode": "\\src\\services\\httpService.ts",
+  "PreviewInSolutionExplorer": false
+}
