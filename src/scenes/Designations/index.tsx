@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -9,35 +9,35 @@ import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import { FormInstance } from 'antd/lib/form';
 import { PlusOutlined } from '@ant-design/icons';
-import LitigantTypeStore from '../../stores/litigantTypeStore';
-import CreateOrUpdateLitigantType from './components/createOrUpdateLitigantType';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
+import DesignationStore from '../../stores/designationStore';
+import CreateOrUpdateDesignation from './components/createOrUpdateDesignation';
 
-export interface ILitigantTypeProps {
-  litigantTypeStore: LitigantTypeStore;
+export interface IDesignationProps {
+  designationStore: DesignationStore;
 }
 
-export interface ILitigantTypeState {
+export interface IDesignationState {
   modalVisible: boolean;
   maxResultCount: number;
   skipCount: number;
-  litigantTypeId: number;
+  designationId: number;
   filter: string;
 }
 
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-@inject(Stores.LitigantTypeStore)
+@inject(Stores.DesignationStore)
 @observer
-class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeState> {
+class Designation extends AppComponentBase<IDesignationProps, IDesignationState> {
   formRef = React.createRef<FormInstance>();
 
   state = {
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
-    litigantTypeId: 0,
+    designationId: 0,
     filter: '',
   };
 
@@ -46,7 +46,7 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
   }
 
   async getAll() {
-    await this.props.litigantTypeStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
+    await this.props.designationStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
   }
 
   handleTableChange = (pagination: any) => {
@@ -61,16 +61,16 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
-      await this.props.litigantTypeStore.createLitigantType();
+      await this.props.designationStore.createDesignation();
     } else {
-      await this.props.litigantTypeStore.get(entityDto);
+      await this.props.designationStore.get(entityDto);
     }
 
-    this.setState({ litigantTypeId: entityDto.id });
+    this.setState({ designationId: entityDto.id });
     this.Modal();
 
     setTimeout(() => {
-      this.formRef.current?.setFieldsValue({ ...this.props.litigantTypeStore.editLitigantType });
+      this.formRef.current?.setFieldsValue({ ...this.props.designationStore.editDesignation });
     }, 100);
   }
 
@@ -79,7 +79,7 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
     confirm({
       title: 'Do you Want to delete these items?',
       onOk() {
-        self.props.litigantTypeStore.delete(input);
+        self.props.designationStore.delete(input);
       },
       onCancel() {
         console.log('Cancel');
@@ -91,10 +91,10 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
     const form = this.formRef.current;
 
     form!.validateFields().then(async (values: any) => {
-      if (this.state.litigantTypeId === 0) {
-        await this.props.litigantTypeStore.create(values);
+      if (this.state.designationId === 0) {
+        await this.props.designationStore.create(values);
       } else {
-        await this.props.litigantTypeStore.update({ ...values, id: this.state.litigantTypeId });
+        await this.props.designationStore.update({ ...values, id: this.state.designationId });
       }
 
       await this.getAll();
@@ -108,22 +108,15 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
   };
 
   public render() {
-    const { litigantTypes } = this.props.litigantTypeStore;
+    const { designations } = this.props.designationStore;
     const columns = [
       {
-        title: L('litigantTypeName'), dataIndex: 'litigantTypeName', key: 'litigantTypeName', width: 'auto',
+        title: L('designationName'), dataIndex: 'designationName', key: 'designationName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('litigantTypeDesciption'), dataIndex: 'litigantTypeDesciption', key: 'litigantTypeDesciption', width: 'auto',
+        title: L('designationNotes'), dataIndex: 'designationNotes', key: 'designationNotes', width: 'auto',
         render: (text: string) => <div>{text}</div>
-      },
-      {
-        title: L('status'),
-        dataIndex: 'status',
-        key: 'status',
-        width: 'auto',
-        render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>),
       },
       {
         title: L('Actions'),
@@ -161,7 +154,7 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('LitigantTypes')}</h2>
+            <h2>{L('Designations')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -197,7 +190,7 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Litigant Types')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Designations')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table
@@ -210,14 +203,14 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
               })}
               columns={columns}
               size='small'
-              pagination={{ pageSize: 10, total: litigantTypes === undefined ? 0 : litigantTypes.totalCount, defaultCurrent: 1 }}
-              loading={litigantTypes === undefined ? true : false}
-              dataSource={litigantTypes === undefined ? [] : litigantTypes.items}
+              pagination={{ pageSize: 10, total: designations === undefined ? 0 : designations.totalCount, defaultCurrent: 1 }}
+              loading={designations === undefined ? true : false}
+              dataSource={designations === undefined ? [] : designations.items}
               onChange={this.handleTableChange}
             />
           </Col>
         </Row>
-        <CreateOrUpdateLitigantType
+        <CreateOrUpdateDesignation
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() => {
@@ -226,7 +219,7 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
             });
             this.formRef.current?.resetFields();
           }}
-          modalType={this.state.litigantTypeId === 0 ? 'edit' : 'create'}
+          modalType={this.state.designationId === 0 ? 'edit' : 'create'}
           onCreate={this.handleCreate}
         />
       </Card>
@@ -234,4 +227,4 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
   }
 }
 
-export default LitigantType;
+export default Designation;

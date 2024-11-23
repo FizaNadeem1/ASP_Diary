@@ -6,6 +6,7 @@ export default class Stores {
   static ForumStore: string = 'forumStore';
   static CaseTypeStore: string = 'caseTypeStore';
   static LitigantTypeStore: string = 'litigantTypeStore';
+  static DesignationStore: string = 'designationStore';
   static ForumCatogoryStore: string = 'forumCatogoryStore';
   static SessionStore: string = 'sessionStore';
   static AccountStore: string = 'accountStore';

@@ -103,6 +103,15 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/LitigantTypes')),
   },
   {
+    path: '/designations',
+    permission: '',
+    title: 'Designations',
+    name: 'designations',
+    icon: UserOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Designations')),
+  },
+  {
     path: '/about',
     permission: '',
     title: 'About',
