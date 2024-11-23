@@ -7,6 +7,7 @@ import AccountStore from './accountStore';
 import ForumStore from './forumStore';
 import ForumCategoryStore from './forumCategoryStore';
 import CaseTypeStore from './caseTypeStore';
+import LitigantTypeStore from './litigantTypeStore';
 
 export default function initializeStores() {
   return {
@@ -15,6 +16,7 @@ export default function initializeStores() {
     tenantStore: new TenantStore(),
     userStore: new UserStore(),
     forumStore: new ForumStore(),
+    litigantTypeStore: new LitigantTypeStore(),
     caseTypeStore: new CaseTypeStore(),
     forumCatogoryStore: new ForumCategoryStore(),
     sessionStore: new SessionStore(),
