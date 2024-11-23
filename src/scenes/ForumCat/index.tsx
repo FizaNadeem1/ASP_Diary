@@ -4,7 +4,6 @@ import { Button, Card, Col,  Input,  Modal, Row, Table,  } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
-import CreateOrUpdateUser from './components/createOrUpdateCategory';
 import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
@@ -12,6 +11,7 @@ import { FormInstance } from 'antd/lib/form';
 import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
 import ForumCategoryStore from '../../stores/forumCategoryStore';
+import CreateOrUpdateCategory from './components/createOrUpdateCategory';
 
 export interface ICategoryProps {
   forumCategoryStore: ForumCategoryStore
@@ -30,7 +30,7 @@ const Search = Input.Search;
 
 @inject(Stores.ForumCatogoryStore)
 @observer
-class User extends AppComponentBase<ICategoryProps, ICategoryState> {
+class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
   formRef = React.createRef<FormInstance>();
 
   state = {
@@ -193,7 +193,7 @@ class User extends AppComponentBase<ICategoryProps, ICategoryState> {
             />
           </Col>
         </Row>
-        <CreateOrUpdateUser
+        <CreateOrUpdateCategory
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() => {
@@ -210,4 +210,4 @@ class User extends AppComponentBase<ICategoryProps, ICategoryState> {
   }
 }
 
-export default User;
+export default ForumCat;
