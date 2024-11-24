@@ -10,6 +10,7 @@ import CaseTypeStore from './caseTypeStore';
 import LitigantTypeStore from './litigantTypeStore';
 import DesignationStore from './designationStore';
 import PresidingOfficerStore from './presidingOfficerStore';
+import BranchStore from './branchStore';
 
 export default function initializeStores() {
   return {
@@ -19,6 +20,7 @@ export default function initializeStores() {
     userStore: new UserStore(),
     forumStore: new ForumStore(),
     litigantTypeStore: new LitigantTypeStore(),
+    branchStore: new BranchStore(),
     designationStore: new DesignationStore(),
     presidingOfficerStore: new PresidingOfficerStore(),
     caseTypeStore: new CaseTypeStore(),
