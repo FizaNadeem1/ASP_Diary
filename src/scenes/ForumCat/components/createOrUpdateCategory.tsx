@@ -45,7 +45,7 @@ class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProp
 
 
     return (
-      <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Category'} destroyOnClose={true}>
+      <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Category'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
               <Form.Item label={L('forumCategoryName')} {...formItemLayout} name={'forumCategoryName'} rules={rules.forumCategoryName}>
                 <Input />

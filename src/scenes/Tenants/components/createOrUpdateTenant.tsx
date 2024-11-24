@@ -57,7 +57,7 @@ class CreateOrUpdateTenant extends React.Component<ICreateOrUpdateTenantProps> {
     const { visible, onCancel, onCreate, formRef } = this.props;
 
     return (
-      <Modal visible={visible} onCancel={onCancel} onOk={onCreate} title={L('Tenants')} width={550}>
+      <Modal visible={visible}  onCancel={onCancel} onOk={onCreate} title={L('Tenants')} width={550}>
         <Form ref={formRef}>
           <Form.Item label={L('TenancyName')} name={'tenancyName'} rules={rules.tenancyName} {...formItemLayout}>
             <Input />
