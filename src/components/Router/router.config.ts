@@ -120,6 +120,16 @@ export const appRouters: any = [
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/PresidingOfficer')),
   },
+
+  {
+    path: '/branches',
+    permission: '',
+    title: 'Branches',
+    name: 'branches',
+    icon: UserOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Branch')),
+  },
   {
     path: '/about',
     permission: '',

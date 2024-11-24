@@ -10,6 +10,6 @@ export interface CreatePresidingOfficerOutputItem {
   designationId: number;
 }
 
-export interface CreateDesignationOutput {
+export interface CreatePresidingOfficerOutput {
   result: CreatePresidingOfficerOutputItem;
 }
