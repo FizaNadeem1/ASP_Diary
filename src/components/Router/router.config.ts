@@ -112,6 +112,15 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Designations')),
   },
   {
+    path: '/presidingOfficers',
+    permission: '',
+    title: 'PresidingOfficers',
+    name: 'presidingOfficers',
+    icon: UserOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/PresidingOfficer')),
+  },
+  {
     path: '/about',
     permission: '',
     title: 'About',

@@ -93,7 +93,7 @@ class CreateOrUpdateUser extends React.Component<ICreateOrUpdateUserProps> {
     });
 
     return (
-      <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'User'} destroyOnClose={true}>
+      <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'User'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
           <Tabs defaultActiveKey={'userInfo'} size={'small'} tabBarGutter={64}>
             <TabPane tab={'User'} key={'userInfo'}>

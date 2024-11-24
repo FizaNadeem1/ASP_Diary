@@ -65,7 +65,7 @@ class CreateOrUpdateLitigantType extends React.Component<ICreateOrUpdateLitigant
 
 
     return (
-      <Modal visible={visible} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'LitigantType'} destroyOnClose={true}>
+      <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'LitigantType'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
               <Form.Item label={L('litigantTypeName')} {...formItemLayout} name={'litigantTypeName'} rules={rules.litigantTypeName}>
                 <Input />
