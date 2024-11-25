@@ -8,6 +8,8 @@ export default class Stores {
   static LitigantTypeStore: string = 'litigantTypeStore';
   static DesignationStore: string = 'designationStore';
   static BranchStore: string = 'branchStore';
+  static FirmStore: string = 'firmStore';
+  static CityStore: string = 'cityStore';
   static PresidingOfficerStore: string = 'presidingOfficerStore';
   static ForumCatogoryStore: string = 'forumCatogoryStore';
   static SessionStore: string = 'sessionStore';

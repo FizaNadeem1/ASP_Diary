@@ -10,34 +10,34 @@ import Stores from '../../stores/storeIdentifier';
 import { FormInstance } from 'antd/lib/form';
 import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
-import BranchStore from '../../stores/branchStore';
-import CreateOrUpdateBranch from './components/createOrUpdateBranch';
+import CityStore from '../../stores/cityStore';
+import CreateOrUpdateCity from './components/createOrUpdateCity';
 
-export interface IBranchProps {
-  branchStore: BranchStore;
+export interface ICityProps {
+  cityStore: CityStore;
 }
 
-export interface IBranchState {
+export interface ICityState {
   modalVisible: boolean;
   maxResultCount: number;
   skipCount: number;
-  branchId: number;
+  cityId: number;
   filter: string;
 }
 
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-@inject(Stores.BranchStore)
+@inject(Stores.CityStore)
 @observer
-class Branch extends AppComponentBase<IBranchProps, IBranchState> {
+class City extends AppComponentBase<ICityProps, ICityState> {
   formRef = React.createRef<FormInstance>();
 
   state = {
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
-    branchId: 0,
+    cityId: 0,
     filter: '',
   };
 
@@ -46,7 +46,7 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
   }
 
   async getAll() {
-    await this.props.branchStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
+    await this.props.cityStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
   }
 
   handleTableChange = (pagination: any) => {
@@ -61,20 +61,18 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
-      await this.props.branchStore.createBranch();
-        await this.props.branchStore.getCities();
-        await this.props.branchStore.getFirms();
+      await this.props.cityStore.createCity();
+        await this.props.cityStore.getDivisions();
     } else {
-      await this.props.branchStore.get(entityDto);
-        await this.props.branchStore.getCities();
-        await this.props.branchStore.getFirms();
+      await this.props.cityStore.get(entityDto);
+        await this.props.cityStore.getDivisions();
     }
 
-    this.setState({ branchId: entityDto.id });
+    this.setState({ cityId: entityDto.id });
     this.Modal();
 
     setTimeout(() => {
-      this.formRef.current?.setFieldsValue({ ...this.props.branchStore.editBranch });
+      this.formRef.current?.setFieldsValue({ ...this.props.cityStore.editCity });
     }, 100);
   }
 
@@ -83,7 +81,7 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
     confirm({
       title: 'Do you Want to delete these items?',
       onOk() {
-        self.props.branchStore.delete(input);
+        self.props.cityStore.delete(input);
       },
       onCancel() {
         console.log('Cancel');
@@ -95,10 +93,10 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
     const form = this.formRef.current;
 
     form!.validateFields().then(async (values: any) => {
-      if (this.state.branchId === 0) {
-        await this.props.branchStore.create(values);
+      if (this.state.cityId === 0) {
+        await this.props.cityStore.create(values);
       } else {
-        await this.props.branchStore.update({ ...values, id: this.state.branchId });
+        await this.props.cityStore.update({ ...values, id: this.state.cityId });
       }
 
       await this.getAll();
@@ -112,18 +110,13 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
   };
 
   public render() {
-    const { branches } = this.props.branchStore;
+    const { cities } = this.props.cityStore;
     const columns = [
       {
-        title: L('branchName'), dataIndex: 'branchName', key: 'branchName', width: 'auto',
+        title: L('City Name'), dataIndex: 'cityName', key: 'cityName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {
-        title: L('branchOwner'), dataIndex: 'branchOwner', key: 'branchOwner', width: 'auto',
-        render: (text: string) => <div>{text}</div>
-      },
-      {title:L('firmFirmName'),dataIndex:'firmFirmName',key:'firmFirmName',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('cityCityName'),dataIndex:'cityCityName',key:'cityCityName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Division Name'),dataIndex:'divisionNameDivisionName',key:'divisionNameDivisionName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',
@@ -160,7 +153,7 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('Branches')}</h2>
+            <h2>{L('cities')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -196,7 +189,7 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Branches')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table
@@ -209,14 +202,14 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
               })}
               columns={columns}
               size='small'
-              pagination={{ pageSize: 10, total: branches === undefined ? 0 : branches.totalCount, defaultCurrent: 1 }}
-              loading={branches === undefined ? true : false}
-              dataSource={branches === undefined ? [] : branches.items}
+              pagination={{ pageSize: 10, total: cities === undefined ? 0 : cities.totalCount, defaultCurrent: 1 }}
+              loading={cities === undefined ? true : false}
+              dataSource={cities === undefined ? [] : cities.items}
               onChange={this.handleTableChange}
             />
           </Col>
         </Row>
-        <CreateOrUpdateBranch
+        <CreateOrUpdateCity
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() => {
@@ -225,14 +218,13 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
             });
             this.formRef.current?.resetFields();
           }}
-          modalType={this.state.branchId === 0 ? 'edit' : 'create'}
+          modalType={this.state.cityId === 0 ? 'edit' : 'create'}
           onCreate={this.handleCreate}
-          cities={this.props.branchStore.cities}
-          firms={this.props.branchStore.firms}
+          divisions={this.props.cityStore.divisions}
         />
       </Card>
     );
   }
 }
 
-export default Branch;
+export default City;
