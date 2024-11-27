@@ -94,6 +94,15 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/Lawyer')),
   },
   {
+    path: '/caseProceeding',
+    permission: '',
+    title: 'CaseProceeding',
+    name: 'caseProceeding',
+    icon: UserOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/CaseProceeding')),
+  },
+  {
     path: '/caseTypes',
     permission: '',
     title: 'CaseTypes',

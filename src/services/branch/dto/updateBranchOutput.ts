@@ -1,4 +1,4 @@
-export interface UpdatePresidingOfficerOutput {
+export interface UpdateBranchOutput {
   id: number;
   creationTime: Date;
   branchName: string;
