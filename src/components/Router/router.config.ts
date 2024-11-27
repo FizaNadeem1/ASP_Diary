@@ -85,6 +85,15 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/ForumCat')),
   },
   {
+    path: '/lawyers',
+    permission: '',
+    title: 'Lawyer',
+    name: 'lawyers',
+    icon: UserOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/Lawyer')),
+  },
+  {
     path: '/caseTypes',
     permission: '',
     title: 'CaseTypes',

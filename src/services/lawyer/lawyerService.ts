@@ -46,6 +46,17 @@ class LawyerService {
     let result = await http.get('/api/services/app/Branch/GetBranchComboboxItems');
     return result.data.result.items;
   }
+  public async getDivisionsByProvinceId(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/Division/GetDivisionComboboxItemsById', { params: entityDto });
+    return result.data.result.items;
+  }  public async getCityByDivisionId(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/City/GetCityComboboxItemsById',{ params: entityDto });
+    return result.data.result.items;
+  }  public async getTehsilByCityId(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/Tehsil/GetTehsilComboboxItemsById',{ params: entityDto });
+    return result.data.result.items;
+  }
+
   public async get(entityDto: EntityDto): Promise<CreateOrUpdateLawyerInput> {
     let result = await http.get('api/services/app/Lawyer/Get', { params: entityDto });
     return result.data.result;
