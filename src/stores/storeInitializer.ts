@@ -18,6 +18,7 @@ import ProvinceStore from './provinceStore';
 import DivisionStore from './divisionStore';
 import ClientStore from './clientStore';
 import LawyerStore from './lawyerStore';
+import CaseProceedingStore from './CaseProceedingStore';
 
 export default function initializeStores() {
   return {
@@ -34,6 +35,7 @@ export default function initializeStores() {
     divisionStore: new DivisionStore(),
     provinceStore: new ProvinceStore(),
     lawyerStore: new LawyerStore(),
+    caseProceedingStore: new CaseProceedingStore(),
     courtStore: new CourtStore(),
     designationStore: new DesignationStore(),
     presidingOfficerStore: new PresidingOfficerStore(),

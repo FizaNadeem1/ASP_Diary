@@ -14,6 +14,7 @@ export default class Stores {
   static LawyerStore: string = 'lawyerStore';
   static ClientStore: string = 'clientStore';
   static DivisionStore: string = 'divisionStore';
+  static CaseProceedingStore: string = 'caseProceedingStore';
   static ProvinceStore: string = 'provinceStore';
   static PresidingOfficerStore: string = 'presidingOfficerStore';
   static ForumCatogoryStore: string = 'forumCatogoryStore';
