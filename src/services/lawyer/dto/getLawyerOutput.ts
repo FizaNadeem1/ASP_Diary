@@ -1,4 +1,4 @@
-export interface CreateOrUpdateLawyerInput {
+export interface GetLawyerOutput {
   id: number;
   creationTime: Date;
   creatorUserId: number;
@@ -18,13 +18,13 @@ export interface CreateOrUpdateLawyerInput {
   lawyerResigDate: Date;
   provinceId: string;
   provinceProvinceName: string;
-  divisionId: number|null;
-  cityId: number|null;
+  divisionId: number;
+  cityId: number;
   cityCityName: string;
-  tehsilId: number|null;
-  lawyerSpeacialityId: number|null;
+  tehsilId: number;
+  lawyerSpeacialityId: number;
   lawyerSpeacialitySpeacialityName: string;
-  branchId: number|null;
+  branchId: number;
   branchBranchName: string;
   profileImage: string;
 }

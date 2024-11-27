@@ -11,6 +11,7 @@ export default class Stores {
   static FirmStore: string = 'firmStore';
   static CourtStore: string = 'courtStore';
   static CityStore: string = 'cityStore';
+  static LawyerStore: string = 'lawyerStore';
   static ClientStore: string = 'clientStore';
   static DivisionStore: string = 'divisionStore';
   static ProvinceStore: string = 'provinceStore';
