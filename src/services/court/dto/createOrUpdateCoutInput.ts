@@ -1,0 +1,30 @@
+export interface CreateOrUpdateCourtInput {
+  id: number;
+  creationTime: Date;
+  creatorUserId: number;
+  lastModificationTime: Date;
+  lastModifierUserId: number;
+  courtCode: string;
+  courtDescription: string;
+  courtNumber: string;
+  courtReader: string;
+  courtReaderNumber: string;
+  courtReaderEmail: string;
+  courtAhlmed: string;
+  courtAhlmedNumber: string;
+  courtAhlmedEmail: string;
+  forumForumName: string;
+  forumId: number | null;
+  forumCategoryForumCategoryName: string;
+  forumCatId: number | null;
+  provinceProvinceName: string;
+  provinceId: string | null;
+  divisionDivisionName: string;
+  divisionId: number | null;
+  cityCityName: string;
+  cityId: number | null;
+  tehsilTehsilName: string;
+  tehsilId: number | null;
+  branchBranchName: string;
+  branchId: number | null;
+}

@@ -9,7 +9,11 @@ export default class Stores {
   static DesignationStore: string = 'designationStore';
   static BranchStore: string = 'branchStore';
   static FirmStore: string = 'firmStore';
+  static CourtStore: string = 'courtStore';
   static CityStore: string = 'cityStore';
+  static ClientStore: string = 'clientStore';
+  static DivisionStore: string = 'divisionStore';
+  static ProvinceStore: string = 'provinceStore';
   static PresidingOfficerStore: string = 'presidingOfficerStore';
   static ForumCatogoryStore: string = 'forumCatogoryStore';
   static SessionStore: string = 'sessionStore';
