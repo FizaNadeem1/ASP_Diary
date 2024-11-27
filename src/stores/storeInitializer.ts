@@ -13,6 +13,10 @@ import PresidingOfficerStore from './presidingOfficerStore';
 import BranchStore from './branchStore';
 import FirmStore from './firmStore';
 import CityStore from './cityStore';
+import CourtStore from './courtStore';
+import ProvinceStore from './provinceStore';
+import DivisionStore from './divisionStore';
+import ClientStore from './clientStore';
 
 export default function initializeStores() {
   return {
@@ -25,6 +29,10 @@ export default function initializeStores() {
     branchStore: new BranchStore(),
     firmStore: new FirmStore(),
     cityStore: new CityStore(),
+    clientStore: new ClientStore(),
+    divisionStore: new DivisionStore(),
+    provinceStore: new ProvinceStore(),
+    courtStore: new CourtStore(),
     designationStore: new DesignationStore(),
     presidingOfficerStore: new PresidingOfficerStore(),
     caseTypeStore: new CaseTypeStore(),
