@@ -1,0 +1,43 @@
+import { L } from '../../../lib/abpUtility';
+
+const rules = {
+  branchId:[{ required: true, message: L('ThisFieldIsRequired') }],
+  clientId: [{ required: true, message: L('ThisFieldIsRequired') }],
+  caseTypeId:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseRegDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseStartDate: [{ required: true, message: L('ThisFieldIsRequired') }],
+  caseEndDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseNo:[{ required: true, message: L('ThisFieldIsRequired') }],
+  courtCaseNo:  [{ required: true, message: L('ThisFieldIsRequired') }],
+  caseTitle: [{ required: true, message: L('ThisFieldIsRequired') }],
+  firstLitigantTypeId:[{ required: true, message: L('ThisFieldIsRequired') }],
+  firstPartyName: [{ required: true, message: L('ThisFieldIsRequired') }],
+  firstLawyerName: [{ required: true, message: L('ThisFieldIsRequired') }],
+  firNo: [{ required: true, message: L('ThisFieldIsRequired') }],
+  secLitigantTypeId: [{ required: true, message: L('ThisFieldIsRequired') }],
+  secondPartyName: [{ required: true, message: L('ThisFieldIsRequired') }],
+  secondLawyerName: [{ required: true, message: L('ThisFieldIsRequired') }],
+  offence:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseStatus:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseShift:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseFinish:[{ required: true, message: L('ThisFieldIsRequired') }],
+  firDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  policeStation:[{ required: true, message: L('ThisFieldIsRequired') }],
+  courtCaseGenNo:[{ required: true, message: L('ThisFieldIsRequired') }],
+  courtCaseGaffNo:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseNotes:[{ required: true, message: L('ThisFieldIsRequired') }],
+  casePleadings:[{ required: true, message: L('ThisFieldIsRequired') }],
+  benchId:[{ required: true, message: L('ThisFieldIsRequired') }],
+  bStartDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  bEndDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseBenchStatus:[{ required: true, message: L('ThisFieldIsRequired') }],
+  bNotes:[{ required: true, message: L('ThisFieldIsRequired') }],
+  lawyerId:[{ required: true, message: L('ThisFieldIsRequired') }],
+  lStartDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  lEndDate:[{ required: true, message: L('ThisFieldIsRequired') }],
+  caseLawyerStatus:[{ required: true, message: L('ThisFieldIsRequired') }],
+  lNotes:[{ required: true, message: L('ThisFieldIsRequired') }],
+
+};
+
+export default rules;

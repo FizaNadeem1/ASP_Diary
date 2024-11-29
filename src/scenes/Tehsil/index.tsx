@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col,  Input,  Modal, Row, Table,  } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -10,34 +10,34 @@ import Stores from '../../stores/storeIdentifier';
 import { FormInstance } from 'antd/lib/form';
 import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
-import ForumCategoryStore from '../../stores/forumCategoryStore';
-import CreateOrUpdateCategory from './components/createOrUpdateCategory';
+import TehsilStore from '../../stores/tehsilStore';
+import CreateOrUpdateTehsil from './components/createOrUpdateDivision';
 
-export interface ICategoryProps {
-  forumCategoryStore: ForumCategoryStore
+export interface ITehsilProps {
+  tehsilStore: TehsilStore;
 }
 
-export interface ICategoryState {
+export interface ITehsilState {
   modalVisible: boolean;
   maxResultCount: number;
   skipCount: number;
-  categoryId: number;
+  tehsilId: number;
   filter: string;
 }
 
 const confirm = Modal.confirm;
 const Search = Input.Search;
 
-@inject(Stores.ForumCategoryStore)
+@inject(Stores.TehsilStore)
 @observer
-class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
+class Tehsil extends AppComponentBase<ITehsilProps, ITehsilState> {
   formRef = React.createRef<FormInstance>();
 
   state = {
     modalVisible: false,
     maxResultCount: 10,
     skipCount: 0,
-    categoryId: 0,
+    tehsilId: 0,
     filter: '',
   };
 
@@ -46,7 +46,7 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
   }
 
   async getAll() {
-    await this.props.forumCategoryStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
+    await this.props.tehsilStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
   }
 
   handleTableChange = (pagination: any) => {
@@ -61,16 +61,18 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
-      await this.props.forumCategoryStore.createCategory();
+      await this.props.tehsilStore.createTehsil();
+        await this.props.tehsilStore.getCities();
     } else {
-      await this.props.forumCategoryStore.get(entityDto);
+      await this.props.tehsilStore.get(entityDto);
+        await this.props.tehsilStore.getCities();
     }
 
-    this.setState({ categoryId: entityDto.id });
+    this.setState({ tehsilId: entityDto.id });
     this.Modal();
 
     setTimeout(() => {
-      this.formRef.current?.setFieldsValue({ ...this.props.forumCategoryStore.editCategory });
+      this.formRef.current?.setFieldsValue({ ...this.props.tehsilStore.editTehsil });
     }, 100);
   }
 
@@ -79,7 +81,7 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
     confirm({
       title: 'Do you Want to delete these items?',
       onOk() {
-        self.props.forumCategoryStore.delete(input);
+        self.props.tehsilStore.delete(input);
       },
       onCancel() {
         console.log('Cancel');
@@ -91,10 +93,10 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
     const form = this.formRef.current;
 
     form!.validateFields().then(async (values: any) => {
-      if (this.state.categoryId === 0) {
-        await this.props.forumCategoryStore.create(values);
+      if (this.state.tehsilId === 0) {
+        await this.props.tehsilStore.create(values);
       } else {
-        await this.props.forumCategoryStore.update({ ...values, id: this.state.categoryId });
+        await this.props.tehsilStore.update({ ...values, id: this.state.tehsilId });
       }
 
       await this.getAll();
@@ -108,10 +110,13 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
   };
 
   public render() {
-    const { categories } = this.props.forumCategoryStore;
+    const { tehsils } = this.props.tehsilStore;
     const columns = [
-      { title: L('forumCategoryName'), dataIndex: 'forumCategoryName', key: 'forumCategoryName', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('forumNameForumName'), dataIndex: 'forumNameForumName', key: 'forumNameForumName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      {
+        title: L('tehsilName'), dataIndex: 'tehsilName', key: 'tehsilName', width: 'auto',
+        render: (text: string) => <div>{text}</div>
+      },
+      {title:L('cityNameCityName'),dataIndex:'cityNameCityName',key:'cityNameCityName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',
@@ -143,20 +148,20 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
             xs={{ span: 4, offset: 0 }}
             sm={{ span: 4, offset: 0 }}
             md={{ span: 4, offset: 0 }}
-            lg={{ span: 2, offset: 0 }}
-            xl={{ span: 2, offset: 0 }}
-            xxl={{ span: 2, offset: 0 }}
+            lg={{ span: 1, offset: 0 }}
+            xl={{ span: 1, offset: 0 }}
+            xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('Categories')}</h2>
+            <h2>{L('Tehsils')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
             sm={{ span: 15, offset: 0 }}
             md={{ span: 15, offset: 0 }}
-            lg={{ span: 1, offset: 21 }}
-            xl={{ span: 1, offset: 21 }}
-            xxl={{ span: 1, offset: 21 }}
+            lg={{ span: 2, offset: 21 }}
+            xl={{ span: 2, offset: 21 }}
+            xxl={{ span: 2, offset: 21 }}
           >
             <Button type="primary" icon={<PlusOutlined />} onClick={() => this.createOrUpdateModalOpen({ id: 0 })} >
               {L('Create new')}</Button>
@@ -176,24 +181,35 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
             xl={{ span: 24, offset: 0 }}
             xxl={{ span: 24, offset: 0 }}
           >
+            <Row
+              gutter={16}
+              style={{
+                backgroundColor: 'black', // Set background color to black
+                padding: '10px', // Optional: Add padding to give space around the elements
+              }}
+            >
+              <Col span={12}>
+                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
+              </Col>
+            </Row>
             <Table
               rowKey={(record) => record.id.toString()}
+              bordered={true}
               onRow={(record, index) => ({
                 style: {
                   backgroundColor: GetColorByIndex({ index }), // Set background color
                 },
               })}
-              size="small"
-              bordered={true}
               columns={columns}
-              pagination={{ pageSize: 10, total: categories === undefined ? 0 : categories.totalCount, defaultCurrent: 1 }}
-              loading={categories === undefined ? true : false}
-              dataSource={categories === undefined ? [] : categories.items}
+              size='small'
+              pagination={{ pageSize: 10, total: tehsils === undefined ? 0 : tehsils.totalCount, defaultCurrent: 1 }}
+              loading={tehsils === undefined ? true : false}
+              dataSource={tehsils === undefined ? [] : tehsils.items}
               onChange={this.handleTableChange}
             />
           </Col>
         </Row>
-        <CreateOrUpdateCategory
+        <CreateOrUpdateTehsil
           formRef={this.formRef}
           visible={this.state.modalVisible}
           onCancel={() => {
@@ -202,12 +218,13 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
             });
             this.formRef.current?.resetFields();
           }}
-          modalType={this.state.categoryId === 0 ? 'edit' : 'create'}
+          modalType={this.state.tehsilId === 0 ? 'edit' : 'create'}
           onCreate={this.handleCreate}
+          cities={this.props.tehsilStore.cities}
         />
       </Card>
     );
   }
 }
 
-export default ForumCat;
+export default Tehsil;
