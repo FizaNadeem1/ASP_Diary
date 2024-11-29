@@ -19,6 +19,9 @@ import DivisionStore from './divisionStore';
 import ClientStore from './clientStore';
 import LawyerStore from './lawyerStore';
 import CaseProceedingStore from './CaseProceedingStore';
+import CaseRegistraionStore from './caseRegistraionStore';
+import TehsilStore from './tehsilStore';
+import BenchStore from './benchStore';
 
 export default function initializeStores() {
   return {
@@ -32,6 +35,9 @@ export default function initializeStores() {
     firmStore: new FirmStore(),
     cityStore: new CityStore(),
     clientStore: new ClientStore(),
+    tehsilStore: new TehsilStore(),
+    benchStore: new BenchStore(),
+    caseRegistrationStore: new CaseRegistraionStore(),
     divisionStore: new DivisionStore(),
     provinceStore: new ProvinceStore(),
     lawyerStore: new LawyerStore(),
@@ -40,7 +46,7 @@ export default function initializeStores() {
     designationStore: new DesignationStore(),
     presidingOfficerStore: new PresidingOfficerStore(),
     caseTypeStore: new CaseTypeStore(),
-    forumCatogoryStore: new ForumCategoryStore(),
+    forumCategoryStore: new ForumCategoryStore(),
     sessionStore: new SessionStore(),
     accountStore: new AccountStore(),
   };

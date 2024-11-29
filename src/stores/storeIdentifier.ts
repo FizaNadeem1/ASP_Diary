@@ -13,11 +13,14 @@ export default class Stores {
   static CityStore: string = 'cityStore';
   static LawyerStore: string = 'lawyerStore';
   static ClientStore: string = 'clientStore';
+  static BenchStore: string = 'benchStore';
+  static TehsilStore: string = 'tehsilStore';
+  static CaseRegistrationStore: string = 'caseRegistrationStore';
   static DivisionStore: string = 'divisionStore';
   static CaseProceedingStore: string = 'caseProceedingStore';
   static ProvinceStore: string = 'provinceStore';
   static PresidingOfficerStore: string = 'presidingOfficerStore';
-  static ForumCatogoryStore: string = 'forumCatogoryStore';
+  static ForumCategoryStore: string = 'forumCategoryStore';
   static SessionStore: string = 'sessionStore';
   static AccountStore: string = 'accountStore';
 }
