@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {  Input, Modal, Tabs, Form, Select, Checkbox } from 'antd';
+import {  Input, Modal, Tabs, Form, Select, Checkbox, DatePicker, Button, Table, Tag } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import rules from './createOrUpdateCaseRegistration.validation';
 import { FormInstance } from 'antd/lib/form';
@@ -12,9 +12,28 @@ import { GetClients } from '../../../services/caseRegistration/dto/getClientOutp
 import { GetFirstLitigantTypes } from '../../../services/caseRegistration/dto/getFirstLitigantTypeOutput';
 import { GetSecondLitigantTypes } from '../../../services/caseRegistration/dto/getSecondLitigantTypeOutput';
 import { GetLawyers } from '../../../services/caseRegistration/dto/getLawyerOutput';
+import { GetColorByIndex } from '../../../components/Helper/GetColorByIndex';
 
 const TabPane = Tabs.TabPane;
 
+// interface CaseBench {
+//   benchBenchCode: string;
+//   bStartDate: Moment;
+//   bEndDate: Moment;
+//   caseBenchStatus: boolean;
+// }
+// interface CaseLawyer {
+//   lawyerLawyerName: string;
+//   lStartDate: Moment;
+//   lEndDate: Moment;
+//   caseLawyerStatus: boolean;
+// }
+interface State {
+  confirmDirty: boolean;
+  isCBSelected: boolean;
+  isCLSelected: boolean;
+  // caseLawyer:CaseLawyer[];
+}
 export interface ICreateOrUpdateClientProps {
   visible: boolean;
   onCancel: () => void;
@@ -28,12 +47,18 @@ export interface ICreateOrUpdateClientProps {
   secondParty: GetSecondLitigantTypes[];
   lawyers: GetLawyers[];
   formRef: React.RefObject<FormInstance>;
-  store:CaseRegistraionStore
+  store:CaseRegistraionStore;
+  // clList:GetAllCaseLawyerOutput[];
+  // cbList:GetAllCaseBenchOutput[];
 }
 
-class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClientProps> {
+class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClientProps,State> {
   state = {
     confirmDirty: false,
+    isCBSelected:false,
+    isCLSelected:false,
+  // caseLawyer:[],
+
   };
 
   render() {
@@ -76,9 +101,51 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       },
     };
 
-
+    const handleEditCaseBench = async () => {
+      const data = {
+        bStartDate: this.props.formRef.current?.getFieldValue('bStartDate'),
+        bEndDate: this.props.formRef.current?.getFieldValue('bEndDate'),
+        bNotes: this.props.formRef.current?.getFieldValue('bNotes'),
+        caseBenchStatus: true,
+        branchId: this.props.formRef.current?.getFieldValue('branchId'),
+        caseMainId: this.props.formRef.current?.getFieldValue('caseMainId'),
+        benchId: this.props.formRef.current?.getFieldValue('benchId'),
+      };
+    
+      try {
+        this.setState({ isCBSelected: true });
+        await this.props.store.createCB(data);
+        console.log('Save successful!');
+      } catch (error) {
+        console.error('Save failed:', error);
+      } finally {
+        this.setState({ isCBSelected: false });
+      }
+    };
+    const handleEditCaseLawyer = async () => {
+      const data = {
+        lStartDate: this.props.formRef.current?.getFieldValue('lStartDate'),
+        lEndDate: this.props.formRef.current?.getFieldValue('lEndDate'),
+        lNotes: this.props.formRef.current?.getFieldValue('lNotes'),
+        caseLawyerStatus: true,
+        branchId: this.props.formRef.current?.getFieldValue('branchId'),
+        caseMainId: this.props.formRef.current?.getFieldValue('caseMainId'),
+        lawyerId: this.props.formRef.current?.getFieldValue('lawyerId'),
+      };
+    
+      try {
+        this.setState({ isCLSelected: true });
+        await this.props.store.createCL(data);
+        console.log('Save successful!');
+      } catch (error) {
+        console.error('Save failed:', error);
+      } finally {
+        this.setState({ isCLSelected: false });
+      }
+    };
+    
+  
     const { visible, onCancel, onCreate } = this.props;
-
     const BRoptions = branches.map((x: GetBranches) => {
       var test = { label: x.displayText, value: x.value };
       return test;
@@ -107,10 +174,82 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       var test = { label: x.displayText, value: x.value };
       return test;
     });
+    const benchColumns = [
+      {
+        title: L('benchBenchCode'), dataIndex: 'benchBenchCode', key: 'benchBenchCode', width: 'auto',
+        render: (text: string) => <div>{text}</div>
+      },
+      {title:L('bStartDate'),dataIndex:'bStartDate',key:'bStartDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('bEndDate'),dataIndex:'bEndDate',key:'bEndDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('caseBenchStatus'),dataIndex:'caseBenchStatus',key:'caseBenchStatus',width:'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>)}
+    ];
+    const lawyerColumns = [
+      {
+        title: L('lawyerLawyerName'), dataIndex: 'lawyerLawyerName', key: 'lawyerLawyerName', width: 'auto',
+        render: (text: string) => <div>{text}</div>
+      },
+      {title:L('lStartDate'),dataIndex:'lStartDate',key:'lStartDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('lEndDate'),dataIndex:'lEndDate',key:'lEndDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('caseLawyerStatus'),dataIndex:'caseLawyerStatus',key:'caseLawyerStatus',width:'auto',  render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>)}
+    ];
 
     return (
-      <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
-        <Form ref={this.props.formRef}>
+      <Modal visible={visible} width={800} footer={null} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
+        <Form ref={this.props.formRef}
+        initialValues={{
+          id: 0,
+          creationTime: '',
+          creatorUserId: 0,
+          lastModificationTime: '',
+          lastModifierUserId: 0,
+          caseNo: '',
+          courtCaseNo: '',
+          courtCaseGenNo: '',
+          courtCaseGaffNo: '',
+          caseRegDate: '',
+          caseStartDate: '',
+          caseEndDate: '',
+          caseTitle: '',
+          firstLawyerName: '',
+          secondLawyerName: '',
+          firstPartyName: '',
+          secondPartyName: '',
+          caseNotes: '',
+          casePleadings: '',
+          caseStatus: true,
+          caseShift: true,
+          caseFinish: true,
+          firNo: '',
+          policeStation: '',
+          offence: '',
+          firDate: '',
+          clientClientName: '',
+          clientId: null,
+          caseTypeCaseTypeName: '',
+          caseTypeId: null,
+          litigantType1LitigantTypeName: '',
+          firstLitigantTypeId: null,
+          litigantType2LitigantTypeName: '',
+          secLitigantTypeId: null,
+          branchBranchName: '',
+          branchId: null,
+          bStartDate: '',
+          bEndDate: '',
+          bNotes: '',
+          caseBenchStatus: true,
+          caseMain: '',
+          caseMainId: null,
+          bench: '',
+          benchId: null,
+          lStartDate:'',
+          lEndDate:'',
+          lNotes: '',
+          caseLawyerStatus: true,
+          lawyer: '',
+          lawyerId: null,
+        
+        }}
+        >
           <Tabs defaultActiveKey={'ClientInfo'} size={'small'} tabBarGutter={64}>
             <TabPane tab={'Client'} key={'ClientInfo'}>
             <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
@@ -148,13 +287,13 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
           </Form.Item>
 
               <Form.Item label={L('caseRegDate')} {...formItemLayout} name={'caseRegDate'} rules={rules.caseRegDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
               <Form.Item label={L('caseStartDate')} {...formItemLayout} name={'caseStartDate'} rules={rules.caseStartDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
               <Form.Item label={L('caseEndDate')} {...formItemLayout} name={'caseEndDate'} rules={rules.caseEndDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
               <Form.Item label={L('caseNo')} {...formItemLayout} name={'caseNo'} rules={rules.caseNo}>
                 <Input />
@@ -232,6 +371,14 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('casePleadings')} {...formItemLayout} name={'casePleadings'} rules={rules.casePleadings}>
                 <Input />
               </Form.Item>
+              <div style={{ textAlign: 'right', marginTop: 16 }}>
+                <Button onClick={onCancel} style={{ marginRight: 8 }}>
+                  {L('Cancel')}
+                </Button>
+                <Button type="primary" onClick={onCreate}>
+                  {L('Save')}
+                </Button>
+              </div>
             </TabPane>
             <TabPane tab={L('Case Client')} key={'Client'} forceRender={true}>
             <Form.Item label={L('benchId')} {...formItemLayout} name={'benchId'} rules={rules.benchId}>
@@ -246,17 +393,39 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
             />
               </Form.Item>
               <Form.Item label={L('bStartDate')} {...formItemLayout} name={'bStartDate'} rules={rules.bStartDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
             <Form.Item label={L('bEndDate')} {...formItemLayout} name={'bEndDate'} rules={rules.bEndDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
-              <Form.Item label={L('caseBenchStatus')} {...formItemLayout} name={'caseBenchStatus'} rules={rules.caseBenchStatus}>
+              <Form.Item label={L('caseBenchStatus')} {...formItemLayout} name={'caseBenchStatus'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
               <Form.Item label={L('bNotes')} {...formItemLayout} name={'bNotes'} rules={rules.bNotes}>
                 <Input />
               </Form.Item>
+              <Table
+                 rowKey={(record) => record.id}
+                  bordered={true}
+                  onRow={(record, index) => ({
+                    style: {
+                      backgroundColor: GetColorByIndex({ index }), // Set background color
+                    },
+                  })}
+                  columns={benchColumns}
+                  size='small'
+                  pagination={false}
+                  loading={this.state.isCBSelected} 
+                  dataSource={this.props.store.cbList === undefined ? [] : this.props.store.cbList}
+                />
+                <div style={{ textAlign: 'right', marginTop: 16 }}>
+                <Button onClick={onCancel} style={{ marginRight: 8 }}>
+                  {L('Cancel')}
+                </Button>
+                <Button type="primary" onClick={() => handleEditCaseBench()}>
+                  {L('Save')}
+                </Button>
+              </div>
             </TabPane>
             <TabPane tab={L('Case Lawyer')} key={'Lawyer'} forceRender={true}>
             <Form.Item label={L('lawyerId')} {...formItemLayout} name={'lawyerId'} rules={rules.lawyerId}>
@@ -271,17 +440,39 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
             />
               </Form.Item>
               <Form.Item label={L('lStartDate')} {...formItemLayout} name={'lStartDate'} rules={rules.lStartDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
             <Form.Item label={L('lEndDate')} {...formItemLayout} name={'lEndDate'} rules={rules.lEndDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
-              <Form.Item label={L('caseLawyerStatus')} {...formItemLayout} name={'caseLawyerStatus'} rules={rules.caseLawyerStatus}>
+              <Form.Item label={L('caseLawyerStatus')} {...formItemLayout} name={'caseLawyerStatus'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
               <Form.Item label={L('lNotes')} {...formItemLayout} name={'lNotes'} rules={rules.lNotes}>
                 <Input />
               </Form.Item>
+              <Table
+                 rowKey={(record) => record.id}
+                  bordered={true}
+                  onRow={(record, index) => ({
+                    style: {
+                      backgroundColor: GetColorByIndex({ index }), // Set background color
+                    },
+                  })}
+                  columns={lawyerColumns}
+                  size='small'
+                  pagination={false}
+                  loading={this.state.isCLSelected} 
+                  dataSource={this.props.store.clList === undefined ? [] : this.props.store.clList}
+                />
+                <div style={{ textAlign: 'right', marginTop: 16 }}>
+                <Button onClick={onCancel} style={{ marginRight: 8 }}>
+                  {L('Cancel')}
+                </Button>
+                <Button type="primary" onClick={() => handleEditCaseLawyer()}>
+                  {L('Save')}
+                </Button>
+              </div>
             </TabPane>          
             </Tabs>
         </Form>

@@ -1,16 +1,18 @@
+import { Moment } from "moment";
+
 export interface UpdateCaseRegistrationOutput {
   id: number;
-  creationTime: Date;
+  creationTime: Moment;
   creatorUserId: number;
-  lastModificationTime: Date;
+  lastModificationTime: Moment;
   lastModifierUserId: number;
   caseNo: string;
   courtCaseNo: string;
   courtCaseGenNo: string;
   courtCaseGaffNo: string;
-  caseRegDate: Date;
-  caseStartDate: Date;
-  caseEndDate: Date;
+  caseRegDate: Moment;
+  caseStartDate: Moment;
+  caseEndDate: Moment;
   caseTitle: string;
   firstLawyerName: string;
   secondLawyerName: string;
@@ -24,7 +26,7 @@ export interface UpdateCaseRegistrationOutput {
   firNo: string;
   policeStation: string;
   offence: string;
-  firDate: Date;
+  firDate: Moment;
   clientClientName: string;
   clientId: number;
   caseTypeCaseTypeName: string;
@@ -35,16 +37,16 @@ export interface UpdateCaseRegistrationOutput {
   secLitigantTypeId: number;
   branchBranchName: string;
   branchId: number;
-  bStartDate: Date;
-  bEndDate: Date;
+  bStartDate: Moment;
+  bEndDate: Moment;
   bNotes: string;
   caseBenchStatus: boolean;
   caseMain: string;
   caseMainId: number;
   bench: string;
   benchId: number;
-  lStartDate: Date;
-  lEndDate: Date;
+  lStartDate: Moment;
+  lEndDate: Moment;
   lNotes: string;
   caseLawyerStatus: boolean;
   lawyer: string;

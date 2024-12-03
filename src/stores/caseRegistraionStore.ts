@@ -14,6 +14,11 @@ import { GetSecondLitigantTypes } from '../services/caseRegistration/dto/getSeco
 import { GetLawyers } from '../services/caseRegistration/dto/getLawyerOutput';
 import { GetClients } from '../services/caseRegistration/dto/getClientOutput';
 import { GetCaseTypes } from '../services/caseRegistration/dto/getCaseTypeOutput';
+import type { CreateCaseBenchInput } from '../services/caseRegistration/dto/createCaseBenchInput';
+import type { CreateCaseLawyerInput } from '../services/caseRegistration/dto/createCaseLawyerInput';
+import moment from 'moment';
+import { GetAllCaseLawyerOutput } from '../services/caseRegistration/dto/getAllCaseLawyerOutput';
+import { GetAllCaseBenchOutput } from '../services/caseRegistration/dto/getAllCaseBenchOutput';
 
 class CaseRegistraionStore {
   @observable caseRegistrations!: PagedResultDto<GetCaseRegistrationOutput>;
@@ -25,6 +30,8 @@ class CaseRegistraionStore {
   @observable lawyers: GetLawyers[] = [];
   @observable clients: GetClients[] = [];
   @observable caseTypes: GetCaseTypes[] = [];
+  @observable clList: GetAllCaseLawyerOutput[] = [];
+  @observable cbList: GetAllCaseBenchOutput[] = [];
 
   @action
   async create(createCaseRegistrationInput: CreateOrUpdateCaseRegistrationInput) {
@@ -47,6 +54,86 @@ class CaseRegistraionStore {
     this.caseRegistrations.items = this.caseRegistrations.items.filter((x: GetCaseRegistrationOutput) => x.id !== entityDto.id);
   }
 
+  @action
+  async getByMainId(entityDto: EntityDto) {
+    let data = await CaseRegistrationService.getByMainId(entityDto);
+    let result={
+      id: data.caseMain.id,
+      creationTime: moment(data.caseMain.creationTime),
+      creatorUserId: data.caseMain.creatorUserId,
+      lastModificationTime: moment(data.caseMain.lastModificationTime),
+      lastModifierUserId: data.caseMain.lastModifierUserId,
+      caseNo: data.caseMain.caseNo,
+      courtCaseNo: data.caseMain.courtCaseNo,
+      courtCaseGenNo: data.caseMain.courtCaseGenNo,
+      courtCaseGaffNo: data.caseMain.courtCaseGaffNo,
+      caseRegDate: moment(data.caseMain.caseRegDate),
+      caseStartDate: moment(data.caseMain.caseStartDate),
+      caseEndDate: moment(data.caseMain.caseEndDate),
+      caseTitle: data.caseMain.caseTitle,
+      firstLawyerName: data.caseMain.firstLawyerName,
+      secondLawyerName: data.caseMain.secondLawyerName,
+      firstPartyName: data.caseMain.firstPartyName,
+      secondPartyName: data.caseMain.secondPartyName,
+      caseNotes: data.caseMain.caseNotes,
+      casePleadings: data.caseMain.casePleadings,
+      caseStatus: data.caseMain.caseStatus,
+      caseShift: data.caseMain.caseShift,
+      caseFinish: data.caseMain.caseFinish,
+      firNo: data.caseMain.firNo,
+      policeStation: data.caseMain.policeStation,
+      offence: data.caseMain.offence,
+      firDate: moment(data.caseMain.firDate),
+      clientClientName: "",
+      clientId: data.caseMain.clientId,
+      caseTypeCaseTypeName: "",
+      caseTypeId: data.caseMain.caseTypeId,
+      litigantType1LitigantTypeName: "",
+      firstLitigantTypeId: data.caseMain.firstLitigantTypeId,
+      litigantType2LitigantTypeName: "",
+      secLitigantTypeId: data.caseMain.secLitigantTypeId,
+      branchBranchName: "",
+      branchId: data.caseMain.branchId,
+      bStartDate: moment(data.caseBench.bStartDate),
+      bEndDate: moment(data.caseBench.bEndDate),
+      bNotes: data.caseBench.bNotes,
+      caseBenchStatus: data.caseBench.caseBenchStatus,
+      caseMain: "",
+      caseMainId: data.caseBench.caseMainId,
+      bench: "",
+      benchId: data.caseBench.benchId,
+      lStartDate: moment(data.caseLawyer.lStartDate),
+      lEndDate: moment(data.caseLawyer.lEndDate),
+      lNotes: data.caseLawyer.lNotes,
+      caseLawyerStatus: data.caseLawyer.caseLawyerStatus,
+      lawyer: "",
+      lawyerId: data.caseLawyer.lawyerId,
+    }
+    console.log("data get by id vala",result)
+    this.editCaseRegistration = result;
+  }
+  @action
+  async createCB(createCaseBenchInput: CreateCaseBenchInput) {
+    let result = await CaseRegistrationService.createCB(createCaseBenchInput);
+    await this.getCaseBenchList(result?.caseMainId);
+  }
+  @action
+  async createCL(createCaseLawyerInput: CreateCaseLawyerInput) {
+    let result = await CaseRegistrationService.createCL(createCaseLawyerInput);
+    await this.getCaseLawyersList(result.caseMainId);
+  }
+  @action
+  async getCaseBenchList(keyword: String) {
+    let result = await CaseRegistrationService.getCaseBenchList(keyword);
+    this.cbList=result
+    return result
+  }
+  @action
+  async getCaseLawyersList(keyword: String) {
+    let result = await CaseRegistrationService.getCaseLawyersList(keyword);
+    this.clList=result
+    return result
+  }
   @action
   async getBenches() {
     let result = await CaseRegistrationService.getBenches();
@@ -89,17 +176,17 @@ class CaseRegistraionStore {
   async createCaseRegistration() {
     this.editCaseRegistration = {
       id: 0,
-      creationTime: new Date(),
+      creationTime: moment(),
       creatorUserId: 0,
-      lastModificationTime: new Date(),
+      lastModificationTime: moment(),
       lastModifierUserId: 0,
       caseNo: '',
       courtCaseNo: '',
       courtCaseGenNo: '',
       courtCaseGaffNo: '',
-      caseRegDate: new Date(0),
-      caseStartDate: new Date(0),
-      caseEndDate: new Date(0),
+      caseRegDate: moment(),
+      caseStartDate: moment(),
+      caseEndDate: moment(),
       caseTitle: '',
       firstLawyerName: '',
       secondLawyerName: '',
@@ -113,7 +200,7 @@ class CaseRegistraionStore {
       firNo: '',
       policeStation: '',
       offence: '',
-      firDate: new Date(),
+      firDate: moment(),
       clientClientName: '',
       clientId: null,
       caseTypeCaseTypeName: '',
@@ -124,16 +211,16 @@ class CaseRegistraionStore {
       secLitigantTypeId: null,
       branchBranchName: '',
       branchId: null,
-      bStartDate: new Date(),
-      bEndDate: new Date(),
+      bStartDate: moment(),
+      bEndDate: moment(),
       bNotes: '',
       caseBenchStatus: true,
       caseMain: '',
       caseMainId: null,
       bench: '',
       benchId: null,
-      lStartDate: new Date(),
-      lEndDate: new Date(),
+      lStartDate:moment(),
+      lEndDate:moment(),
       lNotes: '',
       caseLawyerStatus: true,
       lawyer: '',

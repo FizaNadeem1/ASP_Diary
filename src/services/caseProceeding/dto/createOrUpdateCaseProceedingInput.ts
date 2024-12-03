@@ -1,13 +1,15 @@
+import { Moment } from "moment";
+
 export interface CreateOrUpdateCaseProceedingInput {
   id: number;
-  creationTime: Date;
+  creationTime: Moment;
   creatorUserId: number;
-  lastModificationTime: Date;
+  lastModificationTime: Moment;
   lastModifierUserId: number;
-  previousDate: Date;
-  currentDate: Date;
-  nexttDate: Date;
-  previousNextDate: Date;
+  previousDate: Moment;
+  currentDate: Moment;
+  nexttDate: Moment;
+  previousNextDate: Moment;
   proceedingNotes: string;
   proceedingShortOrder: string;
   caseRunning: boolean;

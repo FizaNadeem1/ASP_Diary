@@ -13,6 +13,7 @@ import { GetDivisions } from '../services/lawyer/dto/getDivisionOutput';
 import { GetTehsils } from '../services/lawyer/dto/getTehsilOutput';
 import { GetProvinces } from '../services/lawyer/dto/getProvinceOutput';
 import { GetSpecialities } from '../services/lawyer/dto/getSpecialityOutput';
+import moment from 'moment';
 
 class LawyerStore {
   @observable lawyers!: PagedResultDto<GetLawyerOutput>;
@@ -107,9 +108,9 @@ class LawyerStore {
   async createLawyer() {
     this.editLawyer = {
       id: 0,
-      creationTime: new Date(0),
+      creationTime: moment(0),
       creatorUserId: 0,
-      lastModificationTime: new Date(0),
+      lastModificationTime: moment(0),
       lastModifierUserId: 0,
       lawyerName: '',
       lawyerMobile: '',
@@ -119,10 +120,10 @@ class LawyerStore {
       lawyerStatus: true,
       lawyerPhotoPath: '',
       lawyerPracticingBar: '',
-      lawyerLicRegDate: new Date(0),
-      lawyerLicExpDate: new Date(0),
-      lawyerFirmRegDate: new Date(0),
-      lawyerResigDate: new Date(0),
+      lawyerLicRegDate: moment(0),
+      lawyerLicExpDate: moment(0),
+      lawyerFirmRegDate: moment(0),
+      lawyerResigDate: moment(0),
       provinceId: '',
       provinceProvinceName: '',
       divisionId: null,

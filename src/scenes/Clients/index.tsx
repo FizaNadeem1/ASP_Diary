@@ -12,6 +12,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import ClientStore from '../../stores/clientStore';
 import CreateOrUpdateClient from './components/createOrUpdateClient';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
+import moment from 'moment';
 
 export interface IClientProps {
   clientStore: ClientStore;
@@ -77,8 +78,15 @@ class Client extends AppComponentBase<IClientProps, IClientState> {
     this.setState({ clientId: entityDto.id });
     this.Modal();
 
+    // setTimeout(() => {
+    //   this.formRef.current?.setFieldsValue({ ...this.props.clientStore.editClient });
+    // }, 100);
     setTimeout(() => {
-      this.formRef.current?.setFieldsValue({ ...this.props.clientStore.editClient });
+      const formValues = {
+        ...this.props.clientStore.editClient,
+        clientRegDate: moment(this.props.clientStore.editClient.clientRegDate),
+      };
+      this.formRef.current?.setFieldsValue(formValues);
     }, 100);
   }
 

@@ -1,8 +1,11 @@
 import { EntityDto } from '../dto/entityDto';
 import { PagedResultDto } from '../dto/pagedResultDto';
 import http from '../httpService';
+import { CreateCaseBenchInput } from './dto/createCaseBenchInput';
+import { CreateCaseLawyerInput } from './dto/createCaseLawyerInput';
 import { CreateOrUpdateCaseRegistrationInput } from './dto/createOrUpdateCaseRegistrationut';
 import { GetAllCaseRegistrationOutput } from './dto/getAllCaseRegistrationOutput';
+import { GetCaseRegistrationByIdOutput } from './dto/getCaseRegistrationByIdOutput';
 import { PagedCaseRegistrationResultRequestDto } from './dto/PagedCaseRegistrationResultRequestDto';
 import { UpdateCaseRegistrationInput } from './dto/updateCaseRegistrationInput';
 
@@ -22,11 +25,30 @@ class CaseRegistrationService {
     return result.data;
   }
 
+  public async getByMainId(entityDto: EntityDto): Promise<GetCaseRegistrationByIdOutput> {
+    let result = await http.get('/api/services/app/CaseMain/GetCaseMainById', { params: entityDto });
+    return result.data.result;
+  }
+  public async createCB(createCaseBenchInput: CreateCaseBenchInput) {
+    let result = await http.post('/api/services/app/CB/Create', createCaseBenchInput);
+    return result.data.result;
+  }
+  public async createCL(createCaseLawyerInput: CreateCaseLawyerInput) {
+    let result = await http.post('/api/services/app/CaseLawyer/Create', createCaseLawyerInput);
+    return result.data.result;
+  }
+  public async getCaseBenchList(keyword: String) {
+    let result = await http.get('/api/services/app/CB/GetAllCaseBench',{ params: {keyword:keyword} });
+    return result.data.result.items;
+  } 
+  public async getCaseLawyersList(keyword: String) {
+    let result = await http.get('/api/services/app/CaseLawyer/GetAllCaseLawyer',{ params: {keyword:keyword} });
+    return result.data.result.items;
+  } 
   public async getBranches() {
     let result = await http.get('/api/services/app/Branch/GetBranchComboboxItems');
     return result.data.result.items;
   }  
-  
   public async getBenches() {
     let result = await http.get('/api/services/app/Bench/GetBenchComboboxItem');
     return result.data.result.items;

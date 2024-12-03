@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal, Form, Select, Checkbox, Row, Col, Button } from 'antd';
+import { Input, Modal, Form, Select, Checkbox, Row, Col, Button, DatePicker } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import { FormInstance } from 'antd/lib/form';
 import { GetProceedings } from '../../../services/caseProceeding/dto/getProceedingOutput';
@@ -49,8 +49,8 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
       "previousDate":
         data.previousNextDate,
       "nexttDate":
-        new Date(data.previousNextDate + 86400000)
-    });
+        data.previousNextDate
+     });
 
   };
 
@@ -170,13 +170,13 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
             <Input />
           </Form.Item>
           <Form.Item label={L('previousDate')} {...formItemLayout} name={'previousDate'} rules={rules.previousDate}>
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Form.Item label={L('currentDate')} {...formItemLayout} name={'currentDate'} rules={rules.currentDate}>
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Form.Item label={L('nexttDate')} {...formItemLayout} name={'nexttDate'} rules={rules.nexttDate}>
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Row gutter={24} style={{ marginLeft: '200px' }}>
             <Col span={8}>

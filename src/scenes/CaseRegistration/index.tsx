@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col,  Input,  Modal, Row, Table, } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table, } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -60,31 +60,34 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
   };
 
   async createOrUpdateModalOpen(entityDto: EntityDto) {
+
     if (entityDto.id === 0) {
       await this.props.caseRegistrationStore.createCaseRegistration();
       await this.props.caseRegistrationStore.getBranches();
       await this.props.caseRegistrationStore.getBenches();
       await this.props.caseRegistrationStore.getCaseTypes();
-      await this.props.caseRegistrationStore.getClients();  
-      await this.props.caseRegistrationStore.getFirstParty();      
-      await this.props.caseRegistrationStore.getSecondParty();      
+      await this.props.caseRegistrationStore.getClients();
+      await this.props.caseRegistrationStore.getFirstParty();
+      await this.props.caseRegistrationStore.getSecondParty();
       await this.props.caseRegistrationStore.getLawyers();
     } else {
-      await this.props.caseRegistrationStore.get(entityDto);
-      await this.props.caseRegistrationStore.getBranches();
-      await this.props.caseRegistrationStore.getBenches();
-      await this.props.caseRegistrationStore.getCaseTypes();  
-      await this.props.caseRegistrationStore.getClients();     
-      await this.props.caseRegistrationStore.getFirstParty();        
-      await this.props.caseRegistrationStore.getSecondParty();        
-      await this.props.caseRegistrationStore.getLawyers();   
-      }
+      await this.props.caseRegistrationStore.getByMainId(entityDto);
+      this.props.caseRegistrationStore.getBranches();
+      this.props.caseRegistrationStore.getBenches();
+      this.props.caseRegistrationStore.getCaseTypes();
+      this.props.caseRegistrationStore.getClients();
+      this.props.caseRegistrationStore.getFirstParty();
+      this.props.caseRegistrationStore.getSecondParty();
+      this.props.caseRegistrationStore.getLawyers();
+      this.props.caseRegistrationStore.getLawyers();
+      this.props.caseRegistrationStore.getCaseLawyersList(entityDto.id.toString());
+      this.props.caseRegistrationStore.getCaseBenchList(entityDto.id.toString());
+    }
 
     this.setState({ caseRegistrationId: entityDto.id });
     this.Modal();
-
     setTimeout(() => {
-      this.formRef.current?.setFieldsValue({ ...this.props.caseRegistrationStore.editCaseRegistration });
+      this.formRef.current?.setFieldsValue({ ...this.props.caseRegistrationStore.editCaseRegistration});
     }, 100);
   }
 
@@ -124,13 +127,13 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
   public render() {
     const { caseRegistrations } = this.props.caseRegistrationStore;
     const columns = [
-      { title: L('caseNo'), dataIndex: 'caseNo', key: 'caseNo', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('courtCaseNo'), dataIndex: 'courtCaseNo', key: 'courtCaseNo', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('firstPartyName'), dataIndex: 'firstPartyName', key: 'firstPartyName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('secondPartyName'), dataIndex: 'secondPartyName', key: 'secondPartyName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('caseTypeCaseTypeName'), dataIndex: 'caseTypeCaseTypeName', key: 'caseTypeCaseTypeName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('branchBranchName'), dataIndex: 'branchBranchName', key: 'branchBranchName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('clientClientName'), dataIndex: 'clientClientName', key: 'clientClientName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('caseNo'), dataIndex: 'caseNo', key: 'caseNo', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('courtCaseNo'), dataIndex: 'courtCaseNo', key: 'courtCaseNo', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('firstPartyName'), dataIndex: 'firstPartyName', key: 'firstPartyName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('secondPartyName'), dataIndex: 'secondPartyName', key: 'secondPartyName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('caseTypeCaseTypeName'), dataIndex: 'caseTypeCaseTypeName', key: 'caseTypeCaseTypeName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('branchBranchName'), dataIndex: 'branchBranchName', key: 'branchBranchName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('clientClientName'), dataIndex: 'clientClientName', key: 'clientClientName', width: 'auto', render: (text: string) => <div>{text}</div> },
       {
         title: L('Actions'),
         key: 'actions',
