@@ -16,6 +16,12 @@ import CreateOrUpdateBench from './components/createOrUpdateBench';
 export interface IBenchProps {
   benchStore: BenchStore;
 }
+interface Officer {
+  branchId: string;
+  branchName: string;
+  presidingOfficerId: string;
+  presidingOfficerName: string;
+}
 
 export interface IBenchState {
   modalVisible: boolean;
@@ -23,6 +29,7 @@ export interface IBenchState {
   skipCount: number;
   benchId: number;
   filter: string;
+  officerList: Officer[];
 }
 
 const confirm = Modal.confirm;
@@ -39,6 +46,7 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
     skipCount: 0,
     benchId: 0,
     filter: '',
+    officerList:[]
   };
 
   async componentDidMount() {
@@ -65,21 +73,47 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
       await this.props.benchStore.getBranches();
       await this.props.benchStore.getCourts();
       await this.props.benchStore.getPresidingOfficers();
-    } else {
-      await this.props.benchStore.get(entityDto);
-      await this.props.benchStore.getBranches();
-      await this.props.benchStore.getCourts();
-      await this.props.benchStore.getPresidingOfficers();
+      this.setState({ benchId: entityDto.id });
+      this.Modal();
+      setTimeout(() => {
+        this.formRef.current?.setFieldsValue({ ...this.props.benchStore.editBench });
+      }, 100);
+    } else {await Promise.all([
+      this.props.benchStore.get(entityDto),
+      this.props.benchStore.getBranches(),
+      this.props.benchStore.getCourts(),
+      this.props.benchStore.getPresidingOfficers(),
+    ]);
+    
+    let data = await this.props.benchStore.getBenchOfficers({ id: entityDto.id });
+    console.log("data",data)
+    const benchDetail = data?.benchMainDetailEdit || {};
+    const officers = data?.listOfBenchDetailsDto || [];
+    
+    this.formRef.current?.setFieldsValue({
+      ...benchDetail,
+      benchStartDate: benchDetail.benchStartDate,
+      benchEndDate: benchDetail.benchEndDate,
+    });
+    
+    this.setState({
+      modalVisible: true,
+      benchId: entityDto.id,
+      officerList: officers.map((officer: any) => ({
+        presidingOfficerId: officer.presidingOfficerId,
+        presidingOfficerName: officer.presidingOfficerName,
+        branchId: officer.branchId,
+        branchName: officer.branchName,
+      })),
+    });
     }
-
     this.setState({ benchId: entityDto.id });
-    this.Modal();
 
     setTimeout(() => {
       this.formRef.current?.setFieldsValue({ ...this.props.benchStore.editBench });
     }, 100);
   }
-
+  
   delete(input: EntityDto) {
     const self = this;
     confirm({
@@ -98,9 +132,9 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
 
     form!.validateFields().then(async (values: any) => {
       if (this.state.benchId === 0) {
-        await this.props.benchStore.create(values);
+        await this.props.benchStore.create({...values,officerList:this.state.officerList});
       } else {
-        await this.props.benchStore.update({ ...values, id: this.state.benchId });
+        await this.props.benchStore.update({ ...values, id: this.state.benchId,officerList:this.state.officerList });
       }
 
       await this.getAll();
@@ -111,6 +145,11 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
 
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
+  };
+  setOfficerList = (newOfficer: Officer) => {
+    this.setState((prevState) => ({
+      officerList: [...prevState.officerList, newOfficer],
+    }));
   };
 
   public render() {
@@ -223,13 +262,16 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
               modalVisible: false,
             });
             this.formRef.current?.resetFields();
+            this.setState({officerList:[]});
           }}
           modalType={this.state.benchId === 0 ? 'edit' : 'create'}
           onCreate={this.handleCreate}
           branches={this.props.benchStore.branches}
           courts={this.props.benchStore.courts}
           presidingOfficers={this.props.benchStore.presidingOfficers}
-        />
+          officerList={this.state.officerList}
+          setOfficerList={this.setOfficerList}         
+          />
       </Card>
     );
   }

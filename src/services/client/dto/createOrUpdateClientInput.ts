@@ -1,8 +1,10 @@
+import { Moment } from "moment";
+
 export interface CreateOrUpdateClientInput {
   id: number;
-  creationTime: Date;
+  creationTime: Moment;
   creatorUserId: number;
-  lastModificationTime: Date;
+  lastModificationTime: Moment;
   lastModifierUserId: number;
   clientCode: string;
   clientTypeName: string;
@@ -14,8 +16,8 @@ export interface CreateOrUpdateClientInput {
   clientMobile: string;
   clientGender: string;
   clientPhotoPath: string;
-  clientDOB: Date;
-  clientRegDate: Date;
+  clientDOB: Moment;
+  clientRegDate: Moment;
   clientFirmCode: string;
   clientFirmNTN: string;
   clientFirmSTR: string;

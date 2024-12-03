@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal, Form, Select, Checkbox } from 'antd';
+import { Input, Modal, Form, Select, Checkbox, DatePicker } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import { FormInstance } from 'antd/lib/form';
 import { GetProvinces } from '../../../services/lawyer/dto/getProvinceOutput';
@@ -116,17 +116,17 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps> {
           </Form.Item><Form.Item label={L('lawyerStatus')} {...formItemLayout} name={'lawyerStatus'}valuePropName={'checked'} >
           <Checkbox></Checkbox>
           </Form.Item><Form.Item label={L('lawyerLicRegDate')} {...formItemLayout} name={'lawyerLicRegDate'}>
-            <Input />
+            <DatePicker />
           </Form.Item><Form.Item label={L('lawyerLicExpDate')} {...formItemLayout} name={'lawyerLicExpDate'} >
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Form.Item label={L('lawyerLicExpDate')} {...formItemLayout} name={'lawyerLicExpDate'} >
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Form.Item label={L('lawyerFirmRegDate')} {...formItemLayout} name={'lawyerFirmRegDate'} rules={rules.lawyerFirmRegDate}>
-            <Input />
+            <DatePicker />
           </Form.Item><Form.Item label={L('lawyerResigDate')} {...formItemLayout} name={'lawyerResigDate'} rules={rules.lawyerResigDate}>
-            <Input />
+            <DatePicker />
           </Form.Item>
           <Form.Item label={L('provinceId')} {...formItemLayout} name={'provinceId'} rules={rules.provinceId}>
             <Select

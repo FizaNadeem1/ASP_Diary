@@ -22,6 +22,10 @@ class BenchService {
     return result.data;
   }
 
+  public async getBenchOfficers(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/Bench/GetBenchMasterDetailForEdit',{ params: entityDto });
+    return result.data.result;
+  }  
   public async getBranches() {
     let result = await http.get('/api/services/app/Branch/GetBranchComboboxItems');
     return result.data.result.items;

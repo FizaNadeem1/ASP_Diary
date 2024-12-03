@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {  Input, Modal, Tabs, Form, Select } from 'antd';
+import {  Input, Modal, Tabs, Form, Select, DatePicker } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import rules from './createOrUpdateClient.validation';
 import { FormInstance } from 'antd/lib/form';
@@ -32,7 +32,6 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
 
   render() {
     const { branches,cities,clientTypes,clientGender } = this.props;
-
     const formItemLayout = {
       labelCol: {
         xs: { span: 6 },
@@ -94,13 +93,9 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
               <Form.Item label={L('clientMobile')} {...formItemLayout} name={'clientMobile'} rules={rules.clientMobile}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('clientRegDate')} {...formItemLayout} name={'clientRegDate'} rules={rules.clientRegDate}>
-              {/* <DatePicker
-    format="YYYY-MM-DD"
-    style={{ width: '100%' }}
-  /> */}
-  <Input/>
-              </Form.Item>
+              <Form.Item label={L('clientRegDate')} {...formItemLayout} name="clientRegDate" rules={rules.clientRegDate}>
+              <DatePicker />
+            </Form.Item>
               <Form.Item label={L('clientAdress')} {...formItemLayout} name={'clientAdress'} rules={rules.clientAdress}>
                 <Input />
               </Form.Item>

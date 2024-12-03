@@ -1,11 +1,13 @@
+import { Moment } from "moment";
+
 export interface CreateCaseRegistrationInput {
   caseNo: string;
   courtCaseNo: string;
   courtCaseGenNo: string;
   courtCaseGaffNo: string;
-  caseRegDate: Date;
-  caseStartDate: Date;
-  caseEndDate: Date;
+  caseRegDate: Moment;
+  caseStartDate: Moment;
+  caseEndDate: Moment;
   caseTitle: string;
   firstLawyerName: string;
   secondLawyerName: string;
@@ -19,7 +21,7 @@ export interface CreateCaseRegistrationInput {
   firNo: string;
   policeStation: string;
   offence: string;
-  firDate: Date;
+  firDate: Moment;
   clientClientName: string;
   clientId: number;
   caseTypeCaseTypeName: string;
@@ -30,16 +32,16 @@ export interface CreateCaseRegistrationInput {
   secLitigantTypeId: number;
   branchBranchName: string;
   branchId: number;
-  bStartDate: Date;
-  bEndDate: Date;
+  bStartDate: Moment
+  bEndDate: Moment
   bNotes: string;
   caseBenchStatus: boolean;
   caseMain: string;
   caseMainId: number;
   bench: string;
   benchId: number;
-  lStartDate: Date;
-  lEndDate: Date;
+  lStartDate: Moment
+  lEndDate: Moment
   lNotes: string;
   caseLawyerStatus: boolean;
   lawyer: string;

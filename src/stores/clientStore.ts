@@ -11,6 +11,7 @@ import { GetCities } from '../services/client/dto/getCityOutput';
 import { GetBranches } from '../services/client/dto/getBranchOutput';
 import { GetClientTypes } from '../services/client/dto/getClientTypeOutput';
 import { GetGender } from '../services/client/dto/getGenderOutput';
+import moment from 'moment';
 
 class ClientStore {
   @observable clients!: PagedResultDto<GetClientOutput>;
@@ -75,9 +76,9 @@ class ClientStore {
   async createClient() {
     this.editClient = {
       id: 0,
-      creationTime: new Date(0),
+      creationTime: moment(0),
       creatorUserId: 0,
-      lastModificationTime: new Date(0),
+      lastModificationTime: moment(0),
       lastModifierUserId: 0,
       clientCode: '',
       clientTypeName: '',
@@ -89,8 +90,8 @@ class ClientStore {
       clientMobile: '',
       clientGender: '',
       clientPhotoPath: '',
-      clientDOB: new Date(0),
-      clientRegDate: new Date(0),
+      clientDOB: moment(0),
+      clientRegDate: moment(0),
       clientFirmCode: '',
       clientFirmNTN: '',
       clientFirmSTR: '',

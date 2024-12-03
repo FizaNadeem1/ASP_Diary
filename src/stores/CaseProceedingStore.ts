@@ -9,6 +9,7 @@ import type { UpdateCaseProceedingInput } from '../services/caseProceeding/dto/u
 import type { CreateOrUpdateCaseProceedingInput } from '../services/caseProceeding/dto/createOrUpdateCaseProceedingInput';
 import { GetBranches } from '../services/caseProceeding/dto/getBranchOutput';
 import { GetProceedings } from '../services/caseProceeding/dto/getProceedingOutput';
+import moment from 'moment';
 
 class CaseProceedingStore {
   @observable caseProceedings!: PagedResultDto<GetCaseProceedingOutput>;
@@ -67,14 +68,14 @@ class CaseProceedingStore {
   async createCaseProceeding() {
     this.editCaseProceeding = {
       id: 0,
-      creationTime: new Date(0),
+      creationTime: moment(0),
       creatorUserId: 0,
-      lastModificationTime: new Date(0),
+      lastModificationTime: moment(0),
       lastModifierUserId: 0,
-      previousDate: new Date(0),
-      currentDate: new Date(0),
-      nexttDate: new Date(0),
-      previousNextDate: new Date(0),
+      previousDate: moment(0),
+      currentDate: moment(0),
+      nexttDate: moment(0),
+      previousNextDate: moment(0),
       proceedingNotes: '',
       proceedingShortOrder: '',
       caseRunning: true,

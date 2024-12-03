@@ -10,6 +10,7 @@ import type { CreateOrUpdateBenchInput } from '../services/bench/dto/createOrUpd
 import { GetBranches } from '../services/bench/dto/getBranchOutput';
 import { GetCourts } from '../services/bench/dto/getCourtOutput';
 import { GetPresidingOfficers } from '../services/bench/dto/getPresidingOfficerOutput';
+import { GetBenchEditDetailOutput } from '../services/bench/dto/getBenchEditDetailOutput';
 
 class BenchStore {
   @observable benches!: PagedResultDto<GetBenchOutput>;
@@ -17,6 +18,7 @@ class BenchStore {
   @observable branches: GetBranches[] = [];
   @observable courts: GetCourts[] = [];
   @observable presidingOfficers: GetPresidingOfficers[] = [];
+  @observable benchOfficers: GetBenchEditDetailOutput[] = [];
 
 
   @action
@@ -40,6 +42,12 @@ class BenchStore {
     this.benches.items = this.benches.items.filter((x: GetBenchOutput) => x.id !== entityDto.id);
   }
 
+  @action
+  async getBenchOfficers(entityDto: EntityDto) {
+    let result = await benchService.getBenchOfficers(entityDto);
+    this.benchOfficers = result;
+    return result
+  }
   @action
   async getBranches() {
     let result = await benchService.getBranches();
