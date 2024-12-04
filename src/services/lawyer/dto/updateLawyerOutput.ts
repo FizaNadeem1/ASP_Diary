@@ -18,13 +18,13 @@ export interface UpdateLawyerOutput {
   lawyerResigDate: Date;
   provinceId: string;
   provinceProvinceName: string;
-  divisionId: number;
-  cityId: number;
+  divisionId: number|string;
+  cityId: number|string;
   cityCityName: string;
-  tehsilId: number;
-  lawyerSpeacialityId: number;
+  tehsilId: number|string;
+  lawyerSpeacialityId: number|string;
   lawyerSpeacialitySpeacialityName: string;
-  branchId: number;
+  branchId: number|string;
   branchBranchName: string;
   profileImage: string;
 }

@@ -12,7 +12,7 @@ export interface UpdateBranchInput {
   isActive: boolean;
   state: number;
   cityCityName: string;
-  cityId: number;
+  cityId: number|string;
   firmFirmName: string;
-  firmId: number;
+  firmId: number|string;
 }

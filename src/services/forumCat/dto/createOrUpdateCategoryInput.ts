@@ -5,7 +5,7 @@ export interface CreateOrUpdateCategoryInput {
   lastModificationTime: Date;
   lastModifierUserId: number;
   forumCategoryName: string;
-  forumId: number;
+  forumId: number|string|null;
   normalizedName: string;
   grantedPermissions: string[];
   forumName?: string;

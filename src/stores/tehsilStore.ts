@@ -44,7 +44,8 @@ class TehsilStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await tehsilService.get(entityDto);
-    this.editTehsil = result;
+    let sd={...result,cityId: result.cityId?.toString() ?? null}
+    this.editTehsil = sd;
   }
 
   @action
@@ -81,7 +82,7 @@ class TehsilStore {
         divisionId: 0,
       },
       cityNameCityName: '',
-      cityId: 0,
+      cityId: null,
     
     };
     this.cities = [];

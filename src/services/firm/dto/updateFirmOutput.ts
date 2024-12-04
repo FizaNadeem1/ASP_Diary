@@ -16,8 +16,8 @@ export interface UpdateFirmOutput {
   noOfCases: number;
   noOfLawyers: number;
   cityNameCityName: string;
-  cityId: number;
+  cityId: number|string;
   applicationTimeZonesCountryTimeZone: string;
-  timeZone: number;
+  timeZone: number|string;
   packageId: number;
 }

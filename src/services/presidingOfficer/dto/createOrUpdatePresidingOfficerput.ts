@@ -7,5 +7,5 @@ export interface CreateOrUpdatePresidingOfficerInput {
   presidingOfficerName: string;
   presidingOfficerNameNotes: string;
   designationDesignationName: string;
-  designationId: number|null;
+  designationId: number|string|null;
 }

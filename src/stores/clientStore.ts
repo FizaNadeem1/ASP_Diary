@@ -69,7 +69,8 @@ class ClientStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await clientService.get(entityDto);
-    this.editClient = result;
+    let sd={...result,branchId: result.branchId?.toString() ?? null,clientTypeId: result.clientTypeId?.toString() ?? null,cityId: result.cityId?.toString() ?? null}
+    this.editClient = sd;
   }
 
   @action

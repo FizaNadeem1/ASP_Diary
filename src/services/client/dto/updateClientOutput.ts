@@ -22,9 +22,9 @@ export interface UpdateClientOutput {
   clientFirmContactPer: string;
   clientFirmContactPerNo: string;
   cityCityName: string;
-  cityId: number;
+  cityId: number|string;
   branchBranchName: string;
-  branchId: number;
+  branchId: number|string;
   clientTypeClientTypeName: string;
-  clientTypeId: number;
+  clientTypeId: number|string;
 }

@@ -101,7 +101,8 @@ class LawyerStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await lawyerService.get(entityDto);
-    this.editLawyer = result;
+    let sd={...result,branchId: result.branchId?.toString() ?? null,cityId: result.cityId?.toString() ?? null,divisionId: result.divisionId?.toString() ?? null,lawyerSpeacialityId: result.lawyerSpeacialityId?.toString() ?? null,tehsilId: result.tehsilId?.toString() ?? null}
+    this.editLawyer = sd;
   }
 
   @action

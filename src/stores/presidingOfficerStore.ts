@@ -48,7 +48,8 @@ class PresidingOfficerStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await presidingOfficerService.get(entityDto);
-    this.editPresidingOfficer = result;
+    let sd={...result,designationId: result.designationId?.toString() ?? null}
+    this.editPresidingOfficer = sd;
   }
 
   @action

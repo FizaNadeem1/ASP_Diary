@@ -44,7 +44,8 @@ class CityStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await cityService.get(entityDto);
-    this.editCity = result;
+    let sd={...result,divisionId: result.divisionId?.toString() ?? null}
+    this.editCity = sd;
   }
 
   @action

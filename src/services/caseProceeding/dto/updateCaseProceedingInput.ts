@@ -15,13 +15,13 @@ export interface UpdateCaseProceedingInput {
   caseTransfer: boolean;
   caseGenNo: string;
   caseGaffNo: string;
-  branchId: number;
+  branchId: number|string;
   branchBranchName: string;
   benchId: number;
   benchBenchCode: string;
-  caseId: number;
+  caseId: number|string;
   caseCaseNo: string;
   caseCaseTitle: string;
-  proceedingStatusId: number;
+  proceedingStatusId: number|string;
   proceedingStatusProceedingName: string;
 }

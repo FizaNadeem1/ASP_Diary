@@ -22,6 +22,11 @@ class ForumCategoryService {
     return result.data;
   }
 
+  public async getForums() {
+    let result = await http.get('/api/services/app/Forum/GetForumComboboxItems');
+    return result.data.result.items;
+  }
+
   public async get(entityDto: EntityDto): Promise<CreateOrUpdateCategoryInput> {
     let result = await http.get('api/services/app/ForumCategory/Get', { params: entityDto });
     return result.data.result;

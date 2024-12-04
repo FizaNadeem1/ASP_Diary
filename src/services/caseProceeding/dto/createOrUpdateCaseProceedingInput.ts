@@ -17,13 +17,13 @@ export interface CreateOrUpdateCaseProceedingInput {
   caseTransfer: boolean;
   caseGenNo: string;
   caseGaffNo: string;
-  branchId: number|null;
+  branchId: number|string|null;
   branchBranchName: string;
   benchId: number;
   benchBenchCode: string;
-  caseId: number|null;
+  caseId: number|string|null;
   caseCaseNo: string;
   caseCaseTitle: string;
-  proceedingStatusId: number|null;
+  proceedingStatusId: number|string|null;
   proceedingStatusProceedingName: string;
 }

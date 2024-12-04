@@ -61,7 +61,8 @@ class CaseProceedingStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await CaseProceedingService.get(entityDto);
-    this.editCaseProceeding = result;
+    let sd={...result,branchId: result.branchId?.toString() ?? null,caseId: result.caseId?.toString() ?? null,proceedingStatusId: result.proceedingStatusId?.toString() ?? null}
+    this.editCaseProceeding = sd;
   }
 
   @action
