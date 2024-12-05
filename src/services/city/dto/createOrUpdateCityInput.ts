@@ -4,5 +4,5 @@ export interface CreateOrUpdateCityInput {
   divisionName: string;
   divisionNameDivisionName: string;
   provinceName: string;
-  divisionId: number|null;
+  divisionId: number|string|null;
 }

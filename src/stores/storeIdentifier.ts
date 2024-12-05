@@ -15,6 +15,7 @@ export default class Stores {
   static ClientStore: string = 'clientStore';
   static BenchStore: string = 'benchStore';
   static TehsilStore: string = 'tehsilStore';
+  static PackageStore: string = 'packageStore';
   static CaseRegistrationStore: string = 'caseRegistrationStore';
   static DivisionStore: string = 'divisionStore';
   static CaseProceedingStore: string = 'caseProceedingStore';

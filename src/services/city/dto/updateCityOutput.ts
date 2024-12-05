@@ -4,5 +4,5 @@ export interface UpdateCityOutput {
   divisionName: string;
   divisionNameDivisionName: string;
   provinceName: string;
-  divisionId: number;
+  divisionId: number|string;
 }

@@ -12,7 +12,7 @@ export interface CreateOrUpdateBranchInput {
   isActive: boolean;
   state: number;
   cityCityName: string;
-  cityId: number|null;
+  cityId: number|string|null;
   firmFirmName: string;
-  firmId: number|null;
+  firmId: number|string|null;
 }

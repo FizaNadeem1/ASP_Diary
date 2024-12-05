@@ -7,10 +7,12 @@ import type { CreateOrUpdateCategoryInput } from '../services/forumCat/dto/creat
 import type { UpdateCategoryInput } from '../services/forumCat/dto/updateCategoryInput';
 import type { PagedCategoryResultRequestDto } from '../services/forumCat/dto/PagedCategoryResultRequestDto';
 import ForumCategoryService from '../services/forumCat/forumCategoryService';
+import { GetForums } from '../services/forumCat/dto/getForumOutput';
 
 class ForumCategoryStore {
   @observable categories!: PagedResultDto<GetCategoryOutput>;
   @observable editCategory!: CreateOrUpdateCategoryInput;
+  @observable forums: GetForums[] = [];
 
   @action
   async create(createCategoryInput: CreateOrUpdateCategoryInput) {
@@ -34,9 +36,15 @@ class ForumCategoryStore {
   }
 
   @action
+  async getForums() {
+    let result = await ForumCategoryService.getForums();
+    this.forums = result;
+  }
+  @action
   async get(entityDto: EntityDto) {
     let result = await ForumCategoryService.get(entityDto);
-    this.editCategory = result;
+    let sd={...result,forumId:result.forumId?.toString()??null}
+    this.editCategory = sd;
   }
 
   @action
@@ -45,7 +53,7 @@ class ForumCategoryStore {
       forumCategoryName: '',
       forumName: '',
       forumNameForumName: '',
-      forumId: 0,
+      forumId: null,
       lastModifierUserId: 0,
       lastModificationTime:  new Date(),
       creationTime:  new Date(),

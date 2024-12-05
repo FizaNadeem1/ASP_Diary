@@ -52,7 +52,8 @@ class FirmStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await FirmService.get(entityDto);
-    this.editFirm = result;
+    let sd={...result,cityId: result.cityId?.toString() ?? null,timeZone: result.timeZone?.toString() ?? null}
+    this.editFirm = sd;
   }
 
   @action

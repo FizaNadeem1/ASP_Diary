@@ -16,8 +16,8 @@ export interface CreateOrUpdateFirmInput {
   noOfCases: number;
   noOfLawyers: number;
   cityNameCityName: string;
-  cityId: number|null;
+  cityId: number|string|null;
   applicationTimeZonesCountryTimeZone: string;
-  timeZone: number|null;
+  timeZone: number|string|null;
   packageId: number;
 }

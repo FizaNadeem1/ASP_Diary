@@ -20,13 +20,13 @@ export interface CreateOrUpdateLawyerInput {
   lawyerResigDate: Moment
   provinceId: string;
   provinceProvinceName: string;
-  divisionId: number|null;
-  cityId: number|null;
+  divisionId: number|string|null;
+  cityId: number|string|null;
   cityCityName: string;
-  tehsilId: number|null;
-  lawyerSpeacialityId: number|null;
+  tehsilId: number|string|null;
+  lawyerSpeacialityId: number|string|null;
   lawyerSpeacialitySpeacialityName: string;
-  branchId: number|null;
+  branchId: number|string|null;
   branchBranchName: string;
   profileImage: string;
 }

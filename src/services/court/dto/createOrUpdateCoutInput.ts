@@ -14,17 +14,17 @@ export interface CreateOrUpdateCourtInput {
   courtAhlmedNumber: string;
   courtAhlmedEmail: string;
   forumForumName: string;
-  forumId: number | null;
+  forumId: number |string| null;
   forumCategoryForumCategoryName: string;
-  forumCatId: number | null;
+  forumCatId: number |string| null;
   provinceProvinceName: string;
   provinceId: string | null;
   divisionDivisionName: string;
-  divisionId: number | null;
+  divisionId: number |string| null;
   cityCityName: string;
-  cityId: number | null;
+  cityId: number |string| null;
   tehsilTehsilName: string;
-  tehsilId: number | null;
+  tehsilId: number |string| null;
   branchBranchName: string;
-  branchId: number | null;
+  branchId: number |string| null;
 }

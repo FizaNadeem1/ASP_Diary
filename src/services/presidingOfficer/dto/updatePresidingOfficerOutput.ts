@@ -7,5 +7,5 @@ export interface UpdatePresidingOfficerOutput {
   presidingOfficerName: string;
   presidingOfficerNameNotes: string;
   designationDesignationName: string;
-  designationId: number;
+  designationId: number|string;
 }

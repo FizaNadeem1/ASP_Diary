@@ -64,7 +64,8 @@ class BenchStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await benchService.get(entityDto);
-    this.editBench = result;
+    let sd={...result,branchId: result.branchId?.toString() ?? null,courtId: result.courtId?.toString() ?? null,presidingOfficerId: result.presidingOfficerId?.toString() ?? null}
+    this.editBench = sd;
   }
 
   @action

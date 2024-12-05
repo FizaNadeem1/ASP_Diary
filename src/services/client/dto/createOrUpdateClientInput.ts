@@ -24,9 +24,9 @@ export interface CreateOrUpdateClientInput {
   clientFirmContactPer: string;
   clientFirmContactPerNo: string;
   cityCityName: string;
-  cityId: number|null;
+  cityId: number|string|null;
   branchBranchName: string;
-  branchId: number|null;
+  branchId: number|string|null;
   clientTypeClientTypeName: string;
-  clientTypeId: number|null;
+  clientTypeId: number|string|null;
 }

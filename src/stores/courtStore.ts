@@ -106,7 +106,8 @@ class CourtStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await courtService.get(entityDto);
-    this.editCourt = result;
+    let sd={...result,branchId: result.branchId?.toString() ?? null,forumCatId: result.forumCatId?.toString() ?? null,cityId: result.cityId?.toString() ?? null,divisionId: result.divisionId?.toString() ?? null,forumId: result.forumId?.toString() ?? null,tehsilId: result.tehsilId?.toString() ?? null}
+    this.editCourt = sd;
   }
 
   @action

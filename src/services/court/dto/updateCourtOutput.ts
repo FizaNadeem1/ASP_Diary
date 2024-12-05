@@ -14,17 +14,17 @@ export interface UpdateCourtOutput {
   courtAhlmedNumber: string;
   courtAhlmedEmail: string;
   forumForumName: string;
-  forumId: number;
+  forumId: number|string;
   forumCategoryForumCategoryName: string;
-  forumCatId: number;
+  forumCatId: number|string;
   provinceProvinceName: string;
   provinceId: string;
   divisionDivisionName: string;
-  divisionId: number;
+  divisionId: number|string;
   cityCityName: string;
-  cityId: number;
+  cityId: number|string;
   tehsilTehsilName: string;
-  tehsilId: number;
+  tehsilId: number|string;
   branchBranchName: string;
-  branchId: number;
+  branchId: number|string;
 }

@@ -194,7 +194,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
     ];
 
     return (
-      <Modal visible={visible} width={800} footer={null} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
+      <Modal visible={visible} width={800} footer={this.props.modalType!=='edit'?null:undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
         <Form ref={this.props.formRef}
         initialValues={{
           id: 0,
@@ -371,14 +371,14 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('casePleadings')} {...formItemLayout} name={'casePleadings'} rules={rules.casePleadings}>
                 <Input />
               </Form.Item>
-              <div style={{ textAlign: 'right', marginTop: 16 }}>
+              {this.props.modalType!=='edit'&&<div style={{ textAlign: 'right', marginTop: 16 }}>
                 <Button onClick={onCancel} style={{ marginRight: 8 }}>
                   {L('Cancel')}
                 </Button>
                 <Button type="primary" onClick={onCreate}>
                   {L('Save')}
                 </Button>
-              </div>
+              </div>}
             </TabPane>
             <TabPane tab={L('Case Client')} key={'Client'} forceRender={true}>
             <Form.Item label={L('benchId')} {...formItemLayout} name={'benchId'} rules={rules.benchId}>
@@ -404,7 +404,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('bNotes')} {...formItemLayout} name={'bNotes'} rules={rules.bNotes}>
                 <Input />
               </Form.Item>
-              <Table
+              {this.props.modalType!=='edit'&&<><Table
                  rowKey={(record) => record.id}
                   bordered={true}
                   onRow={(record, index) => ({
@@ -425,7 +425,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 <Button type="primary" onClick={() => handleEditCaseBench()}>
                   {L('Save')}
                 </Button>
-              </div>
+              </div></>}
             </TabPane>
             <TabPane tab={L('Case Lawyer')} key={'Lawyer'} forceRender={true}>
             <Form.Item label={L('lawyerId')} {...formItemLayout} name={'lawyerId'} rules={rules.lawyerId}>
@@ -451,7 +451,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('lNotes')} {...formItemLayout} name={'lNotes'} rules={rules.lNotes}>
                 <Input />
               </Form.Item>
-              <Table
+              {this.props.modalType!=='edit'&&<><Table
                  rowKey={(record) => record.id}
                   bordered={true}
                   onRow={(record, index) => ({
@@ -472,7 +472,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 <Button type="primary" onClick={() => handleEditCaseLawyer()}>
                   {L('Save')}
                 </Button>
-              </div>
+              </div></>}
             </TabPane>          
             </Tabs>
         </Form>

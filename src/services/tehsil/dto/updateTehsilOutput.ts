@@ -30,5 +30,5 @@ export interface UpdateTehsilOutput {
     divisionId: number;
   };
   cityNameCityName: string;
-  cityId: number;
+  cityId: number|string;
 }

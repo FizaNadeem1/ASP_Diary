@@ -52,7 +52,8 @@ class BranchStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await BranchService.get(entityDto);
-    this.editBranch = result;
+    let sd={...result,cityId: result.cityId?.toString() ?? null,firmId: result.firmId?.toString() ?? null}
+    this.editBranch = sd;
   }
 
   @action

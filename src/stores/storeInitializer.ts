@@ -22,6 +22,7 @@ import CaseProceedingStore from './CaseProceedingStore';
 import CaseRegistraionStore from './caseRegistraionStore';
 import TehsilStore from './tehsilStore';
 import BenchStore from './benchStore';
+import PackageStore from './packageStore';
 
 export default function initializeStores() {
   return {
@@ -40,6 +41,7 @@ export default function initializeStores() {
     caseRegistrationStore: new CaseRegistraionStore(),
     divisionStore: new DivisionStore(),
     provinceStore: new ProvinceStore(),
+    packageStore: new PackageStore(),
     lawyerStore: new LawyerStore(),
     caseProceedingStore: new CaseProceedingStore(),
     courtStore: new CourtStore(),

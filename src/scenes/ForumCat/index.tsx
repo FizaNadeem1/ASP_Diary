@@ -62,8 +62,10 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
       await this.props.forumCategoryStore.createCategory();
+      await this.props.forumCategoryStore.getForums();
     } else {
       await this.props.forumCategoryStore.get(entityDto);
+      await this.props.forumCategoryStore.getForums();
     }
 
     this.setState({ categoryId: entityDto.id });
@@ -143,9 +145,9 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
             xs={{ span: 4, offset: 0 }}
             sm={{ span: 4, offset: 0 }}
             md={{ span: 4, offset: 0 }}
-            lg={{ span: 2, offset: 0 }}
-            xl={{ span: 2, offset: 0 }}
-            xxl={{ span: 2, offset: 0 }}
+            lg={{ span: 1, offset: 0 }}
+            xl={{ span: 1, offset: 0 }}
+            xxl={{ span: 1, offset: 0 }}
           >
             {' '}
             <h2>{L('Categories')}</h2>
@@ -154,9 +156,9 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
             xs={{ span: 14, offset: 0 }}
             sm={{ span: 15, offset: 0 }}
             md={{ span: 15, offset: 0 }}
-            lg={{ span: 1, offset: 21 }}
-            xl={{ span: 1, offset: 21 }}
-            xxl={{ span: 1, offset: 21 }}
+            lg={{ span: 2, offset: 21 }}
+            xl={{ span: 2, offset: 21 }}
+            xxl={{ span: 2, offset: 21 }}
           >
             <Button type="primary" icon={<PlusOutlined />} onClick={() => this.createOrUpdateModalOpen({ id: 0 })} >
               {L('Create new')}</Button>
@@ -204,6 +206,7 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
           }}
           modalType={this.state.categoryId === 0 ? 'edit' : 'create'}
           onCreate={this.handleCreate}
+          forums={this.props.forumCategoryStore.forums}
         />
       </Card>
     );
