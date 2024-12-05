@@ -23,6 +23,7 @@ export interface ICaseProceedingState {
   skipCount: number;
   caseProceedingId: number;
   filter: string;
+  benchId:string;
 }
 
 const confirm = Modal.confirm;
@@ -39,6 +40,7 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
     skipCount: 0,
     caseProceedingId: 0,
     filter: '',
+    benchId:''
   };
 
   async componentDidMount() {
@@ -65,7 +67,7 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
         await this.props.caseProceedingStore.getBranches();
         await this.props.caseProceedingStore.getProceedings();
     } else {
-      await this.props.caseProceedingStore.get(entityDto);
+      await this.props.caseProceedingStore.getCaseProceedingForEdit(entityDto);
         await this.props.caseProceedingStore.getBranches();
         await this.props.caseProceedingStore.getProceedings();
     }
@@ -96,9 +98,17 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
 
     form!.validateFields().then(async (values: any) => {
       if (this.state.caseProceedingId === 0) {
-        await this.props.caseProceedingStore.create(values);
+        await this.props.caseProceedingStore.create({...values,
+          benchId:this.state.benchId,
+          previousDate:values.previousDate.format("YYYY-MM-DD"),
+          currentDate:values.currentDate.format("YYYY-MM-DD"),
+          nexttDate:values.nexttDate.format("YYYY-MM-DD"),
+          });
       } else {
-        await this.props.caseProceedingStore.update({ ...values, id: this.state.caseProceedingId });
+        await this.props.caseProceedingStore.update({ ...values, id: this.state.caseProceedingId,benchId:this.props.caseProceedingStore.editCaseProceeding.benchId,
+          previousDate:values.previousDate.format("YYYY-MM-DD"),
+          currentDate:values.currentDate.format("YYYY-MM-DD"),
+          nexttDate:values.nexttDate.format("YYYY-MM-DD") });
       }
 
       await this.getAll();
@@ -110,7 +120,9 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
   };
-
+  setBenchId = (benchId: string) => {
+    this.setState({benchId:benchId});
+  };
   public render() {
     const { caseProceedings } = this.props.caseProceedingStore;
     const columns = [
@@ -233,6 +245,7 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
           branches={this.props.caseProceedingStore.branches}
           proceedings={this.props.caseProceedingStore.proceedings}
           store={this.props.caseProceedingStore}
+          setBenchId={this.setBenchId}
         />
       </Card>
     );

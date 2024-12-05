@@ -25,6 +25,10 @@ class CaseProceedingService {
     let result = await http.get('/api/services/app/CaseProceeding/GetCaseDataByCaseNo', { params: entityDto });
     return result.data.result;
   } 
+  public async getCaseProceedingForEdit(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/CaseProceeding/GetCaseProceedingForEdit',{ params: entityDto });
+    return result.data.result;
+  } 
   public async getBranches() {
     let result = await http.get('/api/services/app/Branch/GetBranchComboboxItems');
     return result.data.result.items;

@@ -19,7 +19,7 @@ export interface CreateOrUpdateCaseProceedingInput {
   caseGaffNo: string;
   branchId: number|string|null;
   branchBranchName: string;
-  benchId: number;
+  benchId: number|string;
   benchBenchCode: string;
   caseId: number|string|null;
   caseCaseNo: string;
