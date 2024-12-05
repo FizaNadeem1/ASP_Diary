@@ -1,13 +1,15 @@
+import { Moment } from "moment";
+
 export interface UpdateCaseProceedingOutput {
   id: number;
-  creationTime: Date;
+  creationTime: Moment;
   creatorUserId: number;
-  lastModificationTime: Date;
+  lastModificationTime: Moment;
   lastModifierUserId: number;
-  previousDate: Date;
-  currentDate: Date;
-  nexttDate: Date;
-  previousNextDate: Date;
+  previousDate: Moment;
+  currentDate: Moment;
+  nexttDate: Moment;
+  previousNextDate: Moment;
   proceedingNotes: string;
   proceedingShortOrder: string;
   caseRunning: boolean;
@@ -17,7 +19,7 @@ export interface UpdateCaseProceedingOutput {
   caseGaffNo: string;
   branchId: number|string;
   branchBranchName: string;
-  benchId: number;
+  benchId: number|string;
   benchBenchCode: string;
   caseId: number|string;
   caseCaseNo: string;

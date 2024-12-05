@@ -17,7 +17,9 @@ export interface ICreateOrUpdateCaseProceedingProps {
   formRef: React.RefObject<FormInstance>;
   branches: GetBranches[];
   proceedings: GetProceedings[];
-  store: CaseProceedingStore
+  store: CaseProceedingStore;
+  setBenchId:(id: string) => void;
+
 }
 
 class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCaseProceedingProps> {
@@ -32,10 +34,10 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
   };
   
   getCaseData = async (value: any) => {
-    const { store } = this.props;
-    console.log("get data vala call hova case", value)
+    const { store ,setBenchId} = this.props;
     let data = await store.getCaseDataByCaseNo({ id: value });
-
+    
+    console.log("getCaseDataByCaseNo", data)
     this.props.formRef.current?.setFieldsValue({
       benchBenchCode: data.benchBenchCode,
       caseMainCaseNo: data.caseMainCaseNo,
@@ -45,13 +47,12 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
       "caseMainFirstPartyName": data.caseMainFirstPartyName,
       "caseMainSecondPartyName": data.caseMainSecondPartyName,
       "caseId": data.caseMainId,
-      "benchId": data.benchId,
       "previousDate":
-        data.previousNextDate,
+        data.previousDate,
       "nexttDate":
-        data.previousNextDate
+        data.nexttDate
      });
-
+     setBenchId(data.benchId.toString())
   };
 
   render() {
@@ -109,16 +110,17 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
         <Form ref={this.props.formRef} initialValues={{
           branchId: '',
           caseno: '',
+          benchId:''
         }}
         onValuesChange={this.onFormValuesChange}>
           <Row gutter={24} style={{ marginLeft: '100px' }}>
             <Col span={8}>
               <Form.Item
-                label={L('Case No')}
-                name="caseno"
+                label={L(this.props.modalType!=='edit'?"caseCaseNo":'caseno')}
+                name={this.props.modalType!=='edit'?"caseCaseNo":'caseno'}
                 rules={rules.caseno}
               >
-                <Input />
+                <Input disabled={this.props.modalType!=='edit'} />
               </Form.Item>
             </Col>
             <Col span={10}>
@@ -132,45 +134,45 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
                   placeholder="--select--"
                   options={Boptions}
                   allowClear
+                  disabled={this.props.modalType!=='edit'}
                   filterOption={(input, option) =>
                     (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
                   }
                 />
               </Form.Item>
             </Col>
-            <Col span={6} style={{ display: 'flex', }}>
+            {this.props.modalType==='edit'&&<Col span={6} style={{ display: 'flex', }}>
               <Button
                 type="primary"
-                onClick={() => this.getCaseData(this.props.formRef.current?.getFieldValue("caseno"))}
+                onClick={() => this.getCaseData(this.props.formRef.current?.getFieldValue("caseCaseNo")||this.props.formRef.current?.getFieldValue("caseno"))}
                 disabled={this.state.isFetchDisabled}
                 // disabled={this.props.formRef.current?.getFieldValue("branchId") || this.props.formRef.current?.getFieldValue("caseno")}
               // loading={loading}
               >
-                {console.log("btn click", this.props.formRef.current?.getFieldValue("branchId") || this.props.formRef.current?.getFieldValue("caseno"))}
                 Fetch Data
               </Button>
-            </Col>
+            </Col>}
           </Row>
-          <Form.Item label={L('Case Title')} {...formItemLayout} name={'caseMainCaseTitle'} >
-            <Input />
+          <Form.Item label={L('Case Title')} {...formItemLayout} name={'caseCaseTitle'} >
+            <Input disabled />
           </Form.Item>
           <Form.Item label={L('Case Main No')} {...formItemLayout} name={'caseId'} rules={rules.caseId}>
-            <Input />
+            <Input disabled />
           </Form.Item>
           <Form.Item label={L('Case Type')} {...formItemLayout} name={'caseMainCaseTypeCaseTypeName'} >
-            <Input />
+            <Input disabled />
           </Form.Item>
           <Form.Item label={L('caseMainFirstPartyName')} {...formItemLayout} name={'caseMainFirstPartyName'}>
-            <Input />
+            <Input  disabled/>
           </Form.Item>
           <Form.Item label={L('caseMainSecondPartyName')} {...formItemLayout} name={'caseMainSecondPartyName'}>
-            <Input />
+            <Input disabled />
           </Form.Item>
           <Form.Item label={L('benchBenchCode')} {...formItemLayout} name={'benchBenchCode'} >
-            <Input />
+            <Input disabled />
           </Form.Item>
           <Form.Item label={L('previousDate')} {...formItemLayout} name={'previousDate'} rules={rules.previousDate}>
-            <DatePicker />
+            <DatePicker disabled />
           </Form.Item>
           <Form.Item label={L('currentDate')} {...formItemLayout} name={'currentDate'} rules={rules.currentDate}>
             <DatePicker />

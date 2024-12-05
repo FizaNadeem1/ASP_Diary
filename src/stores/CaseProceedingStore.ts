@@ -39,11 +39,54 @@ class CaseProceedingStore {
       (x: GetCaseProceedingOutput) => x.id !== entityDto.id
     );
   }
-
+  
+  @action
+  async getCaseProceedingForEdit(entityDto: EntityDto) {
+    let data = await CaseProceedingService.getCaseProceedingForEdit(entityDto);
+    console.log('data get by id vala', data);
+    let result = {
+      id: data.editCaseProceeding.id,
+      creationTime: data.editCaseProceeding.creationTime,
+      creatorUserId: data.editCaseProceeding.creatorUserId,
+      lastModificationTime: data.editCaseProceeding.lastModificationTime,
+      lastModifierUserId: data.editCaseProceeding.lastModifierUserId,
+      previousDate: moment(data.editCaseProceeding.previousDate),
+      currentDate: moment(data.editCaseProceeding.currentDate),
+      nexttDate: moment(data.editCaseProceeding.nexttDate),
+      previousNextDate: data.editCaseProceeding.previousDate,
+      proceedingNotes: data.editCaseProceeding.proceedingNotes,
+      proceedingShortOrder: data.editCaseProceeding.proceedingShortOrder,
+      caseRunning: data.editCaseProceeding.caseRunning,
+      caseFinish: data.editCaseProceeding.caseFinish,
+      caseTransfer: data.editCaseProceeding.caseTransfer,
+      caseGenNo: data.editCaseProceeding.caseGenNo,
+      caseGaffNo: data.editCaseProceeding.caseGaffNo,
+      branchId: data.editCaseProceeding.branchId,
+      branchBranchName: data.editCaseProceeding.branchBranchName,
+      benchId: data.editCaseProceeding.benchId,
+      benchBenchCode: data.getCaseDataByCaseNo.benchBenchCode,
+      caseId: data.editCaseProceeding.caseId,
+      caseCaseNo: data.getCaseDataByCaseNo.caseMainCaseNo,
+      caseCaseTitle: data.getCaseDataByCaseNo.caseMainCaseTitle,
+      proceedingStatusId: data.editCaseProceeding.proceedingStatusId,
+      proceedingStatusProceedingName: data.editCaseProceeding.proceedingStatusProceedingName,
+      caseMainCourtCaseNo: data.getCaseDataByCaseNo.caseMainCourtCaseNo,
+      caseMainFirstPartyName: data.getCaseDataByCaseNo.caseMainFirstPartyName,
+      caseMainSecondPartyName: data.getCaseDataByCaseNo.caseMainSecondPartyName,
+      caseMainCaseTypeCaseTypeName: data.getCaseDataByCaseNo.caseMainCaseTypeCaseTypeName,
+    };
+this.editCaseProceeding=result
+    return result;
+  }
   @action
   async getCaseDataByCaseNo(entityDto: EntityDto) {
     let result = await CaseProceedingService.getCaseDataByCaseNo(entityDto);
-    return result
+    let sd = {
+      ...result,
+      previousDate: moment(result.previousNextDate),
+      nexttDate: moment(result.previousNextDate).add(1, 'day'),
+    };
+    return sd;
   }
 
   @action
@@ -61,7 +104,16 @@ class CaseProceedingStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await CaseProceedingService.get(entityDto);
-    let sd={...result,branchId: result.branchId?.toString() ?? null,caseId: result.caseId?.toString() ?? null,proceedingStatusId: result.proceedingStatusId?.toString() ?? null}
+    let sd = {
+      ...result,
+      branchId: result.branchId?.toString() ?? null,
+      caseId: result.caseId?.toString() ?? null,
+      proceedingStatusId: result.proceedingStatusId?.toString() ?? null,
+      previousDate: moment(result.previousDate),
+      currentDate: moment(result.currentDate),
+      nexttDate: moment(result.nexttDate),
+      previousNextDate: moment(result.previousNextDate),
+    };
     this.editCaseProceeding = sd;
   }
 
@@ -69,14 +121,14 @@ class CaseProceedingStore {
   async createCaseProceeding() {
     this.editCaseProceeding = {
       id: 0,
-      creationTime: moment(0),
+      creationTime: moment(),
       creatorUserId: 0,
-      lastModificationTime: moment(0),
+      lastModificationTime: moment(),
       lastModifierUserId: 0,
-      previousDate: moment(0),
-      currentDate: moment(0),
-      nexttDate: moment(0),
-      previousNextDate: moment(0),
+      previousDate: moment(),
+      currentDate: moment(),
+      nexttDate: moment(),
+      previousNextDate: moment(),
       proceedingNotes: '',
       proceedingShortOrder: '',
       caseRunning: true,
