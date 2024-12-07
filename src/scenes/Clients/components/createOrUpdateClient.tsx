@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {  Input, Modal, Tabs, Form, Select, DatePicker } from 'antd';
+import { Input, Modal, Tabs, Form, Select, DatePicker } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import rules from './createOrUpdateClient.validation';
 import { FormInstance } from 'antd/lib/form';
@@ -22,7 +22,7 @@ export interface ICreateOrUpdateClientProps {
   clientTypes: GetClientTypes[];
   clientGender: GetGender[];
   formRef: React.RefObject<FormInstance>;
-  store:ClientStore
+  store: ClientStore
 }
 
 class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
@@ -30,8 +30,13 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
     confirmDirty: false,
   };
 
+  // handleClientChange = async(value:any) => {
+  //   console.log("client ma client label",value)
+  //   this.props.formRef.current?.setFieldsValue({"clientTypeName":value.label})
+  //   this.props.store.clientTypeName=value.label
+  // };
   render() {
-    const { branches,cities,clientTypes,clientGender } = this.props;
+    const { branches, cities, clientTypes, clientGender } = this.props;
     const formItemLayout = {
       labelCol: {
         xs: { span: 6 },
@@ -65,14 +70,39 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const Goptions = clientGender.map((x:GetGender) => {
+    const Goptions = clientGender.map((x: GetGender) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
-        <Form ref={this.props.formRef}>
+        <Form ref={this.props.formRef} initialValues={{
+          "id": 0,
+          "creationTime": "",
+          "creatorUserId": 0,
+          "lastModificationTime": "",
+          "lastModifierUserId": 0,
+          "clientCode": "",
+          "clientTypeName": "",
+          "clientName": "",
+          "clientFatherName": "",
+          "clientHusbandName": "",
+          "clientAdress": "",
+          "clientCNIC": "",
+          "clientMobile": "",
+          "clientGender": "",
+          "clientPhotoPath": "",
+          "clientDOB": "2024-10-31",
+          "clientRegDate": "",
+          "clientFirmCode": "",
+          "clientFirmNTN": "",
+          "clientFirmSTR": "",
+          "clientFirmContactPer": "",
+          "clientFirmContactPerNo": "",
+          "cityId": 0,
+          "branchId": 0,
+          "clientTypeId": 0
+        }}>
           <Tabs defaultActiveKey={'ClientInfo'} size={'small'} tabBarGutter={64}>
             <TabPane tab={'Client'} key={'ClientInfo'}>
               <Form.Item label={L('clientName')} {...formItemLayout} name={'clientName'} rules={rules.clientName}>
@@ -94,58 +124,58 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
                 <Input />
               </Form.Item>
               <Form.Item label={L('clientRegDate')} {...formItemLayout} name="clientRegDate" rules={rules.clientRegDate}>
-              <DatePicker />
-            </Form.Item>
+                <DatePicker />
+              </Form.Item>
               <Form.Item label={L('clientAdress')} {...formItemLayout} name={'clientAdress'} rules={rules.clientAdress}>
                 <Input />
               </Form.Item>
               <Form.Item label={L('city')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={Coptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
-          <Form.Item label={L('branch')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={Boptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
-          <Form.Item label={L('clientType')} {...formItemLayout} name={'clientTypeId'} rules={rules.clientTypeId}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={CLoptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
-          <Form.Item label={L('clientGender')} {...formItemLayout} name={'clientGender'} rules={rules.clientGender}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={Goptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={Coptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+              </Form.Item>
+              <Form.Item label={L('branch')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={Boptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+              </Form.Item>
+              <Form.Item label={L('clientType')} {...formItemLayout} name={'clientTypeId'} rules={rules.clientTypeId}>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={CLoptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  } />
+              </Form.Item>
+              <Form.Item label={L('clientGender')} {...formItemLayout} name={'clientGender'} rules={rules.clientGender}>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={Goptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+              </Form.Item>
             </TabPane>
             <TabPane tab={L('Business')} key={'Business'} forceRender={true}>
-            <Form.Item label={L('clientFirmCode')} {...formItemLayout} name={'clientFirmCode'} rules={rules.clientFirmCode}>
+            
+              <Form.Item label={L('clientFirmCode')} {...formItemLayout} name={'clientFirmCode'} rules={rules.clientFirmCode}>
                 <Input />
               </Form.Item>
               <Form.Item label={L('clientFirmNTN')} {...formItemLayout} name={'clientFirmNTN'} rules={rules.clientFirmNTN}>

@@ -24,14 +24,13 @@ class LawyerStore {
   @observable divisions: GetDivisions[] = [];
   @observable tehsils: GetTehsils[] = [];
   @observable provinces: GetProvinces[] = [];
-  @observable selectedProvince :string=''
-  @observable selectedDivision :string=''
-  @observable selectedCity :string=''
-
+  @observable selectedProvince: string = '';
+  @observable selectedDivision: string = '';
+  @observable selectedCity: string = '';
 
   @action
   async create(createLawyerInput: CreateOrUpdateLawyerInput) {
-    console.log("lawyer create values in store",createLawyerInput)
+    console.log('lawyer create values in store', createLawyerInput);
     let result = await lawyerService.create(createLawyerInput);
     this.lawyers.items.push(result);
   }
@@ -54,13 +53,13 @@ class LawyerStore {
   async getDivisionsByProvinceId(entityDto: EntityDto) {
     let result = await lawyerService.getDivisionsByProvinceId(entityDto);
     this.divisions = result;
-    this.cities=[]
+    this.cities = [];
   }
   @action
   async getCityByDivisionId(entityDto: EntityDto) {
     let result = await lawyerService.getCityByDivisionId(entityDto);
     this.cities = result;
-    this.tehsils=[]
+    this.tehsils = [];
   }
   @action
   async getTehsilByCityId(entityDto: EntityDto) {
@@ -101,7 +100,18 @@ class LawyerStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await lawyerService.get(entityDto);
-    let sd={...result,branchId: result.branchId?.toString() ?? null,cityId: result.cityId?.toString() ?? null,divisionId: result.divisionId?.toString() ?? null,lawyerSpeacialityId: result.lawyerSpeacialityId?.toString() ?? null,tehsilId: result.tehsilId?.toString() ?? null}
+    let sd = {
+      ...result,
+      branchId: result.branchId?.toString() ?? null,
+      cityId: result.cityId?.toString() ?? null,
+      divisionId: result.divisionId?.toString() ?? null,
+      lawyerSpeacialityId: result.lawyerSpeacialityId?.toString() ?? null,
+      tehsilId: result.tehsilId?.toString() ?? null,
+      lawyerFirmRegDate: moment(result.lawyerLicRegDate),
+      lawyerLicRegDate: moment(result.lawyerLicExpDate),
+      lawyerLicExpDate: moment(result.lawyerFirmRegDate),
+      lawyerResigDate: moment(result.lawyerResigDate),
+    };
     this.editLawyer = sd;
   }
 
@@ -109,9 +119,9 @@ class LawyerStore {
   async createLawyer() {
     this.editLawyer = {
       id: 0,
-      creationTime: moment(0),
+      creationTime: moment(),
       creatorUserId: 0,
-      lastModificationTime: moment(0),
+      lastModificationTime: moment(),
       lastModifierUserId: 0,
       lawyerName: '',
       lawyerMobile: '',
@@ -121,10 +131,10 @@ class LawyerStore {
       lawyerStatus: true,
       lawyerPhotoPath: '',
       lawyerPracticingBar: '',
-      lawyerLicRegDate: moment(0),
-      lawyerLicExpDate: moment(0),
-      lawyerFirmRegDate: moment(0),
-      lawyerResigDate: moment(0),
+      lawyerLicRegDate: moment(),
+      lawyerLicExpDate: moment(),
+      lawyerFirmRegDate: moment(),
+      lawyerResigDate: moment(),
       provinceId: '',
       provinceProvinceName: '',
       divisionId: null,
@@ -136,7 +146,6 @@ class LawyerStore {
       branchId: null,
       branchBranchName: '',
       profileImage: '',
-    
     };
     this.branches = [];
     this.cities = [];
