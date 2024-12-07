@@ -1,8 +1,10 @@
+import { Moment } from "moment";
+
 export interface UpdateLawyerOutput {
   id: number;
-  creationTime: Date;
+  creationTime: Moment;
   creatorUserId: number;
-  lastModificationTime: Date;
+  lastModificationTime: Moment;
   lastModifierUserId: number;
   lawyerName: string;
   lawyerMobile: string;
@@ -12,10 +14,10 @@ export interface UpdateLawyerOutput {
   lawyerStatus: boolean;
   lawyerPhotoPath: string;
   lawyerPracticingBar: string;
-  lawyerLicRegDate: Date;
-  lawyerLicExpDate: Date;
-  lawyerFirmRegDate: Date;
-  lawyerResigDate: Date;
+  lawyerLicRegDate: Moment;
+  lawyerLicExpDate: Moment;
+  lawyerFirmRegDate: Moment;
+  lawyerResigDate: Moment;
   provinceId: string;
   provinceProvinceName: string;
   divisionId: number|string;

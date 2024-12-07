@@ -20,12 +20,14 @@ class ClientStore {
   @observable branches: GetBranches[] = [];
   @observable clientTypes: GetClientTypes[] = [];
   @observable clientGender: GetGender[] = [];
-  @observable clientTypeName:string=''
+  // @observable clientTypeName:string=''
 
   @action
   async create(createClientInput: CreateOrUpdateClientInput) {
     console.log("client create values in store",createClientInput)
-    let newObj={...createClientInput,clientTypeName:this.clientTypeName}
+    let newObj={...createClientInput,
+      // clientTypeName:this.clientTypeName
+    }
     let result = await clientService.create(newObj);
     this.clients.items.push(result);
   }
@@ -77,9 +79,9 @@ class ClientStore {
   async createClient() {
     this.editClient = {
       id: 0,
-      creationTime: moment(0),
+      creationTime: moment(),
       creatorUserId: 0,
-      lastModificationTime: moment(0),
+      lastModificationTime: moment(),
       lastModifierUserId: 0,
       clientCode: '',
       clientTypeName: '',
@@ -91,8 +93,8 @@ class ClientStore {
       clientMobile: '',
       clientGender: '',
       clientPhotoPath: '',
-      clientDOB: moment(0),
-      clientRegDate: moment(0),
+      clientDOB: moment(),
+      clientRegDate: moment(),
       clientFirmCode: '',
       clientFirmNTN: '',
       clientFirmSTR: '',

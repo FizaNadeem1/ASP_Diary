@@ -108,10 +108,12 @@ class Client extends AppComponentBase<IClientProps, IClientState> {
 
     form!.validateFields().then(async (values: any) => {
       console.log("create client values",values)
+      const clientTypeName = this.props.clientStore.clientTypes.find((item) => item.value === values.clientTypeId);
+
       if (this.state.clientId === 0) {
-        await this.props.clientStore.create(values);
+        await this.props.clientStore.create({...values,clientTypeName:clientTypeName?.displayText});
       } else {
-        await this.props.clientStore.update({ ...values, id: this.state.clientId });
+        await this.props.clientStore.update({ ...values, id: this.state.clientId ,clientTypeName:clientTypeName?.displayText});
       }
 
       await this.getAll();
