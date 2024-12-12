@@ -15,11 +15,12 @@ import SessionStore from '../../stores/sessionStore';
 import Stores from '../../stores/storeIdentifier';
 import TenantAvailabilityState from '../../services/account/dto/tenantAvailabilityState';
 import rules from './index.validation';
+import { withRouter,RouteComponentProps  } from 'react-router-dom';
 
 const FormItem = Form.Item;
 declare var abp: any;
 
-export interface ILoginProps {
+export interface ILoginProps extends RouteComponentProps {
   authenticationStore?: AuthenticationStore;
   sessionStore?: SessionStore;
   accountStore?: AccountStore;
@@ -145,6 +146,12 @@ class Login extends React.Component<ILoginProps> {
                     </Button>
                   </Col>
                 </Row>
+                <Row justify="center" style={{ marginTop: 10 }}>
+        <Col>
+          <span>{L('DontHaveAccount')}</span>{' '}
+          <a onClick={() => this.props.history.push('/user/package-list')}>{L('SignUp')}</a>
+        </Col>
+      </Row>
               </Card>
             </Col>
           </Row>
@@ -153,4 +160,4 @@ class Login extends React.Component<ILoginProps> {
   }
 }
 
-export default Login;
+export default withRouter(Login);

@@ -10,5 +10,6 @@ const AppConsts = {
   },
   appBaseUrl: process.env.REACT_APP_APP_BASE_URL,
   remoteServiceBaseUrl: process.env.REACT_APP_REMOTE_SERVICE_BASE_URL,
+  stripeKey:process.env.REACT_APP_STRIPE_KEY
 };
 export default AppConsts;

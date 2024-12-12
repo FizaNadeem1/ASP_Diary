@@ -17,6 +17,20 @@ export const userRouter: any = [
     component: LoadableComponent(() => import('../../scenes/Login')),
     showInMenu: false,
   },
+  {
+    path: '/user/signup', // Define the path for the signup page
+    name: 'signup', // Unique name for this route
+    title: 'Sign Up', // Display title for the route
+    component: LoadableComponent(() => import('../../scenes/Signup')), // Dynamically import the Signup component
+    showInMenu: false, // Set to true if you want this route to appear in the menu
+  },
+  {
+    path: '/user/package-list', // Define the path for the signup page
+    name: 'package-list', // Unique name for this route
+    title: 'Package-list', // Display title for the route
+    component: LoadableComponent(() => import('../../scenes/PackageList')), // Dynamically import the Signup component
+    showInMenu: false, // Set to true if you want this route to appear in the menu
+  },
 ];
 
 export const appRouters: any = [

@@ -23,6 +23,7 @@ import CaseRegistraionStore from './caseRegistraionStore';
 import TehsilStore from './tehsilStore';
 import BenchStore from './benchStore';
 import PackageStore from './packageStore';
+import SubscriptionStore from './subscriptionStore';
 
 export default function initializeStores() {
   return {
@@ -51,5 +52,6 @@ export default function initializeStores() {
     forumCategoryStore: new ForumCategoryStore(),
     sessionStore: new SessionStore(),
     accountStore: new AccountStore(),
+    subscriptionStore:new SubscriptionStore()
   };
 }
