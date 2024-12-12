@@ -11,6 +11,10 @@ import Utils from './utils/utils';
 import abpUserConfigurationService from './services/abpUserConfigurationService';
 import initializeStores from './stores/storeInitializer';
 import registerServiceWorker from './registerServiceWorker';
+// import { loadStripe } from '@stripe/stripe-js';
+// import AppConsts from './lib/appconst';
+// import { Elements } from '@stripe/react-stripe-js';
+// const stripePromise = loadStripe(AppConsts.stripeKey as string);
 
 declare var abp: any;
 
@@ -31,7 +35,9 @@ abpUserConfigurationService.getAll().then(data => {
   ReactDOM.render(
     <Provider {...stores}>
       <BrowserRouter>
-        <App />
+        {/* <Elements stripe={stripePromise}> */}
+          <App />
+        {/* </Elements> */}
       </BrowserRouter>
     </Provider>,
     document.getElementById('root') as HTMLElement

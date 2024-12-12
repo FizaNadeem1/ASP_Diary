@@ -9,7 +9,7 @@ declare var abp: any;
 console.log("axios request sent")
 const http = axios.create({
   baseURL: AppConsts.remoteServiceBaseUrl,
-  timeout: 30000,
+  timeout: 60000,
   paramsSerializer: function(params) {
     return qs.stringify(params, {
       encode: false,

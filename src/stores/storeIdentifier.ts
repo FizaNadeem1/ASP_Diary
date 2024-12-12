@@ -18,6 +18,7 @@ export default class Stores {
   static PackageStore: string = 'packageStore';
   static CaseRegistrationStore: string = 'caseRegistrationStore';
   static DivisionStore: string = 'divisionStore';
+  static SubscriptionStore: string = 'subscriptionStore';
   static CaseProceedingStore: string = 'caseProceedingStore';
   static ProvinceStore: string = 'provinceStore';
   static PresidingOfficerStore: string = 'presidingOfficerStore';
