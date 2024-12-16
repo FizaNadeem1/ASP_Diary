@@ -124,7 +124,7 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
                 <Input />
               </Form.Item>
               <Form.Item label={L('Reg Date')} {...formItemLayout} name="clientRegDate" rules={rules.clientRegDate}>
-                <DatePicker />
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
               <Form.Item label={L('Adress')} {...formItemLayout} name={'clientAdress'} rules={rules.clientAdress}>
                 <Input />

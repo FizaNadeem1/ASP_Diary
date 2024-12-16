@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal, Form, Select, Checkbox, DatePicker } from 'antd';
+import { Input, Modal, Form, Select, Checkbox, DatePicker, Row, Col } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import { FormInstance } from 'antd/lib/form';
 import { GetProvinces } from '../../../services/lawyer/dto/getProvinceOutput';
@@ -153,24 +153,24 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
   render() {
     // const { image, storedImage } = this.state;
     const { divisions,cities,tehsils,provinces,speciality,branches } = this.props;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 8 },
-        sm: { span: 8 },
-        md: { span: 8 },
-        lg: { span: 8 },
-        xl: { span: 8 },
-        xxl: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 16 },
-        sm: { span: 16 },
-        md: { span: 16 },
-        lg: { span: 16 },
-        xl: { span: 16 },
-        xxl: { span: 16 },
-      },
-    };
+    // const formItemLayout = {
+    //   labelCol: {
+    //     xs: { span: 8 },
+    //     sm: { span: 8 },
+    //     md: { span: 8 },
+    //     lg: { span: 8 },
+    //     xl: { span: 8 },
+    //     xxl: { span: 8 },
+    //   },
+    //   wrapperCol: {
+    //     xs: { span: 16 },
+    //     sm: { span: 16 },
+    //     md: { span: 16 },
+    //     lg: { span: 16 },
+    //     xl: { span: 16 },
+    //     xxl: { span: 16 },
+    //   },
+    // };
 
     const { visible, onCancel, onCreate } = this.props;
     const Doptions = divisions.map((x: GetDivisions) => {
@@ -195,8 +195,8 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
     }); 
 
     return (
-      <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Lawyer'} destroyOnClose={true}>
-        <Form ref={this.props.formRef}>
+      <Modal visible={visible} width={1000} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Lawyer'} destroyOnClose={true}>
+        <Form ref={this.props.formRef} layout='vertical'>
         {/* <div>
         <h2>Upload Image</h2>
         <input type="file" accept="image/*" onChange={this.handleImageChange} />
@@ -208,35 +208,43 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
 
         <button onClick={this.retrieveImage}>Retrieve Image</button>
       </div> */}
-          <Form.Item label={L('lawyerName')} {...formItemLayout} name={'lawyerName'} rules={rules.lawyerName}>
+      <Row gutter={16}>
+        <Col span={8}>
+          <Form.Item label={L('Lawyer Name')}   name={'lawyerName'} rules={rules.lawyerName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('lawyerMobile')} {...formItemLayout} name={'lawyerMobile'} rules={rules.lawyerMobile}>
+        </Col>
+        <Col span={8}>
+          <Form.Item label={L('Mobile')}   name={'lawyerMobile'} rules={rules.lawyerMobile}>
             <Input />
-          </Form.Item><Form.Item label={L('lawyerLiscene')} {...formItemLayout} name={'lawyerLiscene'} rules={rules.lawyerLiscene}>
-            <Input />
-          </Form.Item><Form.Item label={L('lawyerAdress')} {...formItemLayout} name={'lawyerAdress'} rules={rules.lawyerAdress}>
-            <Input />
-          </Form.Item><Form.Item label={L('lawyerNotes')} {...formItemLayout} name={'lawyerNotes'} rules={rules.lawyerNotes}>
-            <Input />
-          </Form.Item><Form.Item label={L('lawyerPracticingBar')} {...formItemLayout} name={'lawyerPracticingBar'} rules={rules.lawyerPracticingBar }>
-            <Input />
-          </Form.Item><Form.Item label={L('lawyerStatus')} {...formItemLayout} name={'lawyerStatus'}valuePropName={'checked'} >
-          <Checkbox></Checkbox>
-          </Form.Item><Form.Item label={L('lawyerLicRegDate')} {...formItemLayout} name={'lawyerLicRegDate'}>
-            <DatePicker />
-          </Form.Item><Form.Item label={L('lawyerLicExpDate')} {...formItemLayout} name={'lawyerLicExpDate'} >
-            <DatePicker />
           </Form.Item>
-          <Form.Item label={L('lawyerLicExpDate')} {...formItemLayout} name={'lawyerLicExpDate'} >
-            <DatePicker />
+        </Col>
+        <Col span={8}>
+          <Form.Item label={L('Liscene No')}   name={'lawyerLiscene'} rules={rules.lawyerLiscene}>
+            <Input />
           </Form.Item>
-          <Form.Item label={L('lawyerFirmRegDate')} {...formItemLayout} name={'lawyerFirmRegDate'} rules={rules.lawyerFirmRegDate}>
-            <DatePicker />
-          </Form.Item><Form.Item label={L('lawyerResigDate')} {...formItemLayout} name={'lawyerResigDate'} rules={rules.lawyerResigDate}>
-            <DatePicker />
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={8}>
+          <Form.Item label={L('Adress')}   name={'lawyerAdress'} rules={rules.lawyerAdress}>
+            <Input />
           </Form.Item>
-          <Form.Item label={L('provinceId')} {...formItemLayout} name={'provinceId'} rules={rules.provinceId}>
+        </Col>
+        <Col span={8}>
+          <Form.Item label={L('Notes')}   name={'lawyerNotes'} rules={rules.lawyerNotes}>
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={8}>
+          <Form.Item label={L('Practicing Bar')}   name={'lawyerPracticingBar'} rules={rules.lawyerPracticingBar }>
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
+          <Row gutter={16}>
+            <Col span={6}>
+          <Form.Item label={L('Province')}   name={'provinceId'} rules={rules.provinceId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -248,7 +256,9 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
               }
             />
           </Form.Item>
-          <Form.Item label={L('divisionId')} {...formItemLayout} name={'divisionId'} rules={rules.divisionId}>
+            </Col>
+            <Col span={6}>
+          <Form.Item label={L('Division')}   name={'divisionId'} rules={rules.divisionId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -259,7 +269,10 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
               }
             />
-          </Form.Item><Form.Item label={L('cityId')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
+          </Form.Item>
+            </Col>
+            <Col span={6}>
+          <Form.Item label={L('City')}   name={'cityId'} rules={rules.cityId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -270,7 +283,10 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
               }
             />
-          </Form.Item><Form.Item label={L('tehsilId')} {...formItemLayout} name={'tehsilId'} rules={rules.tehsilId}>
+          </Form.Item>
+            </Col>
+            <Col span={6}>
+          <Form.Item label={L('Tehsil')}   name={'tehsilId'} rules={rules.tehsilId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -281,7 +297,11 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
               }
             />
           </Form.Item>
-          <Form.Item label={L('lawyerSpeacialityId')} {...formItemLayout} name={'lawyerSpeacialityId'} rules={rules.lawyerSpeacialityId}>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={10}>
+          <Form.Item label={L('Speaciality')}   name={'lawyerSpeacialityId'} rules={rules.lawyerSpeacialityId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -292,7 +312,9 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
               }
             />
           </Form.Item>
-          <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
+            </Col>
+            <Col span={10}>
+          <Form.Item label={L('Branch Name')}   name={'branchId'} rules={rules.branchId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -303,6 +325,34 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
               }
             />
           </Form.Item>
+            </Col>
+            <Col span={4}><Form.Item label={L('Is Active')}   name={'lawyerStatus'}valuePropName={'checked'} >
+          <Checkbox style={{width:'100%'}}></Checkbox>
+          </Form.Item></Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={6}>
+          <Form.Item label={L('Lic Reg Date')}   name={'lawyerLicRegDate'}>
+            <DatePicker style={{width:'100%'}}/>
+          </Form.Item>
+            </Col>
+           
+            <Col span={6}>
+          <Form.Item label={L('Lic Exp Date')}   name={'lawyerLicExpDate'} >
+            <DatePicker style={{width:'100%'}}/>
+          </Form.Item>
+            </Col>
+            <Col span={6}>
+          <Form.Item label={L('Reg Date')}   name={'lawyerFirmRegDate'} rules={rules.lawyerFirmRegDate}>
+            <DatePicker style={{width:'100%'}}/>
+          </Form.Item>
+            </Col>
+            <Col span={6}>
+          <Form.Item label={L('Res Date')}   name={'lawyerResigDate'} rules={rules.lawyerResigDate}>
+            <DatePicker style={{width:'100%'}}/>
+          </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Modal>
     );
