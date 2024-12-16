@@ -47,10 +47,10 @@ class CreateOrUpdateDesignation extends React.Component<ICreateOrUpdateDesignati
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Designation'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-              <Form.Item label={L('designationName')} {...formItemLayout} name={'designationName'} rules={rules.designationName}>
+              <Form.Item label={L('Designation Name')} {...formItemLayout} name={'designationName'} rules={rules.designationName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('designationNotes')} {...formItemLayout} name={'designationNotes'} rules={rules.designationNotes}>
+              <Form.Item label={L('Designation Notes')} {...formItemLayout} name={'designationNotes'} rules={rules.designationNotes}>
                 <Input />
               </Form.Item>
         </Form>

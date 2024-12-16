@@ -113,14 +113,14 @@ class PresidingOfficer extends AppComponentBase<IPresidingOfficerProps, IPresidi
     const { presidingOfficers } = this.props.presidingOfficerStore;
     const columns = [
       {
-        title: L('presidingOfficerName'), dataIndex: 'presidingOfficerName', key: 'presidingOfficerName', width: 'auto',
+        title: L('Presiding Officer Name'), dataIndex: 'presidingOfficerName', key: 'presidingOfficerName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('presidingOfficerNameNotes'), dataIndex: 'presidingOfficerNameNotes', key: 'presidingOfficerNameNotes', width: 'auto',
+        title: L('Presiding Officer Notes'), dataIndex: 'presidingOfficerNameNotes', key: 'presidingOfficerNameNotes', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('designationDesignationName'),dataIndex:'designationDesignationName',key:'designationDesignationName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Designation Name'),dataIndex:'designationDesignationName',key:'designationDesignationName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',
@@ -157,7 +157,7 @@ class PresidingOfficer extends AppComponentBase<IPresidingOfficerProps, IPresidi
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('presidingOfficers')}</h2>
+            <h2>{L('Presiding Officers')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}

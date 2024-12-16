@@ -53,10 +53,10 @@ class CreateOrUpdateTehsil extends React.Component<ICreateOrUpdateTehsilProps> {
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Tehsil'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('tehsilName')} {...formItemLayout} name={'tehsilName'} rules={rules.tehsilName}>
+          <Form.Item label={L('Tehsil Name')} {...formItemLayout} name={'tehsilName'} rules={rules.tehsilName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('cityId')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
+          <Form.Item label={L('City')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
             <Select
               showSearch
               placeholder="--select--"

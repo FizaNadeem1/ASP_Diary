@@ -151,7 +151,7 @@ class Province extends AppComponentBase<IProvinceProps, IProvinceState> {
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('provinces')}</h2>
+            <h2>{L('Provinces')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}

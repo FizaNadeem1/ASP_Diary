@@ -12,6 +12,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
 import LawyerStore from '../../stores/lawyerStore';
 import CreateOrUpdateLawyer from './components/createOrUpdateLawyer';
+// import ImageUploader from './components/imageUploader';
 
 export interface ILawyerProps {
   lawyerStore: LawyerStore;
@@ -244,6 +245,7 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
           // selectedCity={this.props.lawyerStore.selectedCity}
           // selectedDivision={this.props.lawyerStore.selectedDivision}
         />
+        {/* <ImageUploader/> */}
       </Card>
     );
   }

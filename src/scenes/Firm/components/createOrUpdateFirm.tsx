@@ -26,7 +26,7 @@ class CreateOrUpdateFirm extends React.Component<ICreateOrUpdateFirmProps> {
 
 
   render() {
-    const { cities,timeZone } = this.props;
+    const { cities, timeZone } = this.props;
     const formItemLayout = {
       labelCol: {
         xs: { span: 8 },
@@ -47,20 +47,20 @@ class CreateOrUpdateFirm extends React.Component<ICreateOrUpdateFirmProps> {
     };
     const tailFormItemLayout = {
       labelCol: {
-        xs: { span: 6 },
-        sm: { span: 6 },
-        md: { span: 6 },
-        lg: { span: 6 },
-        xl: { span: 6 },
-        xxl: { span: 6 },
+        xs: { span: 8 },
+        sm: { span: 8 },
+        md: { span: 8 },
+        lg: { span: 8 },
+        xl: { span: 8 },
+        xxl: { span: 8 },
       },
       wrapperCol: {
-        xs: { span: 18 },
-        sm: { span: 18 },
-        md: { span: 18 },
-        lg: { span: 18 },
-        xl: { span: 18 },
-        xxl: { span: 18 },
+        xs: { span: 16 },
+        sm: { span: 16 },
+        md: { span: 16 },
+        lg: { span: 16 },
+        xl: { span: 16 },
+        xxl: { span: 16 },
       },
     };
 
@@ -78,46 +78,43 @@ class CreateOrUpdateFirm extends React.Component<ICreateOrUpdateFirmProps> {
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Firm'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('firmName')} {...formItemLayout} name={'firmName'} rules={rules.firmName}>
+          <Form.Item label={L('Firm Name')} {...formItemLayout} name={'firmName'} rules={rules.firmName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmOwner')} {...formItemLayout} name={'firmOwner'} rules={rules.firmOwner}>
+          <Form.Item label={L('Firm Owner')} {...formItemLayout} name={'firmOwner'} rules={rules.firmOwner}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmCode')} {...formItemLayout} name={'firmCode'} rules={rules.firmCode }>
+          <Form.Item label={L('Firm Code')} {...formItemLayout} name={'firmCode'} rules={rules.firmCode}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmContactNo')} {...formItemLayout} name={'firmContactNo'} rules={rules.firmContactNo}>
+          <Form.Item label={L('Contact No')} {...formItemLayout} name={'firmContactNo'} rules={rules.firmContactNo}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmContactEmail')} {...formItemLayout} name={'firmContactEmail'} rules={rules.firmContactEmail as []}>
+          <Form.Item label={L('Valid Email')} {...formItemLayout} name={'firmContactEmail'} rules={rules.firmContactEmail as []}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmContactPerson')} {...formItemLayout} name={'firmContactPerson'} rules={rules.firmContactPerson}>
+          <Form.Item label={L('Contact Person')} {...formItemLayout} name={'firmContactPerson'} rules={rules.firmContactPerson}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmContactPersonNo')} {...formItemLayout} name={'firmContactPersonNo'} rules={rules.firmContactPersonNo}>
+          <Form.Item label={L('Person No')} {...formItemLayout} name={'firmContactPersonNo'} rules={rules.firmContactPersonNo}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmAdress')} {...formItemLayout} name={'firmAdress'} rules={rules.firmAdress}>
+          <Form.Item label={L('Local Adress')} {...formItemLayout} name={'firmAdress'} rules={rules.firmAdress}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('firmWesite')} {...formItemLayout} name={'firmWesite'} rules={rules.firmWesite}>
+          <Form.Item label={L('Wesite')} {...formItemLayout} name={'firmWesite'} rules={rules.firmWesite}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('noOfCases')} {...formItemLayout} name={'noOfCases'} rules={rules.noOfCases}>
+          <Form.Item label={L('Allowed Cases')} {...formItemLayout} name={'noOfCases'} rules={rules.noOfCases}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('noOfLawyers')} {...formItemLayout} name={'noOfLawyers'} rules={rules.timeZone}>
+          <Form.Item label={L('Allowed Lawyers')} {...formItemLayout} name={'noOfLawyers'} rules={rules.timeZone}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('noOfBranches')} {...formItemLayout} name={'noOfBranches'} rules={rules.noOfBranches}>
+          <Form.Item label={L('Allowed Branches')} {...formItemLayout} name={'noOfBranches'} rules={rules.noOfBranches}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('adminPanelAccess')} {...tailFormItemLayout} name={'adminPanelAccess'} valuePropName={'checked'}>
-                <Checkbox></Checkbox>
-              </Form.Item>
-          <Form.Item label={L('cityId')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
+          <Form.Item label={L('City')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -128,7 +125,7 @@ class CreateOrUpdateFirm extends React.Component<ICreateOrUpdateFirmProps> {
               }
             />
           </Form.Item>
-          <Form.Item label={L('timeZone')} {...formItemLayout} name={'timeZone'} rules={rules.noOfLawyers}>
+          <Form.Item label={L('Time Zone (GMT)')} {...formItemLayout} name={'timeZone'} rules={rules.noOfLawyers}>
             <Select
               showSearch
               placeholder="--select--"
@@ -138,6 +135,9 @@ class CreateOrUpdateFirm extends React.Component<ICreateOrUpdateFirmProps> {
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
               }
             />
+          </Form.Item>
+          <Form.Item label={L('Admin Panel Access')} {...tailFormItemLayout} name={'adminPanelAccess'} valuePropName={'checked'}>
+            <Checkbox></Checkbox>
           </Form.Item>
         </Form>
       </Modal>

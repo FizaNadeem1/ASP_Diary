@@ -46,10 +46,10 @@ class CreateOrUpdateProvince extends React.Component<ICreateOrUpdateProvinceProp
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Province'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('provinceName')} {...formItemLayout} name={'provinceName'} rules={rules.provinceName}>
+          <Form.Item label={L('Province Name')} {...formItemLayout} name={'provinceName'} rules={rules.provinceName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('provinceDescription')} {...formItemLayout} name={'provinceDescription'} rules={rules.provinceDescription}>
+          <Form.Item label={L('Province Description')} {...formItemLayout} name={'provinceDescription'} rules={rules.provinceDescription}>
             <Input />
           </Form.Item>
         </Form>

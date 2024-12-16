@@ -52,10 +52,10 @@ class CreateOrUpdateCategory extends React.Component<ICreateOrUpdateCategoryProp
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Category'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-              <Form.Item label={L('forumCategoryName')} {...formItemLayout} name={'forumCategoryName'} rules={rules.forumCategoryName}>
+              <Form.Item label={L('Forum Category Name')} {...formItemLayout} name={'forumCategoryName'} rules={rules.forumCategoryName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('forumId')} {...formItemLayout} name={'forumId'} rules={rules.forumId}>
+              <Form.Item label={L('Forum Name')} {...formItemLayout} name={'forumId'} rules={rules.forumId}>
               <Select
               showSearch
               placeholder="--select--"

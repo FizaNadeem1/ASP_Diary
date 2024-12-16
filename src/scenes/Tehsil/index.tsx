@@ -113,10 +113,10 @@ class Tehsil extends AppComponentBase<ITehsilProps, ITehsilState> {
     const { tehsils } = this.props.tehsilStore;
     const columns = [
       {
-        title: L('tehsilName'), dataIndex: 'tehsilName', key: 'tehsilName', width: 'auto',
+        title: L('Tehsil Name'), dataIndex: 'tehsilName', key: 'tehsilName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('cityNameCityName'),dataIndex:'cityNameCityName',key:'cityNameCityName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('City Name'),dataIndex:'cityNameCityName',key:'cityNameCityName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',
@@ -189,7 +189,7 @@ class Tehsil extends AppComponentBase<ITehsilProps, ITehsilState> {
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Tehsils')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

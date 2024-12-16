@@ -113,11 +113,11 @@ class Division extends AppComponentBase<IDivisionProps, IDivisionState> {
     const { divisions } = this.props.divisionStore;
     const columns = [
       {
-        title: L('divisionName'), dataIndex: 'divisionName', key: 'divisionName', width: 'auto',
+        title: L('Division Name'), dataIndex: 'divisionName', key: 'divisionName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('divisionDescription'),dataIndex:'divisionDescription',key:'divisionDescription',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('provinceNameProvinceName'),dataIndex:'provinceNameProvinceName',key:'provinceNameProvinceName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Division Description'),dataIndex:'divisionDescription',key:'divisionDescription',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Province Name'),dataIndex:'provinceNameProvinceName',key:'provinceNameProvinceName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',
@@ -154,7 +154,7 @@ class Division extends AppComponentBase<IDivisionProps, IDivisionState> {
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('divisions')}</h2>
+            <h2>{L('Divisions')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -190,7 +190,7 @@ class Division extends AppComponentBase<IDivisionProps, IDivisionState> {
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Divisions')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

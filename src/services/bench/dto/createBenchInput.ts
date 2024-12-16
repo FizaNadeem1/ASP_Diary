@@ -1,10 +1,12 @@
+import { Moment } from "moment";
+
 export interface CreateBenchInput {
   branchId: number;
   courtId: number;
   benchCode: string;
   benchOfficerNo: number;
-  benchStartDate: Date;
-  benchEndDate: Date;
+  benchStartDate: Moment;
+  benchEndDate: Moment;
   benchStatus: true;
   presidingOfficerId: number;
   officerList: [

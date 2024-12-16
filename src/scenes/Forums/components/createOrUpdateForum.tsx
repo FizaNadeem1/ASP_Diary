@@ -45,10 +45,10 @@ class CreateOrUpdateForum extends React.Component<ICreateOrUpdateForumProps> {
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Forum'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-              <Form.Item label={L('forumName')} {...formItemLayout} name={'forumName'} rules={rules.forumName}>
+              <Form.Item label={L('Forum Name')} {...formItemLayout} name={'forumName'} rules={rules.forumName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('forumDescription')} {...formItemLayout} name={'forumDescription'} rules={rules.forumDescription}>
+              <Form.Item label={L('Forum Description')} {...formItemLayout} name={'forumDescription'} rules={rules.forumDescription}>
                 <Input />
               </Form.Item>
         </Form>

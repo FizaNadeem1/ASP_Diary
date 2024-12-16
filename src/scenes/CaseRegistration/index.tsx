@@ -127,13 +127,13 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
   public render() {
     const { caseRegistrations } = this.props.caseRegistrationStore;
     const columns = [
-      { title: L('caseNo'), dataIndex: 'caseNo', key: 'caseNo', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('courtCaseNo'), dataIndex: 'courtCaseNo', key: 'courtCaseNo', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('firstPartyName'), dataIndex: 'firstPartyName', key: 'firstPartyName', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('secondPartyName'), dataIndex: 'secondPartyName', key: 'secondPartyName', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('caseTypeCaseTypeName'), dataIndex: 'caseTypeCaseTypeName', key: 'caseTypeCaseTypeName', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('branchBranchName'), dataIndex: 'branchBranchName', key: 'branchBranchName', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('clientClientName'), dataIndex: 'clientClientName', key: 'clientClientName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Case No'), dataIndex: 'caseNo', key: 'caseNo', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Case Main No'), dataIndex: 'courtCaseNo', key: 'courtCaseNo', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('First Party'), dataIndex: 'firstPartyName', key: 'firstPartyName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Second Party'), dataIndex: 'secondPartyName', key: 'secondPartyName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Case Type'), dataIndex: 'caseTypeCaseTypeName', key: 'caseTypeCaseTypeName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Branch Name'), dataIndex: 'branchBranchName', key: 'branchBranchName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Client Name'), dataIndex: 'clientClientName', key: 'clientClientName', width: 'auto', render: (text: string) => <div>{text}</div> },
       {
         title: L('Actions'),
         key: 'actions',
@@ -170,7 +170,7 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('caseRegistrations')}</h2>
+            <h2>{L('Case Registrations')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -206,7 +206,7 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All caseRegistrations')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Case Registrations')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

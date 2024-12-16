@@ -111,11 +111,11 @@ class LitigantType extends AppComponentBase<ILitigantTypeProps, ILitigantTypeSta
     const { litigantTypes } = this.props.litigantTypeStore;
     const columns = [
       {
-        title: L('litigantTypeName'), dataIndex: 'litigantTypeName', key: 'litigantTypeName', width: 'auto',
+        title: L('Litigant Type Name'), dataIndex: 'litigantTypeName', key: 'litigantTypeName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('litigantTypeDesciption'), dataIndex: 'litigantTypeDesciption', key: 'litigantTypeDesciption', width: 'auto',
+        title: L('Litigant Type Desciption'), dataIndex: 'litigantTypeDesciption', key: 'litigantTypeDesciption', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {

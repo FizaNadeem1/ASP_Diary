@@ -115,15 +115,15 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
     const { branches } = this.props.branchStore;
     const columns = [
       {
-        title: L('branchName'), dataIndex: 'branchName', key: 'branchName', width: 'auto',
+        title: L('Branch Name'), dataIndex: 'branchName', key: 'branchName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('branchOwner'), dataIndex: 'branchOwner', key: 'branchOwner', width: 'auto',
+        title: L('Branch Owner'), dataIndex: 'branchOwner', key: 'branchOwner', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('firmFirmName'),dataIndex:'firmFirmName',key:'firmFirmName',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('cityCityName'),dataIndex:'cityCityName',key:'cityCityName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Firm Name'),dataIndex:'firmFirmName',key:'firmFirmName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('City Name'),dataIndex:'cityCityName',key:'cityCityName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',

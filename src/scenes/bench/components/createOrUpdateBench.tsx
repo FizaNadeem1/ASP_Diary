@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal, Form, Select, Checkbox, Button, Col, Row, Table,  } from 'antd';
+import { Input, Modal, Form, Select, Checkbox, Button, Col, Row, Table, DatePicker,  } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import { FormInstance } from 'antd/lib/form';
 import rules from './createOrUpdateBench.validation';
@@ -67,7 +67,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
         md: { span: 16 },
         lg: { span: 16 },
         xl: { span: 16 },
-        xxl: { span: 16 },
+        xxl: { span: 16},
       },
     };
     const tailFormItemLayout = {
@@ -77,7 +77,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
         md: { span: 8 },
         lg: { span: 8 },
         xl: { span: 8 },
-        xxl: { span: 8 },
+        xxl: { span: 8},
       },
       wrapperCol: {
         xs: { span: 16 },
@@ -145,10 +145,10 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
     });
     const columns = [
       {
-        title: L('branchName'), dataIndex: 'branchName', key: 'branchName', width: 'auto',
+        title: L('Branch'), dataIndex: 'branchName', key: 'branchName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      { title: L('presidingOfficerName'), dataIndex: 'presidingOfficerName', key: 'presidingOfficerName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Presiding Officer Name'), dataIndex: 'presidingOfficerName', key: 'presidingOfficerName', width: 'auto', render: (text: string) => <div>{text}</div> },
     ];
 
     return (
@@ -157,12 +157,13 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
           initialValues={{
             branchId: '',
             presidingOfficerId: '',
-            benchStartDate: moment().format('MMMM Do YYYY'),
-            benchEndDate: moment().format('MMMM Do YYYY'),
+            benchStartDate: moment(),
+            benchEndDate: moment(),
           }}
+          layout="horizontal"
           onValuesChange={this.onFormValuesChange}>
 
-          <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
+          <Form.Item label={L('Branch')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -173,7 +174,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
               }
             />
           </Form.Item>
-          <Form.Item label={L('courtId')} {...formItemLayout} name={'courtId'} rules={rules.courtId}>
+          <Form.Item label={L('Court')} {...formItemLayout} name={'courtId'} rules={rules.courtId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -184,45 +185,51 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
               }
             />
           </Form.Item>
-          <Form.Item label={L('benchCode')} {...formItemLayout} name={'benchCode'} rules={rules.benchCode}>
+          <Form.Item label={L('Bench Code')} {...formItemLayout} name={'benchCode'} rules={rules.benchCode}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('benchOfficerNo')} {...formItemLayout} name={'benchOfficerNo'} rules={rules.benchOfficerNo}>
+          <Form.Item label={L('Officer No')} {...formItemLayout} name={'benchOfficerNo'} rules={rules.benchOfficerNo}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('benchStartDate')} {...formItemLayout} name={'benchStartDate'} rules={rules.benchStartDate}>
-          <input
-    type="date"
-    className="form-control"
-    id="benchStartDate"
-    name="benchStartDate"
-    onChange={(e) => {
-      this.setState({ benchStartDate: new Date(e.target.value) }); // Convert string to Date
-    }}
-    value={this.state.benchStartDate ? this.state.benchStartDate.toISOString().split('T')[0] : ''} // Format for input
-    required
-  />
-          </Form.Item>
-          <Form.Item label={L('benchEndDate')} {...formItemLayout} name={'benchEndDate'} rules={rules.benchEndDate}>
-          <input
-    type="date"
-    className="form-control"
-    id="benchEndDate"
-    name="benchEndDate"
-    onChange={(e) => {
-      this.setState({ benchEndDate: new Date(e.target.value) }); // Convert string to Date
-    }}
-    value={this.state.benchEndDate ? this.state.benchEndDate.toISOString().split('T')[0] : ''} // Format for input
-    required
-  />
-          </Form.Item>
-          <Form.Item label={L('benchStatus')} {...tailFormItemLayout} name={'benchStatus'} valuePropName={'checked'}>
+          <Row gutter={24} style={{marginLeft:'120px'}}>
+  <Col span={14}>
+    <Form.Item label={L('Start Date')} {...formItemLayout} name="benchStartDate" rules={rules.benchStartDate}>
+      {/* <input
+        type="date"
+        className="form-control"
+        id="benchStartDate"
+        name="benchStartDate"
+        onChange={(e) => {
+          this.setState({ benchStartDate: new Date(e.target.value) });
+        }}
+        value={this.state.benchStartDate ? this.state.benchStartDate.toISOString().split('T')[0] : ''}
+      /> */}
+      <DatePicker/>
+    </Form.Item>
+  </Col>
+  <Col span={10}>
+    <Form.Item label={L('End Date')} {...formItemLayout} name="benchEndDate" rules={rules.benchEndDate}>
+      {/* <input
+        type="date"
+        className="form-control"
+        id="benchEndDate"
+        name="benchEndDate"
+        onChange={(e) => {
+          this.setState({ benchEndDate: new Date(e.target.value) });
+        }}
+        value={this.state.benchEndDate ? this.state.benchEndDate.toISOString().split('T')[0] : ''}
+      /> */}
+      <DatePicker/>
+    </Form.Item>
+  </Col>
+</Row>
+          <Form.Item label={L('Status')} {...tailFormItemLayout} name={'benchStatus'} valuePropName={'checked'}>
             <Checkbox></Checkbox>
           </Form.Item>
 
-          <Row gutter={24} style={{ marginLeft: '100px' }}>
-            <Col span={16}>
-              <Form.Item label={L('presidingOfficerId')} {...formItemLayout} name={'presidingOfficerId'} rules={rules.presidingOfficerId}>
+          <Row gutter={24} style={{ marginLeft: '40px' }}>
+            <Col span={20}>
+              <Form.Item label={L('Presiding Officer')} {...formItemLayout} name={'presidingOfficerId'} rules={rules.presidingOfficerId}>
                 <Select
                   showSearch
                   placeholder="--select--"
@@ -234,7 +241,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
                 />
               </Form.Item>
             </Col>
-            <Col span={6} style={{ display: 'flex', }}>
+            <Col span={4} style={{ display: 'flex', }}>
               <Button
                 type="primary"
                 onClick={handleAddOfficer}

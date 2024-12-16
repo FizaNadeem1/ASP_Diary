@@ -129,12 +129,12 @@ class Client extends AppComponentBase<IClientProps, IClientState> {
   public render() {
     const { clients } = this.props.clientStore;
     const columns = [
-      { title: L('ClientName'), dataIndex: 'ClientName', key: 'ClientName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('clientName'), dataIndex: 'clientName', key: 'clientName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('clientCode'), dataIndex: 'clientCode', key: 'clientCode', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('clientTypeClientTypeName'), dataIndex: 'clientTypeClientTypeName', key: 'clientTypeClientTypeName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('branchBranchName'), dataIndex: 'branchBranchName', key: 'branchBranchName', width:'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('cityCityName'), dataIndex: 'cityCityName', key: 'cityCityName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Client Name'), dataIndex: 'ClientName', key: 'ClientName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Client Name'), dataIndex: 'clientName', key: 'clientName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Client Code'), dataIndex: 'clientCode', key: 'clientCode', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Client Type'), dataIndex: 'clientTypeClientTypeName', key: 'clientTypeClientTypeName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Branch Name'), dataIndex: 'branchBranchName', key: 'branchBranchName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('City Name'), dataIndex: 'cityCityName', key: 'cityCityName', width:'auto', render: (text: string) => <div>{text}</div> },
       {
         title: L('IsActive'),
         dataIndex: 'isActive',

@@ -78,34 +78,34 @@ class CreateOrUpdateBranch extends React.Component<ICreateOrUpdateBranchProps> {
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Branch'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('branchContactPersonNo')} {...formItemLayout} name={'branchContactPersonNo'} rules={rules.branchContactPersonNo}>
+          <Form.Item label={L('Person No')} {...formItemLayout} name={'branchContactPersonNo'} rules={rules.branchContactPersonNo}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchContactPerson')} {...formItemLayout} name={'branchContactPerson'} rules={rules.branchContactPerson}>
+          <Form.Item label={L('Contact Person')} {...formItemLayout} name={'branchContactPerson'} rules={rules.branchContactPerson}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchContactEmail')} {...formItemLayout} name={'branchContactEmail'} rules={rules.branchContactEmail as []}>
+          <Form.Item label={L('Valid Email')} {...formItemLayout} name={'branchContactEmail'} rules={rules.branchContactEmail as []}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchContactNo')} {...formItemLayout} name={'branchContactNo'} rules={rules.branchContactNo}>
+          <Form.Item label={L('Contact No')} {...formItemLayout} name={'branchContactNo'} rules={rules.branchContactNo}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchAdress')} {...formItemLayout} name={'branchAdress'} rules={rules.branchAdress}>
+          <Form.Item label={L('Local Adress')} {...formItemLayout} name={'branchAdress'} rules={rules.branchAdress}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchOwner')} {...formItemLayout} name={'branchOwner'} rules={rules.branchOwner}>
+          <Form.Item label={L('Branch Owner')} {...formItemLayout} name={'branchOwner'} rules={rules.branchOwner}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchName')} {...formItemLayout} name={'branchName'} rules={rules.branchName}>
+          <Form.Item label={L('Branch Name')} {...formItemLayout} name={'branchName'} rules={rules.branchName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('branchCode')} {...formItemLayout} name={'branchCode'} rules={rules.branchCode}>
+          <Form.Item label={L('Branch Code')} {...formItemLayout} name={'branchCode'} rules={rules.branchCode}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('IsActive')} {...tailFormItemLayout} name={'isActive'} valuePropName={'checked'}>
+          <Form.Item label={L('Is Active')} {...tailFormItemLayout} name={'isActive'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
-          <Form.Item label={L('cityId')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
+          <Form.Item label={L('City')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -116,7 +116,7 @@ class CreateOrUpdateBranch extends React.Component<ICreateOrUpdateBranchProps> {
               }
             />
           </Form.Item>
-          <Form.Item label={L('firmId')} {...formItemLayout} name={'firmId'} rules={rules.firmId}>
+          <Form.Item label={L('Firm')} {...formItemLayout} name={'firmId'} rules={rules.firmId}>
             <Select
               showSearch
               placeholder="--select--"

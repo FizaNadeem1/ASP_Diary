@@ -17,10 +17,11 @@ import moment from 'moment';
 import { SubscriptionData } from './SubscriptionData';
 import { Line } from 'rc-progress';
 import Loading from '../../components/Loading';
-// import { loadStripe } from '@stripe/stripe-js';
-// import AppConsts from '../../lib/appconst';
+import { CardElement } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import AppConsts from '../../lib/appconst';
 
-// const stripePromise = loadStripe(AppConsts.stripeKey as string);
+const stripePromise = loadStripe(AppConsts.stripeKey as string);
 const FormItem = Form.Item;
 declare var abp: any;
 
@@ -28,6 +29,8 @@ export interface ILoginProps {
   subscriptionStore?: SubscriptionStore;
   history: any;
   location: any;
+//   stripe:any;
+// elements:any;
 }
 interface State {
   completedApis: number;
@@ -97,6 +100,7 @@ class Signup extends React.Component<ILoginProps, State> {
     }
   }
   handleSubmit = async () => {
+    // const { stripe, elements } = this.props;
     const { history } = this.props; // Get history from props for navigation
     const form = this.formRef.current;
     const { state } = this.props.location;
@@ -289,42 +293,82 @@ class Signup extends React.Component<ILoginProps, State> {
                               Modal.success({ content: L("Congragulations! Ypu have subscribed free package for a month") });
                               history.push('/');
                             } else {
-                              // const stripeSession = async () => {
-                              //   const stripe = await stripePromise;
-                              //   try {
-                              //     const { error } = await stripe?.redirectToCheckout({
-                              //       lineItems: [
-                              //         {
-                              //           priceData: {
-                              //             unitAmount: Math.round(data.tottalPricePaid * 100), // Convert amount to cents
-                              //             currency: 'usd',
-                              //             recurring: {
-                              //               interval: data.packageIsMonthly ? 'month' : 'year',
-                              //               intervalCount: 1,
-                              //             },
-                              //             productData: {
-                              //               name: `Associates Diary - ${data.packagePackageName}`,
-                              //               description: data.id.toString(),
-                              //             },
-                              //           },
-                              //           quantity: 1,
-                              //         },
-                              //       ],
-                              //       clientReferenceId: `${data.id}_${tenantId}`,
-                              //       mode: 'subscription',
-                              //       successUrl: `${window.location.origin}/success`,
-                              //       cancelUrl: `${window.location.origin}/cancel`,
-                              //     });
+                              const stripe = await stripePromise;
 
-                              //     if (error) {
-                              //       console.error('Error redirecting to Stripe:', error.message);
-                              //     }
-
-                              //   } catch (e) {
-                              //     return e
-                              //   }
+                              // Redirect to Checkout
+                              try {
+                                if (!stripe) {
+                                  throw new Error('Stripe has not been initialized.');
+                                }
+                              
+                                const result = await stripe.redirectToCheckout({
+                                  // lineItems: [
+                                  //           {
+                                  //               price: {
+                                  //                   unitAmount: Math.round(state.selectedPackage.tottalPricePaid * 100), // Convert amount to cents
+                                  //                   currency: 'usd',
+                                  //                   recurring: {
+                                  //                       interval: state.selectedPackage.packageIsMonthly ? 'month' : 'year',
+                                  //                       intervalCount: 1,
+                                  //                   },
+                                  //                   productData: {
+                                  //                       name: `Associates Diary - ${state.selectedPackage.packagePackageName}`,
+                                  //                       description: state.selectedPackage.id.toString(),
+                                  //                   },
+                                  //               },
+                                  //               quantity: 1,
+                                  //           },
+                                  //       ],
+                                        clientReferenceId: `${state.selectedPackage.id}_${tenantId}`,
+                                              mode: 'subscription',
+                                  successUrl: `${window.location.origin}/success`,
+                                  cancelUrl: `${window.location.origin}/cancel`,
+                                });
+                              
+                                if (result.error) {
+                                  console.error(result.error.message);
+                                  // Optionally set the error message in the state
+                                }
+                              } catch (err) {
+                                console.error('Error during redirect to checkout:', err);
+                              }
+                              
+                              // if (!stripe || !elements) {
+                              //   console.error("Stripe has not loaded");
+                              //   return;
                               // }
-                              // console.log(stripeSession)
+                              // const cardElement = elements.getElement(CardElement);
+
+                              // const { paymentMethod, error } = await stripe.createPaymentMethod({
+                              //   type: "card",
+                              //   card: cardElement,
+                              //   billing_details: {
+                              //     name: `Associates Diary - ${state.selectedPackage.packagePackageName}`,
+                              //   },
+                              // });
+                              // if (error) {
+                              //   console.error(error);
+                              //   console.log('stripe error',error.message);
+                              //   return;
+                              // }
+                              // const clientSecret = "your-client-secret-from-stripe-dashboard";
+
+                              // // Confirm Payment with PaymentIntent
+                              // const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+                              //   payment_method: paymentMethod.id,
+                              // });
+                              // if (confirmError) {
+                              //   console.error(confirmError);
+                              // } else if (paymentIntent && paymentIntent.status === "succeeded") {
+                              //   console.log('success strip',"Payment successful! Thank you.");
+                              // } else {
+                              //   history.push(`${window.location.origin}/cancel`);
+                              //   console.log('cancel strip',"Payment failed. Please try again.");
+                              // }                          
+                             
+                            
+                              
+                            
                             }
                             this.setState({ loading: false })
                           })
@@ -390,7 +434,9 @@ class Signup extends React.Component<ILoginProps, State> {
     });
     if (this.state.loading) {
       return (
-        <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex', height: '100vh' }}>
+        <div style={{ 
+          // alignItems: 'center', justifyContent: 'center', display: 'col', 
+        height: '100vh' }}>
           <Loading />
 
           <div style={{ alignItems: 'center', marginTop: '3px', display: 'flex' }}>
@@ -516,7 +562,8 @@ class Signup extends React.Component<ILoginProps, State> {
                 </FormItem>
                 <Row style={{ margin: '0px 0px 10px 15px ' }}>
                   {/* <Col span={24} offset={6}> */}
-                  <Button style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} danger>
+                  <CardElement />
+                  <Button  style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} danger>
                     {L('Signup')}
                   </Button>
                   {/* </Col> */}

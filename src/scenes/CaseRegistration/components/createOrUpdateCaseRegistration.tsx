@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {  Input, Modal, Tabs, Form, Select, Checkbox, DatePicker, Button, Table, Tag } from 'antd';
+import { Input, Modal, Tabs, Form, Select, Checkbox, DatePicker, Button, Table, Tag } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import rules from './createOrUpdateCaseRegistration.validation';
 import { FormInstance } from 'antd/lib/form';
@@ -13,6 +13,7 @@ import { GetFirstLitigantTypes } from '../../../services/caseRegistration/dto/ge
 import { GetSecondLitigantTypes } from '../../../services/caseRegistration/dto/getSecondLitigantTypeOutput';
 import { GetLawyers } from '../../../services/caseRegistration/dto/getLawyerOutput';
 import { GetColorByIndex } from '../../../components/Helper/GetColorByIndex';
+import http from '../../../services/httpService';
 
 const TabPane = Tabs.TabPane;
 
@@ -32,6 +33,12 @@ interface State {
   confirmDirty: boolean;
   isCBSelected: boolean;
   isCLSelected: boolean;
+  isClientModalOpen: boolean;
+  isCaseTypeModalOpen: boolean;
+  newClientName: string;
+  newCaseTypeName: string;
+  // CToptions: any[]
+  // CLoptions: any[]
   // caseLawyer:CaseLawyer[];
 }
 export interface ICreateOrUpdateClientProps {
@@ -47,22 +54,27 @@ export interface ICreateOrUpdateClientProps {
   secondParty: GetSecondLitigantTypes[];
   lawyers: GetLawyers[];
   formRef: React.RefObject<FormInstance>;
-  store:CaseRegistraionStore;
+  store: CaseRegistraionStore;
   // clList:GetAllCaseLawyerOutput[];
   // cbList:GetAllCaseBenchOutput[];
 }
 
-class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClientProps,State> {
+class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClientProps, State> {
   state = {
     confirmDirty: false,
-    isCBSelected:false,
-    isCLSelected:false,
-  // caseLawyer:[],
+    isCBSelected: false,
+    isCLSelected: false,
+    isClientModalOpen: false,
+    isCaseTypeModalOpen: false,
+    newClientName: '',
+    newCaseTypeName: '',
+    // CToptions: this.props.caseTypes.map((x) => ({ label: x.displayText, value: x.value })),
+    // CLoptions: this.props.clients.map((x) => ({ label: x.displayText, value: x.value })),
+    // caseLawyer:[],
 
   };
-
   render() {
-    const { branches,benches,caseTypes,clients,lawyers,firstParty,secondParty } = this.props;
+    const { branches, benches,caseTypes,clients, lawyers, firstParty, secondParty } = this.props;
 
     const formItemLayout = {
       labelCol: {
@@ -111,7 +123,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
         caseMainId: this.props.formRef.current?.getFieldValue('caseMainId'),
         benchId: this.props.formRef.current?.getFieldValue('benchId'),
       };
-    
+
       try {
         this.setState({ isCBSelected: true });
         await this.props.store.createCB(data);
@@ -132,7 +144,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
         caseMainId: this.props.formRef.current?.getFieldValue('caseMainId'),
         lawyerId: this.props.formRef.current?.getFieldValue('lawyerId'),
       };
-    
+
       try {
         this.setState({ isCLSelected: true });
         await this.props.store.createCL(data);
@@ -143,14 +155,13 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
         this.setState({ isCLSelected: false });
       }
     };
-    
-  
+
     const { visible, onCancel, onCreate } = this.props;
     const BRoptions = branches.map((x: GetBranches) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const CLoptions = clients.map((x: GetClients) => {
+    let CLoptions = clients.map((x: GetClients) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
@@ -158,133 +169,206 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const CToptions = caseTypes.map((x:GetCaseTypes) => {
+    let CToptions = caseTypes.map((x: GetCaseTypes) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const FLToptions = firstParty.map((x:GetFirstLitigantTypes) => {
+    const FLToptions = firstParty.map((x: GetFirstLitigantTypes) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const SLToptions = secondParty.map((x:GetSecondLitigantTypes) => {
+    const SLToptions = secondParty.map((x: GetSecondLitigantTypes) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const Boptions = benches.map((x:GetBenches) => {
+    const Boptions = benches.map((x: GetBenches) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
+    const handleAddClient = async () => {
+      const data = {
+        "id": 0,
+        "creationTime": "2024-10-31T07:56:30.277Z",
+        "creatorUserId": 0,
+        "lastModificationTime": "2024-10-31T07:56:30.277Z",
+        "lastModifierUserId": 0,
+        "clientCode": "string",
+        "clientTypeName": "PRIVATE",
+        "clientName": this.state.newClientName,
+        "clientFatherName": "XYZ",
+        "clientHusbandName": "No",
+        "clientAdress": 'XYZ',
+        "clientCNIC": 'XYZ',
+        "clientMobile": 'XYZ',
+        "clientGender": 'XYZ',
+        "clientPhotoPath": "noimage.png",
+        "clientDOB": "2024-10-31",
+        "clientRegDate": "2024-10-31",
+        "clientFirmCode": "HZ MArkets",
+        "clientFirmNTN": "NTN",
+        "clientFirmSTR": "STR",
+        "clientFirmContactPer": "Hassan",
+        "clientFirmContactPerNo": "03209988765",
+        "cityId": 15,
+        "branchId": 2,
+        "clientTypeId": 1
+      }
+      try {
+        let result = await http.post('/api/services/app/Client/Create', data);
+        if (result?.data?.success) {
+          let id = result.data.result.id
+          let label = result.data.result.clientName
+          this.props.formRef.current?.setFieldsValue({ "clientId": id })
+          this.props.formRef.current?.setFieldsValue({ "clientName": label })
+          this.setState({ isClientModalOpen: false });
+          // CToptions= ((prevState:any[])=>[...prevState, { value: id, label: label }])
+        }
+      } catch (error) {
+        console.error("Failed to make create client api call", error);
+      }
+    };
+
+    const handleAddCaseType = async () => {
+      const data = {
+        caseTypeName: this.state.newCaseTypeName,
+        caseTypeDesciption: "",
+      }
+      try {
+        let result = await http.post('/api/services/app/CaseType/Create', data);
+        if (result?.data?.success) {
+          let id = result.data.result.id
+          let label = result.data.result.caseTypeName
+          this.props.formRef.current?.setFieldsValue({ "caseTypeId": id })
+          this.props.formRef.current?.setFieldsValue({ "caseTypeName": label })
+          this.setState({ isCaseTypeModalOpen: false });
+          // CToptions=((prevState:any[])=>[...prevState, { value: id, label: label }])
+        }
+      } catch (error) {
+        console.error("Failed to make create casetype api call", error);
+      }
+    };
     const benchColumns = [
       {
         title: L('benchBenchCode'), dataIndex: 'benchBenchCode', key: 'benchBenchCode', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('bStartDate'),dataIndex:'bStartDate',key:'bStartDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('bEndDate'),dataIndex:'bEndDate',key:'bEndDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('caseBenchStatus'),dataIndex:'caseBenchStatus',key:'caseBenchStatus',width:'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>)}
+      { title: L('bStartDate'), dataIndex: 'bStartDate', key: 'bStartDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('bEndDate'), dataIndex: 'bEndDate', key: 'bEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('caseBenchStatus'), dataIndex: 'caseBenchStatus', key: 'caseBenchStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
     const lawyerColumns = [
       {
         title: L('lawyerLawyerName'), dataIndex: 'lawyerLawyerName', key: 'lawyerLawyerName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('lStartDate'),dataIndex:'lStartDate',key:'lStartDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('lEndDate'),dataIndex:'lEndDate',key:'lEndDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('caseLawyerStatus'),dataIndex:'caseLawyerStatus',key:'caseLawyerStatus',width:'auto',  render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>)}
+      { title: L('lStartDate'), dataIndex: 'lStartDate', key: 'lStartDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('lEndDate'), dataIndex: 'lEndDate', key: 'lEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('caseLawyerStatus'), dataIndex: 'caseLawyerStatus', key: 'caseLawyerStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
 
     return (
-      <Modal visible={visible} width={800} footer={this.props.modalType!=='edit'?null:undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
+      <Modal visible={visible} width={1000} footer={this.props.modalType !== 'edit' ? null : undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
         <Form ref={this.props.formRef}
-        initialValues={{
-          id: 0,
-          creationTime: '',
-          creatorUserId: 0,
-          lastModificationTime: '',
-          lastModifierUserId: 0,
-          caseNo: '',
-          courtCaseNo: '',
-          courtCaseGenNo: '',
-          courtCaseGaffNo: '',
-          caseRegDate: '',
-          caseStartDate: '',
-          caseEndDate: '',
-          caseTitle: '',
-          firstLawyerName: '',
-          secondLawyerName: '',
-          firstPartyName: '',
-          secondPartyName: '',
-          caseNotes: '',
-          casePleadings: '',
-          caseStatus: true,
-          caseShift: true,
-          caseFinish: true,
-          firNo: '',
-          policeStation: '',
-          offence: '',
-          firDate: '',
-          clientClientName: '',
-          clientId: null,
-          caseTypeCaseTypeName: '',
-          caseTypeId: null,
-          litigantType1LitigantTypeName: '',
-          firstLitigantTypeId: null,
-          litigantType2LitigantTypeName: '',
-          secLitigantTypeId: null,
-          branchBranchName: '',
-          branchId: null,
-          bStartDate: '',
-          bEndDate: '',
-          bNotes: '',
-          caseBenchStatus: true,
-          caseMain: '',
-          caseMainId: null,
-          bench: '',
-          benchId: null,
-          lStartDate:'',
-          lEndDate:'',
-          lNotes: '',
-          caseLawyerStatus: true,
-          lawyer: '',
-          lawyerId: null,
-        
-        }}
+          initialValues={{
+            id: 0,
+            creationTime: '',
+            creatorUserId: 0,
+            lastModificationTime: '',
+            lastModifierUserId: 0,
+            caseNo: '',
+            courtCaseNo: '',
+            courtCaseGenNo: '',
+            courtCaseGaffNo: '',
+            caseRegDate: '',
+            caseStartDate: '',
+            caseEndDate: '',
+            caseTitle: '',
+            firstLawyerName: '',
+            secondLawyerName: '',
+            firstPartyName: '',
+            secondPartyName: '',
+            caseNotes: '',
+            casePleadings: '',
+            caseStatus: true,
+            caseShift: true,
+            caseFinish: true,
+            firNo: '',
+            policeStation: '',
+            offence: '',
+            firDate: '',
+            clientClientName: '',
+            clientId: null,
+            caseTypeCaseTypeName: '',
+            caseTypeId: null,
+            litigantType1LitigantTypeName: '',
+            firstLitigantTypeId: null,
+            litigantType2LitigantTypeName: '',
+            secLitigantTypeId: null,
+            branchBranchName: '',
+            branchId: null,
+            bStartDate: '',
+            bEndDate: '',
+            bNotes: '',
+            caseBenchStatus: true,
+            caseMain: '',
+            caseMainId: null,
+            bench: '',
+            benchId: null,
+            lStartDate: '',
+            lEndDate: '',
+            lNotes: '',
+            caseLawyerStatus: true,
+            lawyer: '',
+            lawyerId: null,
+
+          }}
         >
           <Tabs defaultActiveKey={'ClientInfo'} size={'small'} tabBarGutter={64}>
             <TabPane tab={'Client'} key={'ClientInfo'}>
-            <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={BRoptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
-          <Form.Item label={L('clientId')} {...formItemLayout} name={'clientId'} rules={rules.clientId}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={CLoptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
-          <Form.Item label={L('caseTypeId')} {...formItemLayout} name={'caseTypeId'} rules={rules.caseTypeId}>
-            <Select
-              showSearch
-              placeholder="--select--"
-              options={CToptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-          </Form.Item>
+              <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={BRoptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+              </Form.Item>
+              <Form.Item label="Client" name="clientId" rules={rules.clientId}>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <Select
+                    showSearch
+                    placeholder="--select--"
+                    options={CLoptions}
+                    allowClear
+                    filterOption={(input, option) =>
+                      (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                    }
+                  />
+                  <Button type="link" onClick={() => this.setState({ isClientModalOpen: true })}>
+                    Add New
+                  </Button>
+                </div>
+              </Form.Item>
+
+              <Form.Item label="Case Type" name="caseTypeId" rules={rules.caseTypeId}>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <Select
+                    showSearch
+                    placeholder="--select--"
+                    options={CToptions}
+                    allowClear
+                    filterOption={(input, option) =>
+                      (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                    }
+                  />
+                  <Button type="link" onClick={() => this.setState({ isCaseTypeModalOpen: true })}>
+                    Add New
+                  </Button>
+                </div>
+              </Form.Item>
 
               <Form.Item label={L('caseRegDate')} {...formItemLayout} name={'caseRegDate'} rules={rules.caseRegDate}>
                 <DatePicker />
@@ -305,15 +389,15 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 <Input />
               </Form.Item>
               <Form.Item label={L('firstLitigantTypeId')} {...formItemLayout} name={'firstLitigantTypeId'} rules={rules.firstLitigantTypeId}>
-              <Select
-              showSearch
-              placeholder="--select--"
-              options={FLToptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={FLToptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
               </Form.Item>
               <Form.Item label={L('firstPartyName')} {...formItemLayout} name={'firstPartyName'} rules={rules.firstPartyName}>
                 <Input />
@@ -325,15 +409,15 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 <Input />
               </Form.Item>
               <Form.Item label={L('secLitigantTypeId')} {...formItemLayout} name={'secLitigantTypeId'} rules={rules.secLitigantTypeId}>
-              <Select
-              showSearch
-              placeholder="--select--"
-              options={SLToptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={SLToptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
               </Form.Item>
               <Form.Item label={L('secondPartyName')} {...formItemLayout} name={'secondPartyName'} rules={rules.secondPartyName}>
                 <Input />
@@ -354,7 +438,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 <Checkbox></Checkbox>
               </Form.Item>
               <Form.Item label={L('firDate')} {...formItemLayout} name={'firDate'} rules={rules.firDate}>
-                <Input />
+                <DatePicker />
               </Form.Item>
               <Form.Item label={L('policeStation')} {...formItemLayout} name={'policeStation'} rules={rules.policeStation}>
                 <Input />
@@ -371,7 +455,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('casePleadings')} {...formItemLayout} name={'casePleadings'} rules={rules.casePleadings}>
                 <Input />
               </Form.Item>
-              {this.props.modalType!=='edit'&&<div style={{ textAlign: 'right', marginTop: 16 }}>
+              {this.props.modalType !== 'edit' && <div style={{ textAlign: 'right', marginTop: 16 }}>
                 <Button onClick={onCancel} style={{ marginRight: 8 }}>
                   {L('Cancel')}
                 </Button>
@@ -381,21 +465,21 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               </div>}
             </TabPane>
             <TabPane tab={L('Case Client')} key={'Client'} forceRender={true}>
-            <Form.Item label={L('benchId')} {...formItemLayout} name={'benchId'} rules={rules.benchId}>
-              <Select
-              showSearch
-              placeholder="--select--"
-              options={Boptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
+              <Form.Item label={L('benchId')} {...formItemLayout} name={'benchId'} rules={rules.benchId}>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={Boptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
               </Form.Item>
               <Form.Item label={L('bStartDate')} {...formItemLayout} name={'bStartDate'} rules={rules.bStartDate}>
                 <DatePicker />
               </Form.Item>
-            <Form.Item label={L('bEndDate')} {...formItemLayout} name={'bEndDate'} rules={rules.bEndDate}>
+              <Form.Item label={L('bEndDate')} {...formItemLayout} name={'bEndDate'} rules={rules.bEndDate}>
                 <DatePicker />
               </Form.Item>
               <Form.Item label={L('caseBenchStatus')} {...formItemLayout} name={'caseBenchStatus'} valuePropName={'checked'}>
@@ -404,45 +488,45 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('bNotes')} {...formItemLayout} name={'bNotes'} rules={rules.bNotes}>
                 <Input />
               </Form.Item>
-              {this.props.modalType!=='edit'&&<><Table
-                 rowKey={(record) => record.id}
-                  bordered={true}
-                  onRow={(record, index) => ({
-                    style: {
-                      backgroundColor: GetColorByIndex({ index }), // Set background color
-                    },
-                  })}
-                  columns={benchColumns}
-                  size='small'
-                  pagination={false}
-                  loading={this.state.isCBSelected} 
-                  dataSource={this.props.store.cbList === undefined ? [] : this.props.store.cbList}
-                />
+              {this.props.modalType !== 'edit' && <><Table
+                rowKey={(record) => record.id}
+                bordered={true}
+                onRow={(record, index) => ({
+                  style: {
+                    backgroundColor: GetColorByIndex({ index }), // Set background color
+                  },
+                })}
+                columns={benchColumns}
+                size='small'
+                pagination={false}
+                loading={this.state.isCBSelected}
+                dataSource={this.props.store.cbList === undefined ? [] : this.props.store.cbList}
+              />
                 <div style={{ textAlign: 'right', marginTop: 16 }}>
-                <Button onClick={onCancel} style={{ marginRight: 8 }}>
-                  {L('Cancel')}
-                </Button>
-                <Button type="primary" onClick={() => handleEditCaseBench()}>
-                  {L('Save')}
-                </Button>
-              </div></>}
+                  <Button onClick={onCancel} style={{ marginRight: 8 }}>
+                    {L('Cancel')}
+                  </Button>
+                  <Button type="primary" onClick={() => handleEditCaseBench()}>
+                    {L('Save')}
+                  </Button>
+                </div></>}
             </TabPane>
             <TabPane tab={L('Case Lawyer')} key={'Lawyer'} forceRender={true}>
-            <Form.Item label={L('lawyerId')} {...formItemLayout} name={'lawyerId'} rules={rules.lawyerId}>
-              <Select
-              showSearch
-              placeholder="--select--"
-              options={Loptions}
-              allowClear
-              filterOption={(input, option) =>
-                (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-              }
-            />
+              <Form.Item label={L('lawyerId')} {...formItemLayout} name={'lawyerId'} rules={rules.lawyerId}>
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={Loptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
               </Form.Item>
               <Form.Item label={L('lStartDate')} {...formItemLayout} name={'lStartDate'} rules={rules.lStartDate}>
                 <DatePicker />
               </Form.Item>
-            <Form.Item label={L('lEndDate')} {...formItemLayout} name={'lEndDate'} rules={rules.lEndDate}>
+              <Form.Item label={L('lEndDate')} {...formItemLayout} name={'lEndDate'} rules={rules.lEndDate}>
                 <DatePicker />
               </Form.Item>
               <Form.Item label={L('caseLawyerStatus')} {...formItemLayout} name={'caseLawyerStatus'} valuePropName={'checked'}>
@@ -451,30 +535,26 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
               <Form.Item label={L('lNotes')} {...formItemLayout} name={'lNotes'} rules={rules.lNotes}>
                 <Input />
               </Form.Item>
-              {this.props.modalType!=='edit'&&<><Table
-                 rowKey={(record) => record.id}
-                  bordered={true}
-                  onRow={(record, index) => ({
-                    style: {
-                      backgroundColor: GetColorByIndex({ index }), // Set background color
-                    },
-                  })}
-                  columns={lawyerColumns}
-                  size='small'
-                  pagination={false}
-                  loading={this.state.isCLSelected} 
-                  dataSource={this.props.store.clList === undefined ? [] : this.props.store.clList}
-                />
+              {this.props.modalType !== 'edit' && <><Table rowKey={(record) => record.id} bordered={true} onRow={(record, index) => ({
+                  style: {
+                    backgroundColor: GetColorByIndex({ index }), 
+                  }})} columns={lawyerColumns} size='small' pagination={false} loading={this.state.isCLSelected} dataSource={this.props.store.clList === undefined ? [] : this.props.store.clList}/>
                 <div style={{ textAlign: 'right', marginTop: 16 }}>
-                <Button onClick={onCancel} style={{ marginRight: 8 }}>
-                  {L('Cancel')}
-                </Button>
-                <Button type="primary" onClick={() => handleEditCaseLawyer()}>
-                  {L('Save')}
-                </Button>
-              </div></>}
-            </TabPane>          
-            </Tabs>
+                  <Button onClick={onCancel} style={{ marginRight: 8 }}>
+                    {L('Cancel')}
+                  </Button>
+                  <Button type="primary" onClick={() => handleEditCaseLawyer()}>
+                    {L('Save')}
+                  </Button>
+                </div></>}
+            </TabPane>
+          </Tabs>
+          <Modal title="Add New Client" visible={this.state.isClientModalOpen} onOk={handleAddClient} onCancel={() => this.setState({ isClientModalOpen: false })}>
+            <Input placeholder="Enter new client name" value={this.state.newClientName} onChange={(e) => this.setState({ newClientName: e.target.value })} />
+          </Modal>
+          <Modal title="Add New Case Type" visible={this.state.isCaseTypeModalOpen} onOk={handleAddCaseType} onCancel={() => this.setState({ isCaseTypeModalOpen: false })}>
+            <Input placeholder="Enter new case type" value={this.state.newCaseTypeName} onChange={(e) => this.setState({ newCaseTypeName: e.target.value })} />
+          </Modal>
         </Form>
       </Modal>
     );

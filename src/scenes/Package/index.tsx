@@ -111,15 +111,15 @@ class Package extends AppComponentBase<IPackageProps, IPackageState> {
     const { packages } = this.props.packageStore;
     const columns = [
       {
-        title: L('packageName'), dataIndex: 'packageName', key: 'packageName', width: 'auto',
+        title: L('Package Name'), dataIndex: 'packageName', key: 'packageName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('courtBench'),dataIndex:'courtBench',key:'courtBench',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('clientRegister'),dataIndex:'clientRegister',key:'clientRegister',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('lawyerRegister'),dataIndex:'lawyerRegister',key:'lawyerRegister',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('caseRegister'),dataIndex:'caseRegister',key:'caseRegister',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('proceedings'),dataIndex:'proceedings',key:'proceedings',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('isMonthly'),dataIndex:'isMonthly',key:'isMonthly',width:'auto', 
+      {title:L('Court Bench'),dataIndex:'courtBench',key:'courtBench',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Client Register'),dataIndex:'clientRegister',key:'clientRegister',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Lawyer Register'),dataIndex:'lawyerRegister',key:'lawyerRegister',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Case Register'),dataIndex:'caseRegister',key:'caseRegister',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Proceeding'),dataIndex:'proceedings',key:'proceedings',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Is Monthly or Yearly'),dataIndex:'isMonthly',key:'isMonthly',width:'auto', 
         render: (text: boolean) => (text === true ? <Tag style={{
           backgroundColor: "teal",
           color: "white",
@@ -173,7 +173,7 @@ class Package extends AppComponentBase<IPackageProps, IPackageState> {
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('packages')}</h2>
+            <h2>{L('Packages')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -209,7 +209,7 @@ class Package extends AppComponentBase<IPackageProps, IPackageState> {
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Packages')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

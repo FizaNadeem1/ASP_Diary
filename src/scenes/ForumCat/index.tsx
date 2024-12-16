@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col,  Input,  Modal, Row, Table,  } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table, } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -112,8 +112,8 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
   public render() {
     const { categories } = this.props.forumCategoryStore;
     const columns = [
-      { title: L('forumCategoryName'), dataIndex: 'forumCategoryName', key: 'forumCategoryName', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('forumNameForumName'), dataIndex: 'forumNameForumName', key: 'forumNameForumName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Forum Category Name'), dataIndex: 'forumCategoryName', key: 'forumCategoryName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Forum Name'), dataIndex: 'forumNameForumName', key: 'forumNameForumName', width: 'auto', render: (text: string) => <div>{text}</div> },
       {
         title: L('Actions'),
         key: 'actions',
@@ -178,6 +178,18 @@ class ForumCat extends AppComponentBase<ICategoryProps, ICategoryState> {
             xl={{ span: 24, offset: 0 }}
             xxl={{ span: 24, offset: 0 }}
           >
+            <Row
+              gutter={16}
+              style={{
+                backgroundColor: 'black', // Set background color to black
+                padding: '10px', // Optional: Add padding to give space around the elements
+              }}
+            >
+              <Col span={12}>
+                <h4 style={{ color: 'white' }}> {L('All Forum Categories')}</h4> {/* Change text color to white for visibility */}
+              </Col>
+            </Row>
+
             <Table
               rowKey={(record) => record.id.toString()}
               onRow={(record, index) => ({

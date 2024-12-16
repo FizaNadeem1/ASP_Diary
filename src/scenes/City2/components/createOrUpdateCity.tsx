@@ -53,10 +53,10 @@ class CreateOrUpdateCity extends React.Component<ICreateOrUpdateCityProps> {
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'City'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('cityName')} {...formItemLayout} name={'cityName'} rules={rules.cityName}>
+          <Form.Item label={L('City Name')} {...formItemLayout} name={'cityName'} rules={rules.cityName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('divisionId')} {...formItemLayout} name={'divisionId'} rules={rules.divisionId}>
+          <Form.Item label={L('Division')} {...formItemLayout} name={'divisionId'} rules={rules.divisionId}>
             <Select
               showSearch
               placeholder="--select--"
