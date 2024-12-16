@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Select, Table, } from 'antd';
+import { Button, Card, Col, Input, Modal, Row, Table, } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -8,7 +8,7 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import { FormInstance } from 'antd/lib/form';
-import { DeleteOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, } from '@ant-design/icons';
 import CreateOrUpdateForum from './components/createOrUpdateForum';
 import ForumStore from '../../stores/forumStore';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
@@ -28,7 +28,6 @@ export interface IForumState {
 
 const confirm = Modal.confirm;
 const Search = Input.Search;
-const { Option } = Select;
 
 @inject(Stores.ForumStore)
 @observer
@@ -130,14 +129,14 @@ class Forum extends AppComponentBase<IForumProps, IForumState> {
     const { forums } = this.props.forumStore;
     const columns = [
       {
-        title: L('forumName'),
+        title: L('Forum Name'),
         dataIndex: 'forumName',
         key: 'forumName',
         width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('forumDescription'),
+        title: L('Forum Description'),
         dataIndex: 'forumDescription',
         key: 'forumDescription',
         width: 'auto',
@@ -189,8 +188,8 @@ class Forum extends AppComponentBase<IForumProps, IForumState> {
             xl={{ span: 2, offset: 21 }}
             xxl={{ span: 2, offset: 21 }}
           >
-            <Button type="primary"  icon={<PlusOutlined />} onClick={() => this.createOrUpdateModalOpen({ id: 0 })} >
-            {L('Create new')}</Button>
+            <Button type="primary" icon={<PlusOutlined />} onClick={() => this.createOrUpdateModalOpen({ id: 0 })} >
+              {L('Create new')}</Button>
           </Col>
         </Row>
         <Row>
@@ -207,99 +206,32 @@ class Forum extends AppComponentBase<IForumProps, IForumState> {
             xl={{ span: 24, offset: 0 }}
             xxl={{ span: 24, offset: 0 }}
           >
-            <div>
-              {/* Custom Header Row */}
-              <Row
-        gutter={16}
-        style={{
-          backgroundColor: 'black', // Set background color to black
-          padding: '10px', // Optional: Add padding to give space around the elements
-        }}
-      >
-        <Col span={12}>
-          <h4 style={{ color: 'white' }}> {L('All Forums')}</h4> {/* Change text color to white for visibility */}
-        </Col>
-
-        <Col span={12} style={{ textAlign: 'right' }}>
-          {/* Circular dropdown */}
-          <Select
-            value={this.state.maxResultCount}
-            onChange={this.handleMaxResultCountChange}
-            style={{
-              width: '60px',
-              // height: '50px',
-              borderRadius: '100%', // Circle the outer layout
-              textAlign: 'center', // Center the value text inside the circle
-              padding: 0,
-              lineHeight: '60px', // Vertically center text inside the circle
-              display: 'inline-block', // Ensure it fits nicely
-              fontSize: '16px', // Adjust font size for proper fit
-            }}
-          >
-            {[10, 25, 100].map((count) => (
-              <Option key={count} value={count}>
-                {count}
-              </Option>
-            ))}
-          </Select>
-
-          {/* Circular Buttons */}
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<PlusOutlined />}
-            style={{ marginLeft: 10 }}
-          />
-          <Button
-            type="default"
-            shape="circle"
-            icon={<SearchOutlined />}
-            style={{ marginLeft: 10 }}
-          />
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<DeleteOutlined />}
-            style={{ marginLeft: 10 }}
-          />
-        </Col>
-      </Row>              {/* Ant Design Table */}
-              <Table
-                rowKey={(record) => record.id.toString()}
-                onRow={(record, index) => ({
-                  style: {
-                    backgroundColor: GetColorByIndex({ index }), // Set background color
-                  },
-                })}
-                // className="custom-header-style"
-                size="small"
-                bordered={true}
-                columns={columns}
-                pagination={{ pageSize: 10, total: forums === undefined ? 0 : forums.totalCount, defaultCurrent: 1 }}
-                loading={forums === undefined ? true : false}
-                dataSource={forums === undefined ? [] : forums.items}
-                onChange={this.handleTableChange}
-              />
-
-              {/* Custom Footer Navigation */}
-              <Row justify="space-between" style={{ marginTop: 16 }}>
-                <Col>
-                  <Button
-                    type="default"
-                    onClick={this.handlePrevPage}
-                    disabled={this.state.currentPage === 1}
-                  >
-                    Previous
-                  </Button>
-                </Col>
-                <Col>
-                  <Button type="default" onClick={this.handleNextPage}>
-                    Next
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-
+            <Row
+              gutter={16}
+              style={{
+                backgroundColor: 'black', // Set background color to black
+                padding: '10px', // Optional: Add padding to give space around the elements
+              }}
+            >
+              <Col span={12}>
+                <h4 style={{ color: 'white' }}> {L('All Forums')}</h4> {/* Change text color to white for visibility */}
+              </Col>
+            </Row>              {/* Ant Design Table */}
+            <Table
+              rowKey={(record) => record.id.toString()}
+              onRow={(record, index) => ({
+                style: {
+                  backgroundColor: GetColorByIndex({ index }), // Set background color
+                },
+              })}
+              size="small"
+              bordered={true}
+              columns={columns}
+              pagination={{ pageSize: 10, total: forums === undefined ? 0 : forums.totalCount, defaultCurrent: 1 }}
+              loading={forums === undefined ? true : false}
+              dataSource={forums === undefined ? [] : forums.items}
+              onChange={this.handleTableChange}
+            />
           </Col>
         </Row>
         <CreateOrUpdateForum

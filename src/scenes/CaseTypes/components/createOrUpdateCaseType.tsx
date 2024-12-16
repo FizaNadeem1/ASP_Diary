@@ -45,10 +45,10 @@ class CreateOrUpdateCaseType extends React.Component<ICreateOrUpdateCaseTypeProp
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'CaseType'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-              <Form.Item label={L('caseTypeName')} {...formItemLayout} name={'caseTypeName'} rules={rules.caseTypeName}>
+              <Form.Item label={L('Case Type Name')} {...formItemLayout} name={'caseTypeName'} rules={rules.caseTypeName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('caseTypeDesciption')} {...formItemLayout} name={'caseTypeDesciption'} rules={rules.caseTypeDesciption}>
+              <Form.Item label={L('Case Type Description')} {...formItemLayout} name={'caseTypeDesciption'} rules={rules.caseTypeDesciption}>
                 <Input />
               </Form.Item>
         </Form>

@@ -67,13 +67,13 @@ class CreateOrUpdateLitigantType extends React.Component<ICreateOrUpdateLitigant
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'LitigantType'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-              <Form.Item label={L('litigantTypeName')} {...formItemLayout} name={'litigantTypeName'} rules={rules.litigantTypeName}>
+              <Form.Item label={L('Litigant Type Name')} {...formItemLayout} name={'litigantTypeName'} rules={rules.litigantTypeName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('litigantTypeDesciption')} {...formItemLayout} name={'litigantTypeDesciption'} rules={rules.litigantTypeDesciption}>
+              <Form.Item label={L('Litigant Type Desciption')} {...formItemLayout} name={'litigantTypeDesciption'} rules={rules.litigantTypeDesciption}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('status')} {...tailFormItemLayout} name={'status'} valuePropName={'checked'}>
+              <Form.Item label={L('Status')} {...tailFormItemLayout} name={'status'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
         </Form>

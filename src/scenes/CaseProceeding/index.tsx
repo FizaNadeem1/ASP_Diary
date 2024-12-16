@@ -127,18 +127,18 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
     const { caseProceedings } = this.props.caseProceedingStore;
     const columns = [
       {
-        title: L('caseCaseNo'), dataIndex: 'caseCaseNo', key: 'caseCaseNo', width: 'auto',
+        title: L('Case No'), dataIndex: 'caseCaseNo', key: 'caseCaseNo', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('caseCaseTitle'), dataIndex: 'caseCaseTitle', key: 'caseCaseTitle', width: 'auto',
+        title: L('Case Title'), dataIndex: 'caseCaseTitle', key: 'caseCaseTitle', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('previousDate'),dataIndex:'previousDate',key:'previousDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('nexttDate'),dataIndex:'nexttDate',key:'nexttDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('benchBenchCode'),dataIndex:'benchBenchCode',key:'benchBenchCode',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('proceedingStatusProceedingName'),dataIndex:'proceedingStatusProceedingName',key:'proceedingStatusProceedingName',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('branchBranchName'),dataIndex:'branchBranchName',key:'branchBranchName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Previous Date'),dataIndex:'previousDate',key:'previousDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Next Date'),dataIndex:'nexttDate',key:'nexttDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Bench Code'),dataIndex:'benchBenchCode',key:'benchBenchCode',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Proceeding'),dataIndex:'proceedingStatusProceedingName',key:'proceedingStatusProceedingName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Branch Name'),dataIndex:'branchBranchName',key:'branchBranchName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',
@@ -175,7 +175,7 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('caseProceedings')}</h2>
+            <h2>{L('CaseProceedings')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -211,7 +211,7 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All caseProceedings')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Case Proceedings')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

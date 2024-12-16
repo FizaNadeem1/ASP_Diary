@@ -53,13 +53,13 @@ class CreateOrUpdatePresidingOfficer extends React.Component<ICreateOrUpdatePres
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'PresidingOfficer'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('presidingOfficerName')} {...formItemLayout} name={'presidingOfficerName'} rules={rules.presidingOfficerName}>
+          <Form.Item label={L('Presiding Officer Name')} {...formItemLayout} name={'presidingOfficerName'} rules={rules.presidingOfficerName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('presidingOfficerNameNotes')} {...formItemLayout} name={'presidingOfficerNameNotes'} rules={rules.presidingOfficerNameNotes}>
+          <Form.Item label={L('Presiding Officer Notes')} {...formItemLayout} name={'presidingOfficerNameNotes'} rules={rules.presidingOfficerNameNotes}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('designationId')} {...formItemLayout} name={'designationId'} rules={rules.designationId}>
+          <Form.Item label={L('Designation')} {...formItemLayout} name={'designationId'} rules={rules.designationId}>
             <Select
               showSearch
               placeholder="--select--"

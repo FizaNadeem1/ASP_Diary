@@ -153,7 +153,7 @@ class City extends AppComponentBase<ICityProps, ICityState> {
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('cities')}</h2>
+            <h2>{L('Cities')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -189,7 +189,7 @@ class City extends AppComponentBase<ICityProps, ICityState> {
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Cities')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

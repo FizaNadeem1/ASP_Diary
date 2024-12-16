@@ -105,27 +105,27 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Court'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('courtCode')} {...formItemLayout} name={'courtCode'} rules={rules.courtCode}>
+          <Form.Item label={L('Court Code')} {...formItemLayout} name={'courtCode'} rules={rules.courtCode}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('courtDescription')} {...formItemLayout} name={'courtDescription'} rules={rules.courtDescription}>
+          <Form.Item label={L('Court Description')} {...formItemLayout} name={'courtDescription'} rules={rules.courtDescription}>
             <Input />
-          </Form.Item><Form.Item label={L('courtNumber')} {...formItemLayout} name={'courtNumber'} rules={rules.courtNumber}>
+          </Form.Item><Form.Item label={L('Court Number')} {...formItemLayout} name={'courtNumber'} rules={rules.courtNumber}>
             <Input />
-          </Form.Item><Form.Item label={L('courtReader')} {...formItemLayout} name={'courtReader'} rules={rules.courtReader}>
+          </Form.Item><Form.Item label={L('Court Reader')} {...formItemLayout} name={'courtReader'} rules={rules.courtReader}>
             <Input />
-          </Form.Item><Form.Item label={L('courtReaderNumber')} {...formItemLayout} name={'courtReaderNumber'} rules={rules.courtReaderNumber}>
+          </Form.Item><Form.Item label={L('Court Reader Number')} {...formItemLayout} name={'courtReaderNumber'} rules={rules.courtReaderNumber}>
             <Input />
-          </Form.Item><Form.Item label={L('courtReaderEmail')} {...formItemLayout} name={'courtReaderEmail'} rules={rules.courtReaderEmail as []}>
+          </Form.Item><Form.Item label={L('Court Reader Email')} {...formItemLayout} name={'courtReaderEmail'} rules={rules.courtReaderEmail as []}>
             <Input />
-          </Form.Item><Form.Item label={L('courtAhlmed')} {...formItemLayout} name={'courtAhlmed'} rules={rules.courtAhlmed}>
+          </Form.Item><Form.Item label={L('Court Ahlmed')} {...formItemLayout} name={'courtAhlmed'} rules={rules.courtAhlmed}>
             <Input />
-          </Form.Item><Form.Item label={L('courtAhlmedNumber')} {...formItemLayout} name={'courtAhlmedNumber'} rules={rules.courtAhlmedNumber}>
+          </Form.Item><Form.Item label={L('Court Ahlmed Number')} {...formItemLayout} name={'courtAhlmedNumber'} rules={rules.courtAhlmedNumber}>
             <Input />
-          </Form.Item><Form.Item label={L('courtAhlmedEmail')} {...formItemLayout} name={'courtAhlmedEmail'} rules={rules.courtAhlmedEmail as []}>
+          </Form.Item><Form.Item label={L('Court Ahlmed Email')} {...formItemLayout} name={'courtAhlmedEmail'} rules={rules.courtAhlmedEmail as []}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('provinceId')} {...formItemLayout} name={'provinceId'} rules={rules.provinceId}>
+          <Form.Item label={L('Province')} {...formItemLayout} name={'provinceId'} rules={rules.provinceId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -137,7 +137,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
               }
             />
           </Form.Item>
-          <Form.Item label={L('divisionId')} {...formItemLayout} name={'divisionId'} rules={rules.divisionId}>
+          <Form.Item label={L('Division')} {...formItemLayout} name={'divisionId'} rules={rules.divisionId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -148,7 +148,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
               }
             />
-          </Form.Item><Form.Item label={L('cityId')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
+          </Form.Item><Form.Item label={L('City')} {...formItemLayout} name={'cityId'} rules={rules.cityId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -159,7 +159,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
               }
             />
-          </Form.Item><Form.Item label={L('tehsilId')} {...formItemLayout} name={'tehsilId'} rules={rules.tehsilId}>
+          </Form.Item><Form.Item label={L('Tehsil')} {...formItemLayout} name={'tehsilId'} rules={rules.tehsilId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -170,7 +170,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
               }
             />
           </Form.Item>
-          <Form.Item label={L('forumId')} {...formItemLayout} name={'forumId'} rules={rules.forumId}>
+          <Form.Item label={L('Forum Name')} {...formItemLayout} name={'forumId'} rules={rules.forumId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -181,7 +181,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
               }
             />
           </Form.Item>
-          <Form.Item label={L('forumCatId')} {...formItemLayout} name={'forumCatId'} rules={rules.forumCatId}>
+          <Form.Item label={L('Forum Category Name')} {...formItemLayout} name={'forumCatId'} rules={rules.forumCatId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -192,7 +192,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
               }
             />
           </Form.Item>
-          <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
+          <Form.Item label={L('Branch Name')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
             <Select
               showSearch
               placeholder="--select--"

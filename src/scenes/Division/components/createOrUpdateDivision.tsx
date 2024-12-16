@@ -53,13 +53,13 @@ class CreateOrUpdateDivision extends React.Component<ICreateOrUpdateDivisionProp
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Division'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('divisionName')} {...formItemLayout} name={'divisionName'} rules={rules.divisionName}>
+          <Form.Item label={L('Division Name')} {...formItemLayout} name={'divisionName'} rules={rules.divisionName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('divisionDescription')} {...formItemLayout} name={'divisionDescription'} rules={rules.divisionDescription}>
+          <Form.Item label={L('Division Description')} {...formItemLayout} name={'divisionDescription'} rules={rules.divisionDescription}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('provinceId')} {...formItemLayout} name={'provinceId'} rules={rules.provinceId}>
+          <Form.Item label={L('Province')} {...formItemLayout} name={'provinceId'} rules={rules.provinceId}>
             <Select
               showSearch
               placeholder="--select--"

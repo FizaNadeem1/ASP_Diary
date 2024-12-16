@@ -138,18 +138,18 @@ class Firm extends AppComponentBase<IFirmProps, IFirmState> {
     const { firms } = this.props.firmStore;
     const columns = [
       {
-        title: L('firmName'), dataIndex: 'firmName', key: 'firmName', width: 'auto',
+        title: L('Firm Name'), dataIndex: 'firmName', key: 'firmName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('firmOwner'), dataIndex: 'firmOwner', key: 'firmOwner', width: 'auto',
+        title: L('Firm Owner'), dataIndex: 'firmOwner', key: 'firmOwner', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('firmCode'),dataIndex:'firmCode',key:'firmCode',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('noOfBranches'),dataIndex:'noOfBranches',key:'noOfBranches',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('noOfCases'),dataIndex:'noOfCases',key:'noOfCases',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('noOfLawyers'),dataIndex:'noOfLawyers',key:'noOfLawyers',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('city Name'),dataIndex:'cityNameCityName',key:'cityNameCityName',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Firm Code'),dataIndex:'firmCode',key:'firmCode',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Allowed Branches'),dataIndex:'noOfBranches',key:'noOfBranches',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Allowed Cases'),dataIndex:'noOfCases',key:'noOfCases',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Allowed Lawyers'),dataIndex:'noOfLawyers',key:'noOfLawyers',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('City Name'),dataIndex:'cityNameCityName',key:'cityNameCityName',width:'auto', render: (text: string) => <div>{text}</div>},
       {
         title: L('Actions'),
         key: 'actions',

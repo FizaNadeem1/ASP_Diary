@@ -67,11 +67,11 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
         xxl: { span: 8 },
       },
       wrapperCol: {
-        xs: { span: 16 },
-        sm: { span: 16 },
-        md: { span: 16 },
-        lg: { span: 16 },
-        xl: { span: 16 },
+        xs: { span: 14 },
+        sm: { span: 14 },
+        md: { span: 14 },
+        lg: { span: 14 },
+        xl: { span: 14 },
         xxl: { span: 16 },
       },
     };
@@ -106,7 +106,7 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
     });
 
     return (
-      <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'CaseProceeding'} destroyOnClose={true}>
+      <Modal visible={visible} width={1000} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'CaseProceeding'} destroyOnClose={true}>
         <Form ref={this.props.formRef} initialValues={{
           branchId: '',
           caseno: '',
@@ -162,24 +162,32 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
           <Form.Item label={L('Case Type')} {...formItemLayout} name={'caseMainCaseTypeCaseTypeName'} >
             <Input disabled />
           </Form.Item>
-          <Form.Item label={L('caseMainFirstPartyName')} {...formItemLayout} name={'caseMainFirstPartyName'}>
+          <Form.Item label={L('First Party Name')} {...formItemLayout} name={'caseMainFirstPartyName'}>
             <Input  disabled/>
           </Form.Item>
-          <Form.Item label={L('caseMainSecondPartyName')} {...formItemLayout} name={'caseMainSecondPartyName'}>
+          <Form.Item label={L('Second Party Name')} {...formItemLayout} name={'caseMainSecondPartyName'}>
             <Input disabled />
           </Form.Item>
-          <Form.Item label={L('benchBenchCode')} {...formItemLayout} name={'benchBenchCode'} >
+          <Form.Item label={L('Bench Code')} {...formItemLayout} name={'benchBenchCode'} >
             <Input disabled />
           </Form.Item>
-          <Form.Item label={L('previousDate')} {...formItemLayout} name={'previousDate'} rules={rules.previousDate}>
-            <DatePicker disabled />
-          </Form.Item>
-          <Form.Item label={L('currentDate')} {...formItemLayout} name={'currentDate'} rules={rules.currentDate}>
-            <DatePicker />
-          </Form.Item>
-          <Form.Item label={L('nexttDate')} {...formItemLayout} name={'nexttDate'} rules={rules.nexttDate}>
-            <DatePicker />
-          </Form.Item>
+          <Row gutter={24} style={{ marginLeft: '100px' }}>
+  <Col span={8}>
+    <Form.Item label={L('Previous Date')} name={'previousDate'} rules={rules.previousDate}>
+      <DatePicker disabled />
+    </Form.Item>
+  </Col>
+  <Col span={8}>
+    <Form.Item label={L('Current Date')} name={'currentDate'} rules={rules.currentDate}>
+      <DatePicker />
+    </Form.Item>
+  </Col>
+  <Col span={8}>
+    <Form.Item label={L('Next Date')} name={'nexttDate'} rules={rules.nexttDate}>
+      <DatePicker />
+    </Form.Item>
+  </Col>
+</Row>
           <Row gutter={24} style={{ marginLeft: '200px' }}>
             <Col span={8}>
               <Form.Item {...tailFormItemLayout} name={'caseRunning'} valuePropName={'checked'}>
@@ -197,16 +205,7 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item label={L('caseGaffNo')} {...formItemLayout} name={'caseGaffNo'} rules={rules.caseGaffNo}>
-            <Input />
-          </Form.Item><Form.Item label={L('caseGenNo')} {...formItemLayout} name={'caseGenNo'} rules={rules.caseGenNo}>
-            <Input />
-          </Form.Item><Form.Item label={L('proceedingShortOrder')} {...formItemLayout} name={'proceedingShortOrder'} rules={rules.proceedingShortOrder}>
-            <Input />
-          </Form.Item><Form.Item label={L('proceedingNotes')} {...formItemLayout} name={'proceedingNotes'} rules={rules.proceedingNotes}>
-            <Input />
-          </Form.Item>
-          <Form.Item label={L('proceedingStatusId')} {...formItemLayout} name={'proceedingStatusId'} rules={rules.proceedingStatusId}>
+          <Form.Item label={L('Proceeding')} {...formItemLayout} name={'proceedingStatusId'} rules={rules.proceedingStatusId}>
             <Select
               showSearch
               placeholder="--select--"
@@ -216,6 +215,15 @@ class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCasePr
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
               }
             />
+          </Form.Item>
+          <Form.Item label={L('Gaff No')} {...formItemLayout} name={'caseGaffNo'} rules={rules.caseGaffNo}>
+            <Input />
+          </Form.Item><Form.Item label={L('Gen No')} {...formItemLayout} name={'caseGenNo'} rules={rules.caseGenNo}>
+            <Input />
+          </Form.Item><Form.Item label={L('Short Order')} {...formItemLayout} name={'proceedingShortOrder'} rules={rules.proceedingShortOrder}>
+            <Input />
+          </Form.Item><Form.Item label={L('Notes')} {...formItemLayout} name={'proceedingNotes'} rules={rules.proceedingNotes}>
+            <Input />
           </Form.Item>
         </Form>
       </Modal>

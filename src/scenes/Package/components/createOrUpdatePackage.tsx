@@ -46,51 +46,51 @@ class CreateOrUpdatePackage extends React.Component<ICreateOrUpdatePackageProps>
     return (
       <Modal visible={visible} width={800} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Package'} destroyOnClose={true}>
         <Form ref={this.props.formRef}>
-          <Form.Item label={L('packageName')} {...formItemLayout} name={'packageName'} rules={rules.packageName}>
+          <Form.Item label={L('Package Name')} {...formItemLayout} name={'packageName'} rules={rules.packageName}>
             <Input />
           </Form.Item>
-          <Form.Item label={L('courtBench')} {...formItemLayout} name={'courtBench'} rules={rules.courtBench}>
+          <Form.Item label={L('Court Bench')} {...formItemLayout} name={'courtBench'} rules={rules.courtBench}>
             <Input />
-          </Form.Item><Form.Item label={L('clientRegister')} {...formItemLayout} name={'clientRegister'} rules={rules.clientRegister}>
+          </Form.Item><Form.Item label={L('Client Register')} {...formItemLayout} name={'clientRegister'} rules={rules.clientRegister}>
             <Input />
-          </Form.Item><Form.Item label={L('lawyerRegister')} {...formItemLayout} name={'lawyerRegister'} rules={rules.lawyerRegister}>
+          </Form.Item><Form.Item label={L('Lawyer Register')} {...formItemLayout} name={'lawyerRegister'} rules={rules.lawyerRegister}>
             <Input />
-          </Form.Item><Form.Item label={L('caseRegister')} {...formItemLayout} name={'caseRegister'} rules={rules.caseRegister}>
+          </Form.Item><Form.Item label={L('Case Register')} {...formItemLayout} name={'caseRegister'} rules={rules.caseRegister}>
             <Input />
-          </Form.Item><Form.Item label={L('proceedings')} {...formItemLayout} name={'proceedings'} rules={rules.proceedings}>
+          </Form.Item><Form.Item label={L('Proceedings')} {...formItemLayout} name={'proceedings'} rules={rules.proceedings}>
             <Input />
-          </Form.Item><Form.Item label={L('causeList')} {...formItemLayout} name={'causeList'} rules={rules.causeList}>
+          </Form.Item><Form.Item label={L('Cause List')} {...formItemLayout} name={'causeList'} rules={rules.causeList}>
             <Input />
-          </Form.Item><Form.Item label={L('reporting')} {...formItemLayout} name={'reporting'} rules={rules.reporting}>
+          </Form.Item><Form.Item label={L('Reporting')} {...formItemLayout} name={'reporting'} rules={rules.reporting}>
             <Input />
-          </Form.Item><Form.Item label={L('details')} {...formItemLayout} name={'details'} rules={rules.details}>
+          </Form.Item><Form.Item label={L('Details')} {...formItemLayout} name={'details'} rules={rules.details}>
             <Input />
-          </Form.Item><Form.Item label={L('adminPanel')} {...formItemLayout} name={'adminPanel'} rules={rules.adminPanel}>
+          </Form.Item><Form.Item label={L('Admin Panel')} {...formItemLayout} name={'adminPanel'} rules={rules.adminPanel}>
             <Input />
-          </Form.Item><Form.Item label={L('usersRegistration')} {...formItemLayout} name={'usersRegistration'} rules={rules.usersRegistration}>
+          </Form.Item><Form.Item label={L('User Registration')} {...formItemLayout} name={'usersRegistration'} rules={rules.usersRegistration}>
             <Input />
-          </Form.Item><Form.Item label={L('rolesManage')} {...formItemLayout} name={'rolesManage'} rules={rules.rolesManage}>
+          </Form.Item><Form.Item label={L('Roles Manage')} {...formItemLayout} name={'rolesManage'} rules={rules.rolesManage}>
             <Input />
-          </Form.Item><Form.Item label={L('firmRegistration')} {...formItemLayout} name={'firmRegistration'} rules={rules.firmRegistration}>
+          </Form.Item><Form.Item label={L('Firm Registration')} {...formItemLayout} name={'firmRegistration'} rules={rules.firmRegistration}>
             <Input />
-          </Form.Item><Form.Item label={L('branchRegistration')} {...formItemLayout} name={'branchRegistration'} rules={rules.branchRegistration}>
+          </Form.Item><Form.Item label={L('Branch Registration')} {...formItemLayout} name={'branchRegistration'} rules={rules.branchRegistration}>
             <Input />
-          </Form.Item><Form.Item label={L('whiteListing')} {...formItemLayout} name={'whiteListing'} rules={rules.whiteListing}>
+          </Form.Item><Form.Item label={L('White Listing')} {...formItemLayout} name={'whiteListing'} rules={rules.whiteListing}>
             <Input />
-          </Form.Item><Form.Item label={L('price')} {...formItemLayout} name={'price'} rules={rules.price}>
+          </Form.Item><Form.Item label={L('Price')} {...formItemLayout} name={'price'} rules={rules.price}>
             <Input />
-          </Form.Item><Form.Item label={L('exactPrice')} {...formItemLayout} name={'exactPrice'} rules={rules.exactPrice}>
+          </Form.Item><Form.Item label={L('ExactPrice')} {...formItemLayout} name={'exactPrice'} rules={rules.exactPrice}>
             <Input />
-          </Form.Item><Form.Item label={L('sms')} {...formItemLayout} name={'sms'} rules={rules.sms}>
+          </Form.Item><Form.Item label={L('SMS')} {...formItemLayout} name={'sms'} rules={rules.sms}>
             <Input />
-          </Form.Item><Form.Item label={L('masking')} {...formItemLayout} name={'masking'} rules={rules.masking}>
+          </Form.Item><Form.Item label={L('Masking')} {...formItemLayout} name={'masking'} rules={rules.masking}>
             <Input />
-          </Form.Item><Form.Item label={L('excelPdfData')} {...formItemLayout} name={'excelPdfData'} rules={rules.excelPdfData}>
+          </Form.Item><Form.Item label={L('Excel Pdf Export')} {...formItemLayout} name={'excelPdfData'} rules={rules.excelPdfData}>
+            <Input />
+          </Form.Item><Form.Item label={L('SMS Service Charges')} {...formItemLayout} name={'smsServiceCharges'} rules={rules.smsServiceCharges}>
             <Input />
           </Form.Item><Form.Item label={L('isMonthly')} {...formItemLayout} name={'isMonthly'} valuePropName={'checked'}>
             <Checkbox></Checkbox>
-          </Form.Item><Form.Item label={L('smsServiceCharges')} {...formItemLayout} name={'smsServiceCharges'} rules={rules.smsServiceCharges}>
-            <Input />
           </Form.Item>
         </Form>
       </Modal>

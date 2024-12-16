@@ -11,6 +11,7 @@ import { GetBranches } from '../services/bench/dto/getBranchOutput';
 import { GetCourts } from '../services/bench/dto/getCourtOutput';
 import { GetPresidingOfficers } from '../services/bench/dto/getPresidingOfficerOutput';
 import { GetBenchEditDetailOutput } from '../services/bench/dto/getBenchEditDetailOutput';
+import moment from 'moment';
 
 class BenchStore {
   @observable benches!: PagedResultDto<GetBenchOutput>;
@@ -72,16 +73,16 @@ class BenchStore {
   async createBench() {
     this.editBench = {
       id: 0,
-      creationTime: new Date(0),
+      creationTime: moment(),
       creatorUserId: 0,
-      lastModificationTime: new Date(0),
+      lastModificationTime: moment(),
       lastModifierUserId: 0,
       branchId: null,
       courtId: null,
       benchCode: '',
       benchOfficerNo: 0,
-      benchStartDate: new Date(0),
-      benchEndDate: new Date(0),
+      benchStartDate: moment(),
+      benchEndDate: moment(),
       benchStatus: true,
       presidingOfficerId: null,
       officerList: [

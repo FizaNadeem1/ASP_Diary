@@ -111,11 +111,11 @@ class Designation extends AppComponentBase<IDesignationProps, IDesignationState>
     const { designations } = this.props.designationStore;
     const columns = [
       {
-        title: L('designationName'), dataIndex: 'designationName', key: 'designationName', width: 'auto',
+        title: L('Designation Name'), dataIndex: 'designationName', key: 'designationName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
-        title: L('designationNotes'), dataIndex: 'designationNotes', key: 'designationNotes', width: 'auto',
+        title: L('Designation Notes'), dataIndex: 'designationNotes', key: 'designationNotes', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
       {
