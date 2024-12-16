@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal, Tabs, Form, Select, Checkbox, DatePicker, Button, Table, Tag } from 'antd';
+import { Input, Modal, Tabs, Form, Select, Checkbox, DatePicker, Button, Table, Tag, Col, Row } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import rules from './createOrUpdateCaseRegistration.validation';
 import { FormInstance } from 'antd/lib/form';
@@ -76,42 +76,42 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
   render() {
     const { branches, benches,caseTypes,clients, lawyers, firstParty, secondParty } = this.props;
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 6 },
-        sm: { span: 6 },
-        md: { span: 6 },
-        lg: { span: 6 },
-        xl: { span: 6 },
-        xxl: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 18 },
-        sm: { span: 18 },
-        md: { span: 18 },
-        lg: { span: 18 },
-        xl: { span: 18 },
-        xxl: { span: 18 },
-      },
-    };
-    const tailFormItemLayout = {
-      labelCol: {
-        xs: { span: 8 },
-        sm: { span: 8 },
-        md: { span: 8 },
-        lg: { span: 8 },
-        xl: { span: 8 },
-        xxl: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 16 },
-        sm: { span: 16 },
-        md: { span: 16 },
-        lg: { span: 16 },
-        xl: { span: 16 },
-        xxl: { span: 16 },
-      },
-    };
+    // const formItemLayout = {
+    //   labelCol: {
+    //     xs: { span: 6 },
+    //     sm: { span: 6 },
+    //     md: { span: 6 },
+    //     lg: { span: 6 },
+    //     xl: { span: 6 },
+    //     xxl: { span: 6 },
+    //   },
+    //   wrapperCol: {
+    //     xs: { span: 18 },
+    //     sm: { span: 18 },
+    //     md: { span: 18 },
+    //     lg: { span: 18 },
+    //     xl: { span: 18 },
+    //     xxl: { span: 18 },
+    //   },
+    // };
+    // const tailFormItemLayout = {
+    //   labelCol: {
+    //     xs: { span: 8 },
+    //     sm: { span: 8 },
+    //     md: { span: 8 },
+    //     lg: { span: 8 },
+    //     xl: { span: 8 },
+    //     xxl: { span: 8 },
+    //   },
+    //   wrapperCol: {
+    //     xs: { span: 16 },
+    //     sm: { span: 16 },
+    //     md: { span: 16 },
+    //     lg: { span: 16 },
+    //     xl: { span: 16 },
+    //     xxl: { span: 16 },
+    //   },
+    // };
 
     const handleEditCaseBench = async () => {
       const data = {
@@ -249,83 +249,86 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
     };
     const benchColumns = [
       {
-        title: L('benchBenchCode'), dataIndex: 'benchBenchCode', key: 'benchBenchCode', width: 'auto',
+        title: L('Bench Code'), dataIndex: 'benchBenchCode', key: 'benchBenchCode', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      { title: L('bStartDate'), dataIndex: 'bStartDate', key: 'bStartDate', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('bEndDate'), dataIndex: 'bEndDate', key: 'bEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('caseBenchStatus'), dataIndex: 'caseBenchStatus', key: 'caseBenchStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
+      { title: L('Start Date'), dataIndex: 'bStartDate', key: 'bStartDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('End Date'), dataIndex: 'bEndDate', key: 'bEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Bench Status'), dataIndex: 'caseBenchStatus', key: 'caseBenchStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
     const lawyerColumns = [
       {
-        title: L('lawyerLawyerName'), dataIndex: 'lawyerLawyerName', key: 'lawyerLawyerName', width: 'auto',
+        title: L('Lawyer Name'), dataIndex: 'lawyerLawyerName', key: 'lawyerLawyerName', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      { title: L('lStartDate'), dataIndex: 'lStartDate', key: 'lStartDate', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('lEndDate'), dataIndex: 'lEndDate', key: 'lEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
-      { title: L('caseLawyerStatus'), dataIndex: 'caseLawyerStatus', key: 'caseLawyerStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
+      { title: L('Start Date'), dataIndex: 'lStartDate', key: 'lStartDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('End Date'), dataIndex: 'lEndDate', key: 'lEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Lawyer Status'), dataIndex: 'caseLawyerStatus', key: 'caseLawyerStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
 
     return (
       <Modal visible={visible} width={1000} footer={this.props.modalType !== 'edit' ? null : undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
         <Form ref={this.props.formRef}
-          initialValues={{
-            id: 0,
-            creationTime: '',
-            creatorUserId: 0,
-            lastModificationTime: '',
-            lastModifierUserId: 0,
-            caseNo: '',
-            courtCaseNo: '',
-            courtCaseGenNo: '',
-            courtCaseGaffNo: '',
-            caseRegDate: '',
-            caseStartDate: '',
-            caseEndDate: '',
-            caseTitle: '',
-            firstLawyerName: '',
-            secondLawyerName: '',
-            firstPartyName: '',
-            secondPartyName: '',
-            caseNotes: '',
-            casePleadings: '',
-            caseStatus: true,
-            caseShift: true,
-            caseFinish: true,
-            firNo: '',
-            policeStation: '',
-            offence: '',
-            firDate: '',
-            clientClientName: '',
-            clientId: null,
-            caseTypeCaseTypeName: '',
-            caseTypeId: null,
-            litigantType1LitigantTypeName: '',
-            firstLitigantTypeId: null,
-            litigantType2LitigantTypeName: '',
-            secLitigantTypeId: null,
-            branchBranchName: '',
-            branchId: null,
-            bStartDate: '',
-            bEndDate: '',
-            bNotes: '',
-            caseBenchStatus: true,
-            caseMain: '',
-            caseMainId: null,
-            bench: '',
-            benchId: null,
-            lStartDate: '',
-            lEndDate: '',
-            lNotes: '',
-            caseLawyerStatus: true,
-            lawyer: '',
-            lawyerId: null,
+        layout='vertical'
+          // initialValues={{
+          //   id: 0,
+          //   creationTime: '',
+          //   creatorUserId: 0,
+          //   lastModificationTime: '',
+          //   lastModifierUserId: 0,
+          //   caseNo: 'Diary-Has-Automated-Case-Code-Generator',
+          //   courtCaseNo: '',
+          //   courtCaseGenNo: '',
+          //   courtCaseGaffNo: '',
+          //   caseRegDate: '',
+          //   caseStartDate: '',
+          //   caseEndDate: '',
+          //   caseTitle: '',
+          //   firstLawyerName: '',
+          //   secondLawyerName: '',
+          //   firstPartyName: '',
+          //   secondPartyName: '',
+          //   caseNotes: '',
+          //   casePleadings: '',
+          //   caseStatus: true,
+          //   caseShift: true,
+          //   caseFinish: true,
+          //   firNo: '',
+          //   policeStation: '',
+          //   offence: '',
+          //   firDate: '',
+          //   clientClientName: '',
+          //   clientId: null,
+          //   caseTypeCaseTypeName: '',
+          //   caseTypeId: null,
+          //   litigantType1LitigantTypeName: '',
+          //   firstLitigantTypeId: null,
+          //   litigantType2LitigantTypeName: '',
+          //   secLitigantTypeId: null,
+          //   branchBranchName: '',
+          //   branchId: null,
+          //   bStartDate: '',
+          //   bEndDate: '',
+          //   bNotes: '',
+          //   caseBenchStatus: true,
+          //   caseMain: '',
+          //   caseMainId: null,
+          //   bench: '',
+          //   benchId: null,
+          //   lStartDate: '',
+          //   lEndDate: '',
+          //   lNotes: '',
+          //   caseLawyerStatus: true,
+          //   lawyer: '',
+          //   lawyerId: null,
 
-          }}
+          // }}
         >
           <Tabs defaultActiveKey={'ClientInfo'} size={'small'} tabBarGutter={64}>
-            <TabPane tab={'Client'} key={'ClientInfo'}>
-              <Form.Item label={L('branchId')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
+            <TabPane tab={'Case Registration'} key={'ClientInfo'}>
+              <Row gutter={16}>
+                <Col span={8}>
+              <Form.Item label={L('Branch Name')}   name={'branchId'} rules={rules.branchId}>
                 <Select
                   showSearch
                   placeholder="--select--"
@@ -336,7 +339,9 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   }
                 />
               </Form.Item>
-              <Form.Item label="Client" name="clientId" rules={rules.clientId}>
+                </Col>
+                <Col span={8}>
+              <Form.Item label={L('Client Name')} name="clientId" rules={rules.clientId}>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <Select
                     showSearch
@@ -352,7 +357,8 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   </Button>
                 </div>
               </Form.Item>
-
+                </Col>
+                <Col span={8}>
               <Form.Item label="Case Type" name="caseTypeId" rules={rules.caseTypeId}>
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <Select
@@ -369,26 +375,45 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   </Button>
                 </div>
               </Form.Item>
-
-              <Form.Item label={L('caseRegDate')} {...formItemLayout} name={'caseRegDate'} rules={rules.caseRegDate}>
-                <DatePicker />
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={8}>
+              <Form.Item label={L('Reg Date')}   name={'caseRegDate'} rules={rules.caseRegDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('caseStartDate')} {...formItemLayout} name={'caseStartDate'} rules={rules.caseStartDate}>
-                <DatePicker />
+                </Col>
+                <Col span={8}>
+              <Form.Item label={L('Start Date')}   name={'caseStartDate'} rules={rules.caseStartDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('caseEndDate')} {...formItemLayout} name={'caseEndDate'} rules={rules.caseEndDate}>
-                <DatePicker />
+                </Col>
+                <Col span={8}>
+              <Form.Item label={L('End Date')}   name={'caseEndDate'} rules={rules.caseEndDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('caseNo')} {...formItemLayout} name={'caseNo'} rules={rules.caseNo}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={8}>
+              <Form.Item label={L('Case No')}   name={'caseNo'} rules={rules.caseNo}>
+                <Input disabled />
+              </Form.Item>
+                </Col>
+                <Col span={8}>
+              <Form.Item label={L('Case Main No')}   name={'courtCaseNo'} rules={rules.courtCaseNo}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('Case Main No')} {...formItemLayout} name={'courtCaseNo'} rules={rules.courtCaseNo}>
+                </Col>
+                <Col span={8}>
+              <Form.Item label={L('Case Title')}   name={'caseTitle'} rules={rules.caseTitle}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('caseTitle')} {...formItemLayout} name={'caseTitle'} rules={rules.caseTitle}>
-                <Input />
-              </Form.Item>
-              <Form.Item label={L('firstLitigantTypeId')} {...formItemLayout} name={'firstLitigantTypeId'} rules={rules.firstLitigantTypeId}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={6}>
+              <Form.Item label={L('First Party Type')}   name={'firstLitigantTypeId'} rules={rules.firstLitigantTypeId}>
                 <Select
                   showSearch
                   placeholder="--select--"
@@ -399,16 +424,26 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   }
                 />
               </Form.Item>
-              <Form.Item label={L('firstPartyName')} {...formItemLayout} name={'firstPartyName'} rules={rules.firstPartyName}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('First Party Name')}   name={'firstPartyName'} rules={rules.firstPartyName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('firstLawyerName')} {...formItemLayout} name={'firstLawyerName'} rules={rules.firstLawyerName}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('First Lawyer Name')}   name={'firstLawyerName'} rules={rules.firstLawyerName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('firNo')} {...formItemLayout} name={'firNo'} rules={rules.firNo}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Fir No')}   name={'firNo'} rules={rules.firNo}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('secLitigantTypeId')} {...formItemLayout} name={'secLitigantTypeId'} rules={rules.secLitigantTypeId}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={6}>
+              <Form.Item label={L('Second Party Type')}   name={'secLitigantTypeId'} rules={rules.secLitigantTypeId}>
                 <Select
                   showSearch
                   placeholder="--select--"
@@ -419,42 +454,72 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   }
                 />
               </Form.Item>
-              <Form.Item label={L('secondPartyName')} {...formItemLayout} name={'secondPartyName'} rules={rules.secondPartyName}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Second Party Name')}   name={'secondPartyName'} rules={rules.secondPartyName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('secondLawyerName')} {...formItemLayout} name={'secondLawyerName'} rules={rules.secondLawyerName}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Second Lawyer Name')}   name={'secondLawyerName'} rules={rules.secondLawyerName}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('offence')} {...formItemLayout} name={'offence'} rules={rules.offence}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Offence')}   name={'offence'} rules={rules.offence}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('caseStatus')} {...tailFormItemLayout} name={'caseStatus'} valuePropName={'checked'}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={4}>
+              <Form.Item label={L('Case Status')}   name={'caseStatus'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
-              <Form.Item label={L('caseShift')} {...tailFormItemLayout} name={'caseShift'} valuePropName={'checked'}>
+                </Col>
+                <Col span={4}>
+              <Form.Item label={L('Case Shift')}   name={'caseShift'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
-              <Form.Item label={L('caseFinish')} {...tailFormItemLayout} name={'caseFinish'} valuePropName={'checked'}>
+                </Col>
+                <Col span={4}>
+              <Form.Item label={L('Case Finish')}   name={'caseFinish'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
-              <Form.Item label={L('firDate')} {...formItemLayout} name={'firDate'} rules={rules.firDate}>
+                </Col>
+                <Col span={4}>
+              <Form.Item label={L('Fir Date')}   name={'firDate'} rules={rules.firDate}>
                 <DatePicker />
               </Form.Item>
-              <Form.Item label={L('policeStation')} {...formItemLayout} name={'policeStation'} rules={rules.policeStation}>
+                </Col>
+                <Col span={8}>
+              <Form.Item label={L('Police Station')}   name={'policeStation'} rules={rules.policeStation}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('courtCaseGenNo')} {...formItemLayout} name={'courtCaseGenNo'} rules={rules.courtCaseGenNo}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={6}>
+              <Form.Item label={L('Gen No')}   name={'courtCaseGenNo'} rules={rules.courtCaseGenNo}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('courtCaseGaffNo')} {...formItemLayout} name={'courtCaseGaffNo'} rules={rules.courtCaseGaffNo}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Gaff No')}   name={'courtCaseGaffNo'} rules={rules.courtCaseGaffNo}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('caseNotes')} {...formItemLayout} name={'caseNotes'} rules={rules.caseNotes}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Case Notes')}   name={'caseNotes'} rules={rules.caseNotes}>
                 <Input />
               </Form.Item>
-              <Form.Item label={L('casePleadings')} {...formItemLayout} name={'casePleadings'} rules={rules.casePleadings}>
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Case Pleadings')}   name={'casePleadings'} rules={rules.casePleadings}>
                 <Input />
               </Form.Item>
+                </Col>
+              </Row>
               {this.props.modalType !== 'edit' && <div style={{ textAlign: 'right', marginTop: 16 }}>
                 <Button onClick={onCancel} style={{ marginRight: 8 }}>
                   {L('Cancel')}
@@ -464,8 +529,10 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 </Button>
               </div>}
             </TabPane>
-            <TabPane tab={L('Case Client')} key={'Client'} forceRender={true}>
-              <Form.Item label={L('benchId')} {...formItemLayout} name={'benchId'} rules={rules.benchId}>
+            <TabPane tab={L('Case Bench')} key={'Client'} forceRender={true}>
+              <Row gutter={16}>
+                <Col span={12}>
+              <Form.Item label={L('Bench Code')}   name={'benchId'} rules={rules.benchId}>
                 <Select
                   showSearch
                   placeholder="--select--"
@@ -476,18 +543,30 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   }
                 />
               </Form.Item>
-              <Form.Item label={L('bStartDate')} {...formItemLayout} name={'bStartDate'} rules={rules.bStartDate}>
-                <DatePicker />
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Start Date')}   name={'bStartDate'} rules={rules.bStartDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('bEndDate')} {...formItemLayout} name={'bEndDate'} rules={rules.bEndDate}>
-                <DatePicker />
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('End Date')}   name={'bEndDate'} rules={rules.bEndDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('caseBenchStatus')} {...formItemLayout} name={'caseBenchStatus'} valuePropName={'checked'}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={8}>
+              <Form.Item label={L('Bench Status')}   name={'caseBenchStatus'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
-              <Form.Item label={L('bNotes')} {...formItemLayout} name={'bNotes'} rules={rules.bNotes}>
+                </Col>
+                <Col span={16}>
+              <Form.Item label={L('Notes')}   name={'bNotes'} rules={rules.bNotes}>
                 <Input />
               </Form.Item>
+                </Col>
+              </Row>
               {this.props.modalType !== 'edit' && <><Table
                 rowKey={(record) => record.id}
                 bordered={true}
@@ -512,7 +591,9 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 </div></>}
             </TabPane>
             <TabPane tab={L('Case Lawyer')} key={'Lawyer'} forceRender={true}>
-              <Form.Item label={L('lawyerId')} {...formItemLayout} name={'lawyerId'} rules={rules.lawyerId}>
+              <Row gutter={16}>
+                <Col span={12}>
+              <Form.Item label={L('Lawyer Name')}   name={'lawyerId'} rules={rules.lawyerId}>
                 <Select
                   showSearch
                   placeholder="--select--"
@@ -523,18 +604,30 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                   }
                 />
               </Form.Item>
-              <Form.Item label={L('lStartDate')} {...formItemLayout} name={'lStartDate'} rules={rules.lStartDate}>
-                <DatePicker />
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('Start Date')}   name={'lStartDate'} rules={rules.lStartDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('lEndDate')} {...formItemLayout} name={'lEndDate'} rules={rules.lEndDate}>
-                <DatePicker />
+                </Col>
+                <Col span={6}>
+              <Form.Item label={L('End Date')}   name={'lEndDate'} rules={rules.lEndDate}>
+                <DatePicker style={{width:'100%'}}/>
               </Form.Item>
-              <Form.Item label={L('caseLawyerStatus')} {...formItemLayout} name={'caseLawyerStatus'} valuePropName={'checked'}>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={8}>
+              <Form.Item label={L('Lawyer Status')}   name={'caseLawyerStatus'} valuePropName={'checked'}>
                 <Checkbox></Checkbox>
               </Form.Item>
-              <Form.Item label={L('lNotes')} {...formItemLayout} name={'lNotes'} rules={rules.lNotes}>
+                </Col>
+                <Col span={16}>
+              <Form.Item label={L('Notes')}   name={'lNotes'} rules={rules.lNotes}>
                 <Input />
               </Form.Item>
+                </Col>
+              </Row>
               {this.props.modalType !== 'edit' && <><Table rowKey={(record) => record.id} bordered={true} onRow={(record, index) => ({
                   style: {
                     backgroundColor: GetColorByIndex({ index }), 
