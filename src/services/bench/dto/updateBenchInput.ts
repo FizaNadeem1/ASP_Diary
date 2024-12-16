@@ -6,14 +6,14 @@ export interface UpdateBenchInput {
   creatorUserId: number;
   lastModificationTime: Moment;
   lastModifierUserId: number;
-  branchId: number|string;
-  courtId: number|string;
+  branchId: number;
+  courtId: number;
   benchCode: string;
   benchOfficerNo: number;
   benchStartDate: Moment;
   benchEndDate: Moment;
-  benchStatus: true;
-  presidingOfficerId: number|string;
+  benchStatus: boolean;
+  presidingOfficerId: number;
   officerList: [
     {
       presidingOfficerId: number;

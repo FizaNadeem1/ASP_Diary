@@ -12,11 +12,11 @@ export interface CreateOrUpdateBenchInput {
   benchOfficerNo: number;
   benchStartDate: Moment;
   benchEndDate: Moment;
-  benchStatus: true;
+  benchStatus: boolean;
   presidingOfficerId: number|string|null;
   officerList: [
     {
-      presidingOfficerId: number;
+      presidingOfficerId: number|string|null;
       presidingOfficerName: string;
       branchId: number;
       branchName: string;

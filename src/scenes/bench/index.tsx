@@ -198,7 +198,7 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
             xxl={{ span: 1, offset: 0 }}
           >
             {' '}
-            <h2>{L('benches')}</h2>
+            <h2>{L('Benches')}</h2>
           </Col>
           <Col
             xs={{ span: 14, offset: 0 }}
@@ -234,7 +234,7 @@ class Bench extends AppComponentBase<IBenchProps, IBenchState> {
               }}
             >
               <Col span={12}>
-                <h4 style={{ color: 'white' }}> {L('All Presiding Officers')}</h4> {/* Change text color to white for visibility */}
+                <h4 style={{ color: 'white' }}> {L('All Benches')}</h4> {/* Change text color to white for visibility */}
               </Col>
             </Row>
             <Table

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Modal, Form, Select, Checkbox, Button, Col, Row, Table, DatePicker,  } from 'antd';
+import { Input, Modal, Form, Select, Checkbox, Button, Col, Row, Table, DatePicker, } from 'antd';
 import { L } from '../../../lib/abpUtility';
 import { FormInstance } from 'antd/lib/form';
 import rules from './createOrUpdateBench.validation';
@@ -39,8 +39,8 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
   state = {
     confirmDirty: false,
     isFetchDisabled: false,
-    benchStartDate:new Date(),
-  benchEndDate:new Date(),
+    benchStartDate: new Date(),
+    benchEndDate: new Date(),
   };
 
   onFormValuesChange = (_: any, allValues: { branchId: string; presidingOfficerId: string }) => {
@@ -67,7 +67,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
         md: { span: 16 },
         lg: { span: 16 },
         xl: { span: 16 },
-        xxl: { span: 16},
+        xxl: { span: 16 },
       },
     };
     const tailFormItemLayout = {
@@ -77,7 +77,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
         md: { span: 8 },
         lg: { span: 8 },
         xl: { span: 8 },
-        xxl: { span: 8},
+        xxl: { span: 8 },
       },
       wrapperCol: {
         xs: { span: 16 },
@@ -160,7 +160,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
             benchStartDate: moment(),
             benchEndDate: moment(),
           }}
-          layout="horizontal"
+          // layout="vertical"
           onValuesChange={this.onFormValuesChange}>
 
           <Form.Item label={L('Branch')} {...formItemLayout} name={'branchId'} rules={rules.branchId}>
@@ -191,10 +191,8 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
           <Form.Item label={L('Officer No')} {...formItemLayout} name={'benchOfficerNo'} rules={rules.benchOfficerNo}>
             <Input />
           </Form.Item>
-          <Row gutter={24} style={{marginLeft:'120px'}}>
-  <Col span={14}>
-    <Form.Item label={L('Start Date')} {...formItemLayout} name="benchStartDate" rules={rules.benchStartDate}>
-      {/* <input
+              <Form.Item label={L('Start Date')} {...formItemLayout} name="benchStartDate" rules={rules.benchStartDate}>
+                {/* <input
         type="date"
         className="form-control"
         id="benchStartDate"
@@ -204,12 +202,10 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
         }}
         value={this.state.benchStartDate ? this.state.benchStartDate.toISOString().split('T')[0] : ''}
       /> */}
-      <DatePicker/>
-    </Form.Item>
-  </Col>
-  <Col span={10}>
-    <Form.Item label={L('End Date')} {...formItemLayout} name="benchEndDate" rules={rules.benchEndDate}>
-      {/* <input
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+              <Form.Item label={L('End Date')} {...formItemLayout} name="benchEndDate" rules={rules.benchEndDate}>
+                {/* <input
         type="date"
         className="form-control"
         id="benchEndDate"
@@ -219,13 +215,11 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
         }}
         value={this.state.benchEndDate ? this.state.benchEndDate.toISOString().split('T')[0] : ''}
       /> */}
-      <DatePicker/>
-    </Form.Item>
-  </Col>
-</Row>
-          <Form.Item label={L('Status')} {...tailFormItemLayout} name={'benchStatus'} valuePropName={'checked'}>
-            <Checkbox></Checkbox>
-          </Form.Item>
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+            <Form.Item label={L('Status')} {...tailFormItemLayout} name={'benchStatus'} valuePropName={'checked'}>
+                <Checkbox></Checkbox>
+              </Form.Item>
 
           <Row gutter={24} style={{ marginLeft: '40px' }}>
             <Col span={20}>
@@ -246,6 +240,7 @@ class CreateOrUpdateBench extends React.Component<ICreateOrUpdateBenchProps, Sta
                 type="primary"
                 onClick={handleAddOfficer}
                 disabled={this.state.isFetchDisabled}
+                style={{width:'100%'}}
               >
                 Add
               </Button>
