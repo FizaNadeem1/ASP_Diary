@@ -12,6 +12,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
 import CaseProceedingStore from '../../stores/CaseProceedingStore';
 import CreateOrUpdateCaseProceeding from './components/createOrUpdateCaseProceeding';
+import moment, { Moment } from 'moment';
 
 export interface ICaseProceedingProps {
   caseProceedingStore: CaseProceedingStore;
@@ -134,8 +135,8 @@ class CaseProceeding extends AppComponentBase<ICaseProceedingProps, ICaseProceed
         title: L('Case Title'), dataIndex: 'caseCaseTitle', key: 'caseCaseTitle', width: 'auto',
         render: (text: string) => <div>{text}</div>
       },
-      {title:L('Previous Date'),dataIndex:'previousDate',key:'previousDate',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('Next Date'),dataIndex:'nexttDate',key:'nexttDate',width:'auto', render: (text: string) => <div>{text}</div>},
+      {title:L('Previous Date'),dataIndex:'previousDate',key:'previousDate',width:'auto', render: (text: Moment) => <div>{text ? moment(text).format('YYYY-MM-DD') : '-'}</div>},
+      {title:L('Next Date'),dataIndex:'nexttDate',key:'nexttDate',width:'auto', render: (text: Moment) => <div>{text ? moment(text).format('YYYY-MM-DD') : '-'}</div>},
       {title:L('Bench Code'),dataIndex:'benchBenchCode',key:'benchBenchCode',width:'auto', render: (text: string) => <div>{text}</div>},
       {title:L('Proceeding'),dataIndex:'proceedingStatusProceedingName',key:'proceedingStatusProceedingName',width:'auto', render: (text: string) => <div>{text}</div>},
       {title:L('Branch Name'),dataIndex:'branchBranchName',key:'branchBranchName',width:'auto', render: (text: string) => <div>{text}</div>},

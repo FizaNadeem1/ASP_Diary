@@ -65,7 +65,10 @@ class BenchStore {
   @action
   async get(entityDto: EntityDto) {
     let result = await benchService.get(entityDto);
-    let sd={...result,branchId: result.branchId?.toString() ?? null,courtId: result.courtId?.toString() ?? null,presidingOfficerId: result.presidingOfficerId?.toString() ?? null}
+    let sd={...result,
+      benchStartDate:moment(result.benchStartDate),
+      benchEndDate:moment(result.benchEndDate),
+      branchId: result.branchId?.toString() ?? null,courtId: result.courtId?.toString() ?? null,presidingOfficerId: result.presidingOfficerId===0?null:result.presidingOfficerId?.toString() ?? null}
     this.editBench = sd;
   }
 

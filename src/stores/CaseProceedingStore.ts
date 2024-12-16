@@ -68,7 +68,7 @@ class CaseProceedingStore {
       caseId: data.editCaseProceeding.caseId,
       caseCaseNo: data.getCaseDataByCaseNo.caseMainCaseNo,
       caseCaseTitle: data.getCaseDataByCaseNo.caseMainCaseTitle,
-      proceedingStatusId: data.editCaseProceeding.proceedingStatusId,
+      proceedingStatusId: data.editCaseProceeding.proceedingStatusId.toString()??null,
       proceedingStatusProceedingName: data.editCaseProceeding.proceedingStatusProceedingName,
       caseMainCourtCaseNo: data.getCaseDataByCaseNo.caseMainCourtCaseNo,
       caseMainFirstPartyName: data.getCaseDataByCaseNo.caseMainFirstPartyName,

@@ -7,7 +7,7 @@ export interface CreateBenchInput {
   benchOfficerNo: number;
   benchStartDate: Moment;
   benchEndDate: Moment;
-  benchStatus: true;
+  benchStatus: boolean;
   presidingOfficerId: number;
   officerList: [
     {
