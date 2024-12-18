@@ -28,6 +28,7 @@ class CourtStore {
   @observable selectedProvince :string=''
   @observable selectedDivision :string=''
   @observable selectedCity :string=''
+  @observable selectedForum :string=''
 
   @action
   async create(createCourtInput: CreateOrUpdateCourtInput) {
@@ -65,6 +66,11 @@ class CourtStore {
   async getTehsilByCityId(entityDto: EntityDto) {
     let result = await courtService.getTehsilByCityId(entityDto);
     this.tehsils = result;
+  }
+  @action
+  async getCategoryByForumId(entityDto: EntityDto) {
+    let result = await courtService.getCategoryByForumId(entityDto);
+    this.forumCats = result;
   }
 
   @action

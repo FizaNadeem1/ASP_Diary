@@ -47,14 +47,20 @@ class courtService {
     return result.data.result.items;
   }
   public async getDivisionsByProvinceId(entityDto: EntityDto) {
-    let result = await http.get('/api/services/app/Division/GetDivisionComboboxItemsById', { params: entityDto });
-    console.log("call hova ye by id vala",`/api/services/app/Division/GetDivisionComboboxItemsById'${ result.data }`)
+    let result = await http.get('/api/services/app/Division/GetDivisionComboboxItemsById', {params: entityDto});
+    console.log('call hova ye by id vala',`/api/services/app/Division/GetDivisionComboboxItemsById'${result.data}`);
     return result.data.result.items;
-  }  public async getCityByDivisionId(entityDto: EntityDto) {
-    let result = await http.get('/api/services/app/City/GetCityComboboxItemsById',{ params: entityDto });
+  }
+  public async getCityByDivisionId(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/City/GetCityComboboxItemsById', {params: entityDto});
     return result.data.result.items;
-  }  public async getTehsilByCityId(entityDto: EntityDto) {
-    let result = await http.get('/api/services/app/Tehsil/GetTehsilComboboxItemsById',{ params: entityDto });
+  }
+  public async getTehsilByCityId(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/Tehsil/GetTehsilComboboxItemsById', {params: entityDto});
+    return result.data.result.items;
+  }
+  public async getCategoryByForumId(entityDto: EntityDto) {
+    let result = await http.get('/api/services/app/ForumCategory/GetForumCatComboBoxItemsById', {params: entityDto});
     return result.data.result.items;
   }
   public async getBranches() {
@@ -66,12 +72,8 @@ class courtService {
     return result.data.result;
   }
 
-  public async getAll(
-    pagedFilterAndSortedRequest: PagedCourtResultRequestDto
-  ): Promise<PagedResultDto<GetAllCourtOutput>> {
-    let result = await http.get('api/services/app/Court/GetAll', {
-      params: pagedFilterAndSortedRequest,
-    });
+  public async getAll(pagedFilterAndSortedRequest: PagedCourtResultRequestDto): Promise<PagedResultDto<GetAllCourtOutput>> {
+    let result = await http.get('api/services/app/Court/GetAll', {params: pagedFilterAndSortedRequest});
     return result.data.result;
   }
 }

@@ -54,6 +54,11 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
     store.selectedProvince = value;
   await  store.getTehsilByCityId({id:value});
   };
+  handleForumChange = async(value:any) => {
+    const { store } = this.props;
+    store.selectedForum = value;
+  await  store.getCategoryByForumId({id:value});
+  };
 
 
   render() {
@@ -175,6 +180,7 @@ class CreateOrUpdateCourt extends React.Component<ICreateOrUpdateCourtProps> {
               showSearch
               placeholder="--select--"
               options={Foptions}
+              onChange={this.handleForumChange} 
               allowClear
               filterOption={(input, option) =>
                 (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
