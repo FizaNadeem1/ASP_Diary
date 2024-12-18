@@ -13,7 +13,7 @@ import { GetFirstLitigantTypes } from '../../../services/caseRegistration/dto/ge
 import { GetSecondLitigantTypes } from '../../../services/caseRegistration/dto/getSecondLitigantTypeOutput';
 import { GetLawyers } from '../../../services/caseRegistration/dto/getLawyerOutput';
 import { GetColorByIndex } from '../../../components/Helper/GetColorByIndex';
-import http from '../../../services/httpService';
+// import http from '../../../services/httpService';
 
 const TabPane = Tabs.TabPane;
 
@@ -33,10 +33,10 @@ interface State {
   confirmDirty: boolean;
   isCBSelected: boolean;
   isCLSelected: boolean;
-  isClientModalOpen: boolean;
-  isCaseTypeModalOpen: boolean;
-  newClientName: string;
-  newCaseTypeName: string;
+  // isClientModalOpen: boolean;
+  // isCaseTypeModalOpen: boolean;
+  // newClientName: string;
+  // newCaseTypeName: string;
   // CToptions: any[]
   // CLoptions: any[]
   // caseLawyer:CaseLawyer[];
@@ -64,10 +64,10 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
     confirmDirty: false,
     isCBSelected: false,
     isCLSelected: false,
-    isClientModalOpen: false,
-    isCaseTypeModalOpen: false,
-    newClientName: '',
-    newCaseTypeName: '',
+    // isClientModalOpen: false,
+    // isCaseTypeModalOpen: false,
+    // newClientName: '',
+    // newCaseTypeName: '',
     // CToptions: this.props.caseTypes.map((x) => ({ label: x.displayText, value: x.value })),
     // CLoptions: this.props.clients.map((x) => ({ label: x.displayText, value: x.value })),
     // caseLawyer:[],
@@ -161,7 +161,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    let CLoptions = clients.map((x: GetClients) => {
+    const CLoptions = clients.map((x: GetClients) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
@@ -169,7 +169,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    let CToptions = caseTypes.map((x: GetCaseTypes) => {
+    const CToptions = caseTypes.map((x: GetCaseTypes) => {
       var test = { label: x.displayText, value: x.value };
       return test;
     });
@@ -185,68 +185,70 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    const handleAddClient = async () => {
-      const data = {
-        "id": 0,
-        "creationTime": "2024-10-31T07:56:30.277Z",
-        "creatorUserId": 0,
-        "lastModificationTime": "2024-10-31T07:56:30.277Z",
-        "lastModifierUserId": 0,
-        "clientCode": "string",
-        "clientTypeName": "PRIVATE",
-        "clientName": this.state.newClientName,
-        "clientFatherName": "XYZ",
-        "clientHusbandName": "No",
-        "clientAdress": 'XYZ',
-        "clientCNIC": 'XYZ',
-        "clientMobile": 'XYZ',
-        "clientGender": 'XYZ',
-        "clientPhotoPath": "noimage.png",
-        "clientDOB": "2024-10-31",
-        "clientRegDate": "2024-10-31",
-        "clientFirmCode": "HZ MArkets",
-        "clientFirmNTN": "NTN",
-        "clientFirmSTR": "STR",
-        "clientFirmContactPer": "Hassan",
-        "clientFirmContactPerNo": "03209988765",
-        "cityId": 15,
-        "branchId": 2,
-        "clientTypeId": 1
-      }
-      try {
-        let result = await http.post('/api/services/app/Client/Create', data);
-        if (result?.data?.success) {
-          let id = result.data.result.id
-          let label = result.data.result.clientName
-          this.props.formRef.current?.setFieldsValue({ "clientId": id })
-          this.props.formRef.current?.setFieldsValue({ "clientName": label })
-          this.setState({ isClientModalOpen: false });
-          // CToptions= ((prevState:any[])=>[...prevState, { value: id, label: label }])
-        }
-      } catch (error) {
-        console.error("Failed to make create client api call", error);
-      }
-    };
+    // const handleAddClient = async () => {
+    //   const data = {
+    //     "id": 0,
+    //     "creationTime": "2024-10-31T07:56:30.277Z",
+    //     "creatorUserId": 0,
+    //     "lastModificationTime": "2024-10-31T07:56:30.277Z",
+    //     "lastModifierUserId": 0,
+    //     "clientCode": "string",
+    //     "clientTypeName": "PRIVATE",
+    //     "clientName": this.state.newClientName,
+    //     "clientFatherName": "XYZ",
+    //     "clientHusbandName": "No",
+    //     "clientAdress": 'XYZ',
+    //     "clientCNIC": 'XYZ',
+    //     "clientMobile": 'XYZ',
+    //     "clientGender": 'XYZ',
+    //     "clientPhotoPath": "noimage.png",
+    //     "clientDOB": "2024-10-31",
+    //     "clientRegDate": "2024-10-31",
+    //     "clientFirmCode": "HZ MArkets",
+    //     "clientFirmNTN": "NTN",
+    //     "clientFirmSTR": "STR",
+    //     "clientFirmContactPer": "Hassan",
+    //     "clientFirmContactPerNo": "03209988765",
+    //     "cityId": 15,
+    //     "branchId": 2,
+    //     "clientTypeId": 1
+    //   }
+    //   try {
+    //     let result = await http.post('/api/services/app/Client/Create', data);
+    //     if (result?.data?.success) {
+    //       // let id = result.data.result.id
+    //       // let label = result.data.result.clientName
+    //   await this.props.store.getClients();
+    //       // this.props.formRef.current?.setFieldsValue({ "clientId": id })
+    //       // this.props.formRef.current?.setFieldsValue({ "clientName": label })
+    //       this.setState({ isClientModalOpen: false });
+    //       // CToptions= ((prevState:any[])=>[...prevState, { value: id, label: label }])
+    //     }
+    //   } catch (error) {
+    //     console.error("Failed to make create client api call", error);
+    //   }
+    // };
 
-    const handleAddCaseType = async () => {
-      const data = {
-        caseTypeName: this.state.newCaseTypeName,
-        caseTypeDesciption: "",
-      }
-      try {
-        let result = await http.post('/api/services/app/CaseType/Create', data);
-        if (result?.data?.success) {
-          let id = result.data.result.id
-          let label = result.data.result.caseTypeName
-          this.props.formRef.current?.setFieldsValue({ "caseTypeId": id })
-          this.props.formRef.current?.setFieldsValue({ "caseTypeName": label })
-          this.setState({ isCaseTypeModalOpen: false });
-          // CToptions=((prevState:any[])=>[...prevState, { value: id, label: label }])
-        }
-      } catch (error) {
-        console.error("Failed to make create casetype api call", error);
-      }
-    };
+    // const handleAddCaseType = async () => {
+    //   const data = {
+    //     caseTypeName: this.state.newCaseTypeName,
+    //     caseTypeDesciption: "",
+    //   }
+    //   try {
+    //     let result = await http.post('/api/services/app/CaseType/Create', data);
+    //     if (result?.data?.success) {
+    //       // let id = result.data.result.id
+    //       // let label = result.data.result.caseTypeName
+    //       await this.props.store.getCaseTypes();
+    //       // this.props.formRef.current?.setFieldsValue({ "caseTypeId": id })
+    //       // this.props.formRef.current?.setFieldsValue({ "caseTypeName": label })
+    //       this.setState({ isCaseTypeModalOpen: false });
+    //       // CToptions=((prevState:any[])=>[...prevState, { value: id, label: label }])
+    //     }
+    //   } catch (error) {
+    //     console.error("Failed to make create casetype api call", error);
+    //   }
+    // };
     const benchColumns = [
       {
         title: L('Bench Code'), dataIndex: 'benchBenchCode', key: 'benchBenchCode', width: 'auto',
@@ -265,64 +267,64 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       { title: L('End Date'), dataIndex: 'lEndDate', key: 'lEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
       { title: L('Lawyer Status'), dataIndex: 'caseLawyerStatus', key: 'caseLawyerStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
-
+console.log('this.props.formRef',this.props.formRef.current?.getFieldsValue())
     return (
       <Modal visible={visible} width={1000} footer={this.props.modalType !== 'edit' ? null : undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
         <Form ref={this.props.formRef}
         layout='vertical'
-          // initialValues={{
-          //   id: 0,
-          //   creationTime: '',
-          //   creatorUserId: 0,
-          //   lastModificationTime: '',
-          //   lastModifierUserId: 0,
-          //   caseNo: 'Diary-Has-Automated-Case-Code-Generator',
-          //   courtCaseNo: '',
-          //   courtCaseGenNo: '',
-          //   courtCaseGaffNo: '',
-          //   caseRegDate: '',
-          //   caseStartDate: '',
-          //   caseEndDate: '',
-          //   caseTitle: '',
-          //   firstLawyerName: '',
-          //   secondLawyerName: '',
-          //   firstPartyName: '',
-          //   secondPartyName: '',
-          //   caseNotes: '',
-          //   casePleadings: '',
-          //   caseStatus: true,
-          //   caseShift: true,
-          //   caseFinish: true,
-          //   firNo: '',
-          //   policeStation: '',
-          //   offence: '',
-          //   firDate: '',
-          //   clientClientName: '',
-          //   clientId: null,
-          //   caseTypeCaseTypeName: '',
-          //   caseTypeId: null,
-          //   litigantType1LitigantTypeName: '',
-          //   firstLitigantTypeId: null,
-          //   litigantType2LitigantTypeName: '',
-          //   secLitigantTypeId: null,
-          //   branchBranchName: '',
-          //   branchId: null,
-          //   bStartDate: '',
-          //   bEndDate: '',
-          //   bNotes: '',
-          //   caseBenchStatus: true,
-          //   caseMain: '',
-          //   caseMainId: null,
-          //   bench: '',
-          //   benchId: null,
-          //   lStartDate: '',
-          //   lEndDate: '',
-          //   lNotes: '',
-          //   caseLawyerStatus: true,
-          //   lawyer: '',
-          //   lawyerId: null,
+          initialValues={{
+            id: 0,
+            creationTime: '',
+            creatorUserId: 0,
+            lastModificationTime: '',
+            lastModifierUserId: 0,
+            caseNo: '',
+            courtCaseNo: '',
+            courtCaseGenNo: '',
+            courtCaseGaffNo: '',
+            caseRegDate: '',
+            caseStartDate: '',
+            caseEndDate: '',
+            caseTitle: '',
+            firstLawyerName: '',
+            secondLawyerName: '',
+            firstPartyName: '',
+            secondPartyName: '',
+            caseNotes: '',
+            casePleadings: '',
+            caseStatus: true,
+            caseShift: true,
+            caseFinish: true,
+            firNo: '',
+            policeStation: '',
+            offence: '',
+            firDate: '',
+            clientClientName: '',
+            clientId: null,
+            caseTypeCaseTypeName: '',
+            caseTypeId: null,
+            litigantType1LitigantTypeName: '',
+            firstLitigantTypeId: null,
+            litigantType2LitigantTypeName: '',
+            secLitigantTypeId: null,
+            branchBranchName: '',
+            branchId: null,
+            bStartDate: '',
+            bEndDate: '',
+            bNotes: '',
+            caseBenchStatus: true,
+            caseMain: '',
+            caseMainId: null,
+            bench: '',
+            benchId: null,
+            lStartDate: '',
+            lEndDate: '',
+            lNotes: '',
+            caseLawyerStatus: true,
+            lawyer: '',
+            lawyerId: null,
 
-          // }}
+          }}
         >
           <Tabs defaultActiveKey={'ClientInfo'} size={'small'} tabBarGutter={64}>
             <TabPane tab={'Case Registration'} key={'ClientInfo'}>
@@ -342,38 +344,38 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 </Col>
                 <Col span={8}>
               <Form.Item label={L('Client Name')} name="clientId" rules={rules.clientId}>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <Select
-                    showSearch
-                    placeholder="--select--"
-                    options={CLoptions}
-                    allowClear
-                    filterOption={(input, option) =>
-                      (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                    }
-                  />
-                  <Button type="link" onClick={() => this.setState({ isClientModalOpen: true })}>
+                {/* <div style={{ display: 'flex', gap: '8px' }}> */}
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={CLoptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+                  {/* <Button type="link" onClick={() => this.setState({ isClientModalOpen: true })}>
                     Add New
-                  </Button>
-                </div>
+                  </Button> */}
+                {/* </div> */}
               </Form.Item>
                 </Col>
                 <Col span={8}>
               <Form.Item label="Case Type" name="caseTypeId" rules={rules.caseTypeId}>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <Select
-                    showSearch
-                    placeholder="--select--"
-                    options={CToptions}
-                    allowClear
-                    filterOption={(input, option) =>
-                      (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                    }
-                  />
-                  <Button type="link" onClick={() => this.setState({ isCaseTypeModalOpen: true })}>
+                {/* <div style={{ display: 'flex', gap: '8px' }}> */}
+                <Select
+                  showSearch
+                  placeholder="--select--"
+                  options={CToptions}
+                  allowClear
+                  filterOption={(input, option) =>
+                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+                  {/* <Button type="link" onClick={() => this.setState({ isCaseTypeModalOpen: true })}>
                     Add New
-                  </Button>
-                </div>
+                  </Button> */}
+                {/* </div> */}
               </Form.Item>
                 </Col>
               </Row>
@@ -642,12 +644,12 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
                 </div></>}
             </TabPane>
           </Tabs>
-          <Modal title="Add New Client" visible={this.state.isClientModalOpen} onOk={handleAddClient} onCancel={() => this.setState({ isClientModalOpen: false })}>
+          {/* <Modal title="Add New Client" visible={this.state.isClientModalOpen} onOk={handleAddClient} onCancel={() => this.setState({ isClientModalOpen: false })}>
             <Input placeholder="Enter new client name" value={this.state.newClientName} onChange={(e) => this.setState({ newClientName: e.target.value })} />
           </Modal>
           <Modal title="Add New Case Type" visible={this.state.isCaseTypeModalOpen} onOk={handleAddCaseType} onCancel={() => this.setState({ isCaseTypeModalOpen: false })}>
             <Input placeholder="Enter new case type" value={this.state.newCaseTypeName} onChange={(e) => this.setState({ newCaseTypeName: e.target.value })} />
-          </Modal>
+          </Modal> */}
         </Form>
       </Modal>
     );

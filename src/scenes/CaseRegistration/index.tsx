@@ -108,6 +108,8 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
     const form = this.formRef.current;
 
     form!.validateFields().then(async (values: any) => {
+      console.log("form values of case reg",values)
+      // let val={...values,clientId:Number(values.clientId),caseTypeId:Number(values.caseTypeId)}
       if (this.state.caseRegistrationId === 0) {
         await this.props.caseRegistrationStore.create(values);
       } else {
