@@ -13,7 +13,8 @@ import { GetFirstLitigantTypes } from '../../../services/caseRegistration/dto/ge
 import { GetSecondLitigantTypes } from '../../../services/caseRegistration/dto/getSecondLitigantTypeOutput';
 import { GetLawyers } from '../../../services/caseRegistration/dto/getLawyerOutput';
 import { GetColorByIndex } from '../../../components/Helper/GetColorByIndex';
-// import http from '../../../services/httpService';
+import http from '../../../services/httpService';
+import { PlusOutlined } from '@ant-design/icons';
 
 const TabPane = Tabs.TabPane;
 
@@ -33,10 +34,10 @@ interface State {
   confirmDirty: boolean;
   isCBSelected: boolean;
   isCLSelected: boolean;
-  // isClientModalOpen: boolean;
-  // isCaseTypeModalOpen: boolean;
-  // newClientName: string;
-  // newCaseTypeName: string;
+  isClientModalOpen: boolean;
+  isCaseTypeModalOpen: boolean;
+  newClientName: string;
+  newCaseTypeName: string;
   // CToptions: any[]
   // CLoptions: any[]
   // caseLawyer:CaseLawyer[];
@@ -64,17 +65,17 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
     confirmDirty: false,
     isCBSelected: false,
     isCLSelected: false,
-    // isClientModalOpen: false,
-    // isCaseTypeModalOpen: false,
-    // newClientName: '',
-    // newCaseTypeName: '',
+    isClientModalOpen: false,
+    isCaseTypeModalOpen: false,
+    newClientName: '',
+    newCaseTypeName: '',
     // CToptions: this.props.caseTypes.map((x) => ({ label: x.displayText, value: x.value })),
     // CLoptions: this.props.clients.map((x) => ({ label: x.displayText, value: x.value })),
     // caseLawyer:[],
 
   };
   render() {
-    const { branches, benches,caseTypes,clients, lawyers, firstParty, secondParty } = this.props;
+    const { branches, benches, caseTypes, clients, lawyers, firstParty, secondParty } = this.props;
 
     // const formItemLayout = {
     //   labelCol: {
@@ -185,70 +186,68 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       var test = { label: x.displayText, value: x.value };
       return test;
     });
-    // const handleAddClient = async () => {
-    //   const data = {
-    //     "id": 0,
-    //     "creationTime": "2024-10-31T07:56:30.277Z",
-    //     "creatorUserId": 0,
-    //     "lastModificationTime": "2024-10-31T07:56:30.277Z",
-    //     "lastModifierUserId": 0,
-    //     "clientCode": "string",
-    //     "clientTypeName": "PRIVATE",
-    //     "clientName": this.state.newClientName,
-    //     "clientFatherName": "XYZ",
-    //     "clientHusbandName": "No",
-    //     "clientAdress": 'XYZ',
-    //     "clientCNIC": 'XYZ',
-    //     "clientMobile": 'XYZ',
-    //     "clientGender": 'XYZ',
-    //     "clientPhotoPath": "noimage.png",
-    //     "clientDOB": "2024-10-31",
-    //     "clientRegDate": "2024-10-31",
-    //     "clientFirmCode": "HZ MArkets",
-    //     "clientFirmNTN": "NTN",
-    //     "clientFirmSTR": "STR",
-    //     "clientFirmContactPer": "Hassan",
-    //     "clientFirmContactPerNo": "03209988765",
-    //     "cityId": 15,
-    //     "branchId": 2,
-    //     "clientTypeId": 1
-    //   }
-    //   try {
-    //     let result = await http.post('/api/services/app/Client/Create', data);
-    //     if (result?.data?.success) {
-    //       // let id = result.data.result.id
-    //       // let label = result.data.result.clientName
-    //   await this.props.store.getClients();
-    //       // this.props.formRef.current?.setFieldsValue({ "clientId": id })
-    //       // this.props.formRef.current?.setFieldsValue({ "clientName": label })
-    //       this.setState({ isClientModalOpen: false });
-    //       // CToptions= ((prevState:any[])=>[...prevState, { value: id, label: label }])
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to make create client api call", error);
-    //   }
-    // };
+    const handleAddClient = async () => {
+      const data = {
+        "id": 0,
+        "creationTime": "2024-10-31T07:56:30.277Z",
+        "creatorUserId": 0,
+        "lastModificationTime": "2024-10-31T07:56:30.277Z",
+        "lastModifierUserId": 0,
+        "clientCode": "string",
+        "clientTypeName": "PRIVATE",
+        "clientName": this.state.newClientName,
+        "clientFatherName": "XYZ",
+        "clientHusbandName": "No",
+        "clientAdress": 'XYZ',
+        "clientCNIC": 'XYZ',
+        "clientMobile": 'XYZ',
+        "clientGender": 'XYZ',
+        "clientPhotoPath": "noimage.png",
+        "clientDOB": "2024-10-31",
+        "clientRegDate": "2024-10-31",
+        "clientFirmCode": "HZ MArkets",
+        "clientFirmNTN": "NTN",
+        "clientFirmSTR": "STR",
+        "clientFirmContactPer": "Hassan",
+        "clientFirmContactPerNo": "03209988765",
+        "cityId": 15,
+        "branchId": 2,
+        "clientTypeId": 1
+      }
+      try {
+        let result = await http.post('/api/services/app/Client/Create', data);
+        if (result?.data?.success) {
+          let id = result.data.result.id
+          let label = result.data.result.clientName
+          await this.props.store.getClients();
+          this.props.formRef.current?.setFieldsValue({ "clientId": id.toString(), "clientName": label })
+          this.setState({ isClientModalOpen: false });
+          // CToptions= ((prevState:any[])=>[...prevState, { value: id, label: label }])
+        }
+      } catch (error) {
+        console.error("Failed to make create client api call", error);
+      }
+    };
 
-    // const handleAddCaseType = async () => {
-    //   const data = {
-    //     caseTypeName: this.state.newCaseTypeName,
-    //     caseTypeDesciption: "",
-    //   }
-    //   try {
-    //     let result = await http.post('/api/services/app/CaseType/Create', data);
-    //     if (result?.data?.success) {
-    //       // let id = result.data.result.id
-    //       // let label = result.data.result.caseTypeName
-    //       await this.props.store.getCaseTypes();
-    //       // this.props.formRef.current?.setFieldsValue({ "caseTypeId": id })
-    //       // this.props.formRef.current?.setFieldsValue({ "caseTypeName": label })
-    //       this.setState({ isCaseTypeModalOpen: false });
-    //       // CToptions=((prevState:any[])=>[...prevState, { value: id, label: label }])
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to make create casetype api call", error);
-    //   }
-    // };
+    const handleAddCaseType = async () => {
+      const data = {
+        caseTypeName: this.state.newCaseTypeName,
+        caseTypeDesciption: "",
+      }
+      try {
+        let result = await http.post('/api/services/app/CaseType/Create', data);
+        if (result?.data?.success) {
+          let id = result.data.result.id
+          let label = result.data.result.caseTypeName
+          await this.props.store.getCaseTypes();
+          this.props.formRef.current?.setFieldsValue({ "caseTypeId": id.toString(), "caseTypeName": label })
+          this.setState({ isCaseTypeModalOpen: false });
+          // CToptions=((prevState:any[])=>[...prevState, { value: id, label: label }])
+        }
+      } catch (error) {
+        console.error("Failed to make create casetype api call", error);
+      }
+    };
     const benchColumns = [
       {
         title: L('Bench Code'), dataIndex: 'benchBenchCode', key: 'benchBenchCode', width: 'auto',
@@ -267,11 +266,10 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       { title: L('End Date'), dataIndex: 'lEndDate', key: 'lEndDate', width: 'auto', render: (text: string) => <div>{text}</div> },
       { title: L('Lawyer Status'), dataIndex: 'caseLawyerStatus', key: 'caseLawyerStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
-console.log('this.props.formRef',this.props.formRef.current?.getFieldsValue())
     return (
       <Modal visible={visible} width={1000} footer={this.props.modalType !== 'edit' ? null : undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
         <Form ref={this.props.formRef}
-        layout='vertical'
+          layout='vertical'
           initialValues={{
             id: 0,
             creationTime: '',
@@ -328,198 +326,232 @@ console.log('this.props.formRef',this.props.formRef.current?.getFieldsValue())
         >
           <Tabs defaultActiveKey={'ClientInfo'} size={'small'} tabBarGutter={64}>
             <TabPane tab={'Case Registration'} key={'ClientInfo'}>
+            <Row gutter={16} align="middle">
+            <Col span={8}>
+                  <Form.Item label={L('Branch Name')} name={'branchId'} rules={rules.branchId}>
+                    <Select
+                      showSearch
+                      placeholder="--select--"
+                      options={BRoptions}
+                      allowClear
+                      filterOption={(input, option) =>
+                        (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
+                </Col>
+  <Col span={8}>
+  <Button
+  type="primary"
+  shape="round"
+  icon={<PlusOutlined />}
+  onClick={() => this.setState({ isClientModalOpen: true })}
+  style={{
+    position: 'absolute',
+    top: '-8px', // Adjust this to position the button as needed
+    right: '8px',
+    fontSize: '14px', // Reduce font size
+    padding: '1px 18px', // Adjust padding to make the button smaller
+    backgroundColor: '#f0f0f0', // Light background color
+    borderColor: '#d9d9d9', // Light border color
+  }}
+  ghost // Lighter button appearance
+/>
+
+    <Form.Item
+      label="Client Name"
+      name="clientId"
+      rules={[{ required: true, message: 'Please select a client!' }]}
+    >
+      <Select
+        showSearch
+        placeholder="--select--"
+        options={CLoptions}
+        allowClear
+        filterOption={(input, option) =>
+          (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+        }
+      />
+    </Form.Item>
+  </Col>
+    {/* <Button
+      type="primary"
+      onClick={() => this.setState({ isClientModalOpen: true })}
+      style={{ width: '100%' }}
+    >
+      Add New
+    </Button> */}
+  {/* <Col span={1} style={{ display: 'flex', alignItems: 'center' }}>
+
+  </Col> */}
+  <Col span={8}>
+  <Button type="primary" shape="round" icon={<PlusOutlined />} style={{
+          position: 'absolute',
+          top: '-8px', // Adjust this to position the button as needed
+          right: '8px',padding: '1px 18px'
+        }} onClick={() => this.setState({ isCaseTypeModalOpen: true })} />
+    <Form.Item
+      label="Case Type"
+      name="caseTypeId"
+      rules={rules.caseTypeId}
+    >
+      <Select
+        showSearch
+        placeholder="--select--"
+        options={CToptions}
+        allowClear
+        filterOption={(input, option) =>
+          (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+        }
+      />
+    </Form.Item>
+  </Col>
+  {/* <Col span={1} style={{ display: 'flex', alignItems: 'center' }}>   
+  </Col> */}
+</Row>
+
+
               <Row gutter={16}>
                 <Col span={8}>
-              <Form.Item label={L('Branch Name')}   name={'branchId'} rules={rules.branchId}>
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={BRoptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-              </Form.Item>
+                  <Form.Item label={L('Reg Date')} name={'caseRegDate'} rules={rules.caseRegDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-              <Form.Item label={L('Client Name')} name="clientId" rules={rules.clientId}>
-                {/* <div style={{ display: 'flex', gap: '8px' }}> */}
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={CLoptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-                  {/* <Button type="link" onClick={() => this.setState({ isClientModalOpen: true })}>
-                    Add New
-                  </Button> */}
-                {/* </div> */}
-              </Form.Item>
+                  <Form.Item label={L('Start Date')} name={'caseStartDate'} rules={rules.caseStartDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-              <Form.Item label="Case Type" name="caseTypeId" rules={rules.caseTypeId}>
-                {/* <div style={{ display: 'flex', gap: '8px' }}> */}
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={CToptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-                  {/* <Button type="link" onClick={() => this.setState({ isCaseTypeModalOpen: true })}>
-                    Add New
-                  </Button> */}
-                {/* </div> */}
-              </Form.Item>
+                  <Form.Item label={L('End Date')} name={'caseEndDate'} rules={rules.caseEndDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={8}>
-              <Form.Item label={L('Reg Date')}   name={'caseRegDate'} rules={rules.caseRegDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
+                  <Form.Item label={L('Case No')} name={'caseNo'} rules={rules.caseNo}>
+                    <Input disabled />
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-              <Form.Item label={L('Start Date')}   name={'caseStartDate'} rules={rules.caseStartDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
+                  <Form.Item label={L('Case Main No')} name={'courtCaseNo'} rules={rules.courtCaseNo}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-              <Form.Item label={L('End Date')}   name={'caseEndDate'} rules={rules.caseEndDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col span={8}>
-              <Form.Item label={L('Case No')}   name={'caseNo'} rules={rules.caseNo}>
-                <Input disabled />
-              </Form.Item>
-                </Col>
-                <Col span={8}>
-              <Form.Item label={L('Case Main No')}   name={'courtCaseNo'} rules={rules.courtCaseNo}>
-                <Input />
-              </Form.Item>
-                </Col>
-                <Col span={8}>
-              <Form.Item label={L('Case Title')}   name={'caseTitle'} rules={rules.caseTitle}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Case Title')} name={'caseTitle'} rules={rules.caseTitle}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={6}>
-              <Form.Item label={L('First Party Type')}   name={'firstLitigantTypeId'} rules={rules.firstLitigantTypeId}>
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={FLToptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-              </Form.Item>
+                  <Form.Item label={L('First Party Type')} name={'firstLitigantTypeId'} rules={rules.firstLitigantTypeId}>
+                    <Select
+                      showSearch
+                      placeholder="--select--"
+                      options={FLToptions}
+                      allowClear
+                      filterOption={(input, option) =>
+                        (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('First Party Name')}   name={'firstPartyName'} rules={rules.firstPartyName}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('First Party Name')} name={'firstPartyName'} rules={rules.firstPartyName}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('First Lawyer Name')}   name={'firstLawyerName'} rules={rules.firstLawyerName}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('First Lawyer Name')} name={'firstLawyerName'} rules={rules.firstLawyerName}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Fir No')}   name={'firNo'} rules={rules.firNo}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Fir No')} name={'firNo'} rules={rules.firNo}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={6}>
-              <Form.Item label={L('Second Party Type')}   name={'secLitigantTypeId'} rules={rules.secLitigantTypeId}>
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={SLToptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-              </Form.Item>
+                  <Form.Item label={L('Second Party Type')} name={'secLitigantTypeId'} rules={rules.secLitigantTypeId}>
+                    <Select
+                      showSearch
+                      placeholder="--select--"
+                      options={SLToptions}
+                      allowClear
+                      filterOption={(input, option) =>
+                        (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Second Party Name')}   name={'secondPartyName'} rules={rules.secondPartyName}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Second Party Name')} name={'secondPartyName'} rules={rules.secondPartyName}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Second Lawyer Name')}   name={'secondLawyerName'} rules={rules.secondLawyerName}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Second Lawyer Name')} name={'secondLawyerName'} rules={rules.secondLawyerName}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Offence')}   name={'offence'} rules={rules.offence}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Offence')} name={'offence'} rules={rules.offence}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={4}>
-              <Form.Item label={L('Case Status')}   name={'caseStatus'} valuePropName={'checked'}>
-                <Checkbox></Checkbox>
-              </Form.Item>
+                  <Form.Item label={L('Case Status')} name={'caseStatus'} valuePropName={'checked'}>
+                    <Checkbox></Checkbox>
+                  </Form.Item>
                 </Col>
                 <Col span={4}>
-              <Form.Item label={L('Case Shift')}   name={'caseShift'} valuePropName={'checked'}>
-                <Checkbox></Checkbox>
-              </Form.Item>
+                  <Form.Item label={L('Case Shift')} name={'caseShift'} valuePropName={'checked'}>
+                    <Checkbox></Checkbox>
+                  </Form.Item>
                 </Col>
                 <Col span={4}>
-              <Form.Item label={L('Case Finish')}   name={'caseFinish'} valuePropName={'checked'}>
-                <Checkbox></Checkbox>
-              </Form.Item>
+                  <Form.Item label={L('Case Finish')} name={'caseFinish'} valuePropName={'checked'}>
+                    <Checkbox></Checkbox>
+                  </Form.Item>
                 </Col>
                 <Col span={4}>
-              <Form.Item label={L('Fir Date')}   name={'firDate'} rules={rules.firDate}>
-                <DatePicker />
-              </Form.Item>
+                  <Form.Item label={L('Fir Date')} name={'firDate'} rules={rules.firDate}>
+                    <DatePicker />
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
-              <Form.Item label={L('Police Station')}   name={'policeStation'} rules={rules.policeStation}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Police Station')} name={'policeStation'} rules={rules.policeStation}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={6}>
-              <Form.Item label={L('Gen No')}   name={'courtCaseGenNo'} rules={rules.courtCaseGenNo}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Gen No')} name={'courtCaseGenNo'} rules={rules.courtCaseGenNo}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Gaff No')}   name={'courtCaseGaffNo'} rules={rules.courtCaseGaffNo}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Gaff No')} name={'courtCaseGaffNo'} rules={rules.courtCaseGaffNo}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Case Notes')}   name={'caseNotes'} rules={rules.caseNotes}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Case Notes')} name={'caseNotes'} rules={rules.caseNotes}>
+                    <Input />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Case Pleadings')}   name={'casePleadings'} rules={rules.casePleadings}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Case Pleadings')} name={'casePleadings'} rules={rules.casePleadings}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               {this.props.modalType !== 'edit' && <div style={{ textAlign: 'right', marginTop: 16 }}>
@@ -534,39 +566,39 @@ console.log('this.props.formRef',this.props.formRef.current?.getFieldsValue())
             <TabPane tab={L('Case Bench')} key={'Client'} forceRender={true}>
               <Row gutter={16}>
                 <Col span={12}>
-              <Form.Item label={L('Bench Code')}   name={'benchId'} rules={rules.benchId}>
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={Boptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-              </Form.Item>
+                  <Form.Item label={L('Bench Code')} name={'benchId'} rules={rules.benchId}>
+                    <Select
+                      showSearch
+                      placeholder="--select--"
+                      options={Boptions}
+                      allowClear
+                      filterOption={(input, option) =>
+                        (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Start Date')}   name={'bStartDate'} rules={rules.bStartDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
+                  <Form.Item label={L('Start Date')} name={'bStartDate'} rules={rules.bStartDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('End Date')}   name={'bEndDate'} rules={rules.bEndDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
+                  <Form.Item label={L('End Date')} name={'bEndDate'} rules={rules.bEndDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={8}>
-              <Form.Item label={L('Bench Status')}   name={'caseBenchStatus'} valuePropName={'checked'}>
-                <Checkbox></Checkbox>
-              </Form.Item>
+                  <Form.Item label={L('Bench Status')} name={'caseBenchStatus'} valuePropName={'checked'}>
+                    <Checkbox></Checkbox>
+                  </Form.Item>
                 </Col>
                 <Col span={16}>
-              <Form.Item label={L('Notes')}   name={'bNotes'} rules={rules.bNotes}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Notes')} name={'bNotes'} rules={rules.bNotes}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               {this.props.modalType !== 'edit' && <><Table
@@ -595,45 +627,46 @@ console.log('this.props.formRef',this.props.formRef.current?.getFieldsValue())
             <TabPane tab={L('Case Lawyer')} key={'Lawyer'} forceRender={true}>
               <Row gutter={16}>
                 <Col span={12}>
-              <Form.Item label={L('Lawyer Name')}   name={'lawyerId'} rules={rules.lawyerId}>
-                <Select
-                  showSearch
-                  placeholder="--select--"
-                  options={Loptions}
-                  allowClear
-                  filterOption={(input, option) =>
-                    (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
-                  }
-                />
-              </Form.Item>
+                  <Form.Item label={L('Lawyer Name')} name={'lawyerId'} rules={rules.lawyerId}>
+                    <Select
+                      showSearch
+                      placeholder="--select--"
+                      options={Loptions}
+                      allowClear
+                      filterOption={(input, option) =>
+                        (option as { label: string; value: string })?.label.toLowerCase().includes(input.toLowerCase())
+                      }
+                    />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('Start Date')}   name={'lStartDate'} rules={rules.lStartDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
+                  <Form.Item label={L('Start Date')} name={'lStartDate'} rules={rules.lStartDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
-              <Form.Item label={L('End Date')}   name={'lEndDate'} rules={rules.lEndDate}>
-                <DatePicker style={{width:'100%'}}/>
-              </Form.Item>
+                  <Form.Item label={L('End Date')} name={'lEndDate'} rules={rules.lEndDate}>
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row gutter={16}>
                 <Col span={8}>
-              <Form.Item label={L('Lawyer Status')}   name={'caseLawyerStatus'} valuePropName={'checked'}>
-                <Checkbox></Checkbox>
-              </Form.Item>
+                  <Form.Item label={L('Lawyer Status')} name={'caseLawyerStatus'} valuePropName={'checked'}>
+                    <Checkbox></Checkbox>
+                  </Form.Item>
                 </Col>
                 <Col span={16}>
-              <Form.Item label={L('Notes')}   name={'lNotes'} rules={rules.lNotes}>
-                <Input />
-              </Form.Item>
+                  <Form.Item label={L('Notes')} name={'lNotes'} rules={rules.lNotes}>
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
               {this.props.modalType !== 'edit' && <><Table rowKey={(record) => record.id} bordered={true} onRow={(record, index) => ({
-                  style: {
-                    backgroundColor: GetColorByIndex({ index }), 
-                  }})} columns={lawyerColumns} size='small' pagination={false} loading={this.state.isCLSelected} dataSource={this.props.store.clList === undefined ? [] : this.props.store.clList}/>
+                style: {
+                  backgroundColor: GetColorByIndex({ index }),
+                }
+              })} columns={lawyerColumns} size='small' pagination={false} loading={this.state.isCLSelected} dataSource={this.props.store.clList === undefined ? [] : this.props.store.clList} />
                 <div style={{ textAlign: 'right', marginTop: 16 }}>
                   <Button onClick={onCancel} style={{ marginRight: 8 }}>
                     {L('Cancel')}
@@ -644,12 +677,12 @@ console.log('this.props.formRef',this.props.formRef.current?.getFieldsValue())
                 </div></>}
             </TabPane>
           </Tabs>
-          {/* <Modal title="Add New Client" visible={this.state.isClientModalOpen} onOk={handleAddClient} onCancel={() => this.setState({ isClientModalOpen: false })}>
+          <Modal title="Add New Client" visible={this.state.isClientModalOpen} onOk={handleAddClient} onCancel={() => this.setState({ isClientModalOpen: false })}>
             <Input placeholder="Enter new client name" value={this.state.newClientName} onChange={(e) => this.setState({ newClientName: e.target.value })} />
           </Modal>
           <Modal title="Add New Case Type" visible={this.state.isCaseTypeModalOpen} onOk={handleAddCaseType} onCancel={() => this.setState({ isCaseTypeModalOpen: false })}>
             <Input placeholder="Enter new case type" value={this.state.newCaseTypeName} onChange={(e) => this.setState({ newCaseTypeName: e.target.value })} />
-          </Modal> */}
+          </Modal>
         </Form>
       </Modal>
     );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col, Input, Modal, Row, Table, } from 'antd';
+import { Button, Card, Col, Input,  Row, Table, } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -25,7 +25,6 @@ export interface ICaseRegistrationState {
   filter: string;
 }
 
-const confirm = Modal.confirm;
 const Search = Input.Search;
 
 @inject(Stores.CaseRegistrationStore)
@@ -91,19 +90,6 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
     }, 100);
   }
 
-  delete(input: EntityDto) {
-    const self = this;
-    confirm({
-      title: 'Do you Want to delete these items?',
-      onOk() {
-        self.props.caseRegistrationStore.delete(input);
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
-  }
-
   handleCreate = () => {
     const form = this.formRef.current;
 
@@ -139,7 +125,7 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
       {
         title: L('Actions'),
         key: 'actions',
-        width: 150,
+        width: 75,
         render: (text: string, item: any) => (
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
@@ -149,12 +135,7 @@ class CaseRegistration extends AppComponentBase<ICaseRegistrationProps, ICaseReg
             >
               {L('Edit')}
             </Button>
-            <Button
-              color="danger"
-              onClick={() => this.delete({ id: item.id })}
-            >
-              {L('Delete')}
-            </Button>
+            
           </div>
         ),
       },
