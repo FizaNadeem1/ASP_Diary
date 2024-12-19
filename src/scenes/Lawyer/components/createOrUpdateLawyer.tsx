@@ -11,10 +11,11 @@ import { GetSpecialities } from '../../../services/lawyer/dto/getSpecialityOutpu
 import { GetBranches } from '../../../services/lawyer/dto/getBranchOutput';
 import LawyerStore from '../../../stores/lawyerStore';
 import rules from './createOrUpdateLawyer.validation';
+import DisplayImage from '../../../components/DisplayImage/DisplayImage';
 
 interface State {
   confirmDirty: boolean,
-  // image: File | null; // Image can be a File or null
+  image: File | null; // Image can be a File or null
   // storedImage: string | null; // Stored image is a string (base64) or null
 }
 
@@ -37,9 +38,10 @@ store:LawyerStore
 }
 
 class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,State> {
+  
   state = {
     confirmDirty: false,
-    // image: null, // To store the image data
+    image: null, // To store the image data
     // storedImage: null, // To store the image from IndexedDB
   };
 
@@ -133,6 +135,9 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
 //     componentDidMount() {
 //       this.initDB(); // Initialize IndexedDB when the component mounts
 //     }
+setImage = (img: File) => {
+  this.setState({image:img});
+};
   handleProvinceChange = async(value:any) => {
     const { store } = this.props;
     store.selectedProvince = value;
@@ -197,17 +202,10 @@ class CreateOrUpdateLawyer extends React.Component<ICreateOrUpdateLawyerProps,St
     return (
       <Modal visible={visible} width={1000} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Lawyer'} destroyOnClose={true}>
         <Form ref={this.props.formRef} layout='vertical'>
-        {/* <div>
-        <h2>Upload Image</h2>
-        <input type="file" accept="image/*" onChange={this.handleImageChange} />
-        {image && <p>Image selected: {image.name}</p>} 
 
-        <h3>Stored Image from IndexedDB</h3>
-        {storedImage && <img src={storedImage} alt="Stored" style={{ width: '200px' }} />}
-        {!storedImage && <p>No image stored yet</p>}
-
-        <button onClick={this.retrieveImage}>Retrieve Image</button>
-      </div> */}
+                        <DisplayImage name='lawyerPhotoPath' image={this.state.image} setImage={this.setImage} 
+                        // imageRef={imageRef}
+                        />
       <Row gutter={16}>
         <Col span={8}>
           <Form.Item label={L('Lawyer Name')}   name={'lawyerName'} rules={rules.lawyerName}>
