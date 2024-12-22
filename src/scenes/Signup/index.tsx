@@ -18,10 +18,7 @@ import { SubscriptionData } from './SubscriptionData';
 import { Line } from 'rc-progress';
 import Loading from '../../components/Loading';
 import { CardElement } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import AppConsts from '../../lib/appconst';
 
-const stripePromise = loadStripe(AppConsts.stripeKey as string);
 const FormItem = Form.Item;
 declare var abp: any;
 
@@ -29,8 +26,8 @@ export interface ILoginProps {
   subscriptionStore?: SubscriptionStore;
   history: any;
   location: any;
-//   stripe:any;
-// elements:any;
+  //   stripe:any;
+  // elements:any;
 }
 interface State {
   completedApis: number;
@@ -50,7 +47,7 @@ class Signup extends React.Component<ILoginProps, State> {
     timeZone: [],
     completedApis: 0,
     progress: 0,
-    totalApis: 10,
+    totalApis: 13,
     loading: false
   };
 
@@ -288,89 +285,63 @@ class Signup extends React.Component<ILoginProps, State> {
                             this.setState((prevState) => ({
                               completedApis: prevState.completedApis + 1,
                             }));
-                            let data=result9.data.result
+                            let data = result9.data.result
                             if (data.paid) {
                               Modal.success({ content: L("Congragulations! Ypu have subscribed free package for a month") });
-                              history.push('/');
+                              history.push('/dashboard');
+                              // this.setState({loading:false})
                             } else {
-                              const stripe = await stripePromise;
-
-                              // Redirect to Checkout
-                              try {
-                                if (!stripe) {
-                                  throw new Error('Stripe has not been initialized.');
-                                }
-                              
-                                const result = await stripe.redirectToCheckout({
-                                  // lineItems: [
-                                  //           {
-                                  //               price: {
-                                  //                   unitAmount: Math.round(state.selectedPackage.tottalPricePaid * 100), // Convert amount to cents
-                                  //                   currency: 'usd',
-                                  //                   recurring: {
-                                  //                       interval: state.selectedPackage.packageIsMonthly ? 'month' : 'year',
-                                  //                       intervalCount: 1,
-                                  //                   },
-                                  //                   productData: {
-                                  //                       name: `Associates Diary - ${state.selectedPackage.packagePackageName}`,
-                                  //                       description: state.selectedPackage.id.toString(),
-                                  //                   },
-                                  //               },
-                                  //               quantity: 1,
-                                  //           },
-                                  //       ],
-                                        clientReferenceId: `${state.selectedPackage.id}_${tenantId}`,
-                                              mode: 'subscription',
-                                  successUrl: `${window.location.origin}/success`,
-                                  cancelUrl: `${window.location.origin}/cancel`,
-                                });
-                              
-                                if (result.error) {
-                                  console.error(result.error.message);
-                                  // Optionally set the error message in the state
-                                }
-                              } catch (err) {
-                                console.error('Error during redirect to checkout:', err);
+                              let api10 = {
+                                "id": data.id,
+                                "creationTime": data.creationTime,
+                                "creatorUserId": data.creatorUserId,
+                                "lastModificationTime": data.lastModificationTime,
+                                "lastModifierUserId": data.lastModifierUserId,
+                                "userId": data.userId,
+                                "tenantId": data.tenantId,
+                                "subscriptionDate": data.subscriptionDate,
+                                "startSubscriptionDate": data.startSubscriptionDate,
+                                "endSubscriptionDate": data.endSubscriptionDate,
+                                "packageId": data.packageId,
+                                "packagePackageName":data.packagePackageName,
+                                "packageDetails": data.packageDetails,
+                                "packageIsMonthly": state.selectedPackage.isMonthly?true:false,
+                                "subscriptionStatus": data.subscriptionStatus,
+                                "paid": data.paid,
+                                "stripeResponseKey": data.stripeResponseKey,
+                                "stripeDesciptionKey": data.stripeDesciptionKey,
+                                "stripeKey": data.stripeKey,
+                                "tottalPricePaid": data.tottalPricePaid,
+                                "discountPrice": data.discountPrice,
+                                "priceWithoutDiscountDiscount": data.priceWithoutDiscountDiscount,
+                                "tenantName": data.tenantName,
+                                "userName": data.userName
                               }
+                              console.log("api call no 10 credentials", api10)
+                              await this.props.subscriptionStore?.createPaymentSession(api10).then(async (result10) => {
+                                console.log("API Call No. 10 Response", result10);
+                                
+                                // Validate the response
+                                const redirectUrl = result10.data.result;
                               
-                              // if (!stripe || !elements) {
-                              //   console.error("Stripe has not loaded");
-                              //   return;
-                              // }
-                              // const cardElement = elements.getElement(CardElement);
-
-                              // const { paymentMethod, error } = await stripe.createPaymentMethod({
-                              //   type: "card",
-                              //   card: cardElement,
-                              //   billing_details: {
-                              //     name: `Associates Diary - ${state.selectedPackage.packagePackageName}`,
-                              //   },
-                              // });
-                              // if (error) {
-                              //   console.error(error);
-                              //   console.log('stripe error',error.message);
-                              //   return;
-                              // }
-                              // const clientSecret = "your-client-secret-from-stripe-dashboard";
-
-                              // // Confirm Payment with PaymentIntent
-                              // const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-                              //   payment_method: paymentMethod.id,
-                              // });
-                              // if (confirmError) {
-                              //   console.error(confirmError);
-                              // } else if (paymentIntent && paymentIntent.status === "succeeded") {
-                              //   console.log('success strip',"Payment successful! Thank you.");
-                              // } else {
-                              //   history.push(`${window.location.origin}/cancel`);
-                              //   console.log('cancel strip',"Payment failed. Please try again.");
-                              // }                          
-                             
-                            
-                              
-                            
+                                if (redirectUrl && redirectUrl.startsWith("https://checkout.stripe.com")) {
+                                  console.log("Redirecting to Stripe Checkout:", redirectUrl);
+                                  localStorage.setItem("tenantName",`${firmName}${tenantName}`)
+                                  localStorage.setItem("package",JSON.stringify(state.selectedPackage))
+                                  window.location.href = redirectUrl; // Redirect to the Stripe Checkout page
+                                } else {
+                                  console.error("Invalid Stripe Checkout URL:", redirectUrl);
+                                  Modal.error({
+                                    content: "Failed to initiate payment session. Please try again.",
+                                  });
+                                  // this.setState({ loading: false });
+                                }
+                                
+                                this.setState((prevState) => ({
+                                  completedApis: prevState.completedApis + 1,
+                                }));
+                              });                              
                             }
-                            this.setState({ loading: false })
                           })
                         })
                       })
@@ -434,9 +405,10 @@ class Signup extends React.Component<ILoginProps, State> {
     });
     if (this.state.loading) {
       return (
-        <div style={{ 
+        <div style={{
           // alignItems: 'center', justifyContent: 'center', display: 'col', 
-        height: '100vh' }}>
+          height: '100vh'
+        }}>
           <Loading />
 
           <div style={{ alignItems: 'center', marginTop: '3px', display: 'flex' }}>
@@ -448,7 +420,7 @@ class Signup extends React.Component<ILoginProps, State> {
               trailColor="#d3d3d3"
               style={{ width: '400px' }} // Adjust the width of the progress bar as needed
             />
-            <p className="mt-3" style={{ fontWeight: 'bold', marginLeft: '4px', fontSize: '18px' }}>{this.state.progress}% completed</p>
+            <p className="mt-3" style={{ fontWeight: 'bold', marginLeft: '4px', fontSize: '18px' }}>{this.state.progress} % completed</p>
           </div>
         </div>
       )
@@ -563,7 +535,7 @@ class Signup extends React.Component<ILoginProps, State> {
                 <Row style={{ margin: '0px 0px 10px 15px ' }}>
                   {/* <Col span={24} offset={6}> */}
                   <CardElement />
-                  <Button  style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} danger>
+                  <Button style={{ backgroundColor: '#f5222d', color: 'white' }} htmlType={'submit'} danger>
                     {L('Signup')}
                   </Button>
                   {/* </Col> */}

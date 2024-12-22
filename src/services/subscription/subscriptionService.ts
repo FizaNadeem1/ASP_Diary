@@ -57,6 +57,10 @@ class SubscriptionService {
     let result = await http.post('/api/services/app/SignUpBaseManagement/CreateSubscription', createSubscriptionInput);
     return result;
   }
+  public async createPaymentSession(createPaymentSessionInput: CreateSubscriptionInput) {
+    let result = await http.post('/api/services/app/SignUpBaseManagement/CreateSubscriptionSignUp', createPaymentSessionInput);
+    return result;
+  }
 
   public async getTimeZone() {
     let result = await http.post('/api/services/app/ApplicationTimeZone/TimeZoneList');

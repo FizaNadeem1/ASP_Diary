@@ -28,7 +28,14 @@ export const userRouter: any = [
     path: '/user/package-list', // Define the path for the signup page
     name: 'package-list', // Unique name for this route
     title: 'Package-list', // Display title for the route
-    component: LoadableComponent(() => import('../../scenes/PackageList')), // Dynamically import the Signup component
+    component: LoadableComponent(() => import('../../scenes/PackageList')), 
+    showInMenu: false, // Set to true if you want this route to appear in the menu
+  },
+  {
+    path:  '/user/Success/:session_id',
+    name: 'success', // Unique name for this route
+    title: 'Success', // Display title for the route
+    component: LoadableComponent(() => import('../../scenes/PaymentSuccess')), 
     showInMenu: false, // Set to true if you want this route to appear in the menu
   },
 ];
@@ -52,6 +59,15 @@ export const appRouters: any = [
     icon: HomeOutlined,
     showInMenu: true,
     component: LoadableComponent(() => import('../../scenes/Dashboard')),
+  },
+  {
+    path: '/linkGenerate',
+    permission: '',
+    title: 'TenantLink',
+    name: 'TenantLink',
+    icon: InfoCircleOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/GenerateLink')),
   },
   {
     path: '/users',

@@ -72,6 +72,11 @@ class SubscriptionStore {
     return result
   }
   @action
+  async createPaymentSession(createSubscriptionInput: CreateSubscriptionInput) {
+    let result = await subscriptionService.createPaymentSession(createSubscriptionInput);
+    return result
+  }
+  @action
   async getTimeZone() {
     let result = await subscriptionService.getTimeZone();
     return result

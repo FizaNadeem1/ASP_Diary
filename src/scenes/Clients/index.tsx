@@ -13,6 +13,7 @@ import ClientStore from '../../stores/clientStore';
 import CreateOrUpdateClient from './components/createOrUpdateClient';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
 import moment from 'moment';
+import Avatar from "../../assets/images/formAvatar.png";
 
 export interface IClientProps {
   clientStore: ClientStore;
@@ -129,7 +130,7 @@ class Client extends AppComponentBase<IClientProps, IClientState> {
   public render() {
     const { clients } = this.props.clientStore;
     const columns = [
-      { title: L('Client Name'), dataIndex: 'ClientName', key: 'ClientName', width:'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Profile'), dataIndex: 'clientPhotoPath', key: 'clientPhotoPath', width:'auto', render: (text: string) => <div><img src={Avatar} alt="" style={{height:'25px',width:'25px',borderRadius:100}}/></div> },
       { title: L('Client Name'), dataIndex: 'clientName', key: 'clientName', width:'auto', render: (text: string) => <div>{text}</div> },
       { title: L('Client Code'), dataIndex: 'clientCode', key: 'clientCode', width:'auto', render: (text: string) => <div>{text}</div> },
       { title: L('Client Type'), dataIndex: 'clientTypeClientTypeName', key: 'clientTypeClientTypeName', width:'auto', render: (text: string) => <div>{text}</div> },

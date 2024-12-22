@@ -9,9 +9,13 @@ import { GetCities } from '../../../services/client/dto/getCityOutput';
 import { GetClientTypes } from '../../../services/client/dto/getClientTypeOutput';
 import { GetGender } from '../../../services/client/dto/getGenderOutput';
 import ClientStore from '../../../stores/clientStore';
+import DisplayImage from '../../../components/DisplayImage/DisplayImage';
 
 const TabPane = Tabs.TabPane;
-
+interface State {
+  confirmDirty: boolean,
+  image: File | null; 
+}
 export interface ICreateOrUpdateClientProps {
   visible: boolean;
   onCancel: () => void;
@@ -25,11 +29,14 @@ export interface ICreateOrUpdateClientProps {
   store: ClientStore
 }
 
-class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
+class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps,State> {
   state = {
     confirmDirty: false,
+    image: null,
   };
-
+  setImage = (img: File) => {
+    this.setState({image:img});
+  };
   // handleClientChange = async(value:any) => {
   //   console.log("client ma client label",value)
   //   this.props.formRef.current?.setFieldsValue({"clientTypeName":value.label})
@@ -174,7 +181,7 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps> {
               </Form.Item>
             </TabPane>
             <TabPane tab={L('Business')} key={'Business'} forceRender={true}>
-            
+            <DisplayImage name='clientPhotoPath' image={this.state.image} setImage={this.setImage} />
               <Form.Item label={L('Firm Code')} {...formItemLayout} name={'clientFirmCode'} rules={rules.clientFirmCode}>
                 <Input />
               </Form.Item>

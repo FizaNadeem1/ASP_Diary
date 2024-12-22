@@ -388,7 +388,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
   <Button type="primary" shape="round" icon={<PlusOutlined />} style={{
           position: 'absolute',
           top: '-8px', // Adjust this to position the button as needed
-          right: '8px',padding: '1px 18px'
+          right: '8px',padding: '1px 18px',
         }} onClick={() => this.setState({ isCaseTypeModalOpen: true })} />
     <Form.Item
       label="Case Type"
