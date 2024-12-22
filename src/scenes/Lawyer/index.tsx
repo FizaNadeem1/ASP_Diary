@@ -12,6 +12,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
 import LawyerStore from '../../stores/lawyerStore';
 import CreateOrUpdateLawyer from './components/createOrUpdateLawyer';
+import Avatar from "../../assets/images/formAvatar.png";
 // import ImageUploader from './components/imageUploader';
 
 export interface ILawyerProps {
@@ -124,7 +125,7 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
     const columns = [
       {
         title: L('Lawyer Photo'), dataIndex: 'lawyerPhotoPath', key: 'lawyerPhotoPath', width: 'auto',
-        render: (text: string) => <div>{text}</div>
+        render: (text: string) => <div><img src={Avatar} alt="" style={{height:'25px',width:'25px',borderRadius:100}}/></div>
       },
       {title:L('Lawyer Name'),dataIndex:'lawyerName',key:'lawyerName',width:'auto', render: (text: string) => <div>{text}</div>},
       {title:L('Lawyer Liscene'),dataIndex:'lawyerLiscene',key:'lawyerLiscene',width:'auto', render: (text: string) => <div>{text}</div>},
