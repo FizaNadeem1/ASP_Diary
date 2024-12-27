@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button, Card, Col,  Input,  Modal, Row, Table, Tag } from 'antd';
+import { Button, Card, Col,  Input,  Modal, Row, Table } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import AppComponentBase from '../../components/AppComponentBase';
@@ -136,13 +136,6 @@ class Client extends AppComponentBase<IClientProps, IClientState> {
       { title: L('Client Type'), dataIndex: 'clientTypeClientTypeName', key: 'clientTypeClientTypeName', width:'auto', render: (text: string) => <div>{text}</div> },
       { title: L('Branch Name'), dataIndex: 'branchBranchName', key: 'branchBranchName', width:'auto', render: (text: string) => <div>{text}</div> },
       { title: L('City Name'), dataIndex: 'cityCityName', key: 'cityCityName', width:'auto', render: (text: string) => <div>{text}</div> },
-      {
-        title: L('IsActive'),
-        dataIndex: 'isActive',
-        key: 'isActive',
-        width: 150,
-        render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>),
-      },
       {
         title: L('Actions'),
         key: 'actions',

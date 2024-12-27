@@ -209,13 +209,13 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
         "clientFirmNTN": "NTN",
         "clientFirmSTR": "STR",
         "clientFirmContactPer": "Hassan",
-        "clientFirmContactPerNo": "03209988765",
-        "cityId": 15,
-        "branchId": 2,
-        "clientTypeId": 1
+        "clientFirmContactPerNo": "+923209988765",
+        "cityId": '1',
+        "branchId": '1',
+        "clientTypeId": '1'
       }
       try {
-        let result = await http.post('/api/services/app/Client/Create', data);
+        let result = await http.post('api/services/app/Client/Create', data);
         if (result?.data?.success) {
           let id = result.data.result.id
           let label = result.data.result.clientName
@@ -267,7 +267,7 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
       { title: L('Lawyer Status'), dataIndex: 'caseLawyerStatus', key: 'caseLawyerStatus', width: 'auto', render: (text: boolean) => (text === true ? <Tag color="#2db7f5">{L('Yes')}</Tag> : <Tag color="red">{L('No')}</Tag>) }
     ];
     return (
-      <Modal visible={visible} width={1000} footer={this.props.modalType !== 'edit' ? null : undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Client'} destroyOnClose={true}>
+      <Modal visible={visible} width={1000} footer={this.props.modalType !== 'edit' ? null : undefined} cancelText={L('Cancel')} okText={L('OK')} onCancel={onCancel} onOk={onCreate} title={'Case registration'} destroyOnClose={true}>
         <Form ref={this.props.formRef}
           layout='vertical'
           initialValues={{
@@ -349,13 +349,9 @@ class CreateOrUpdateCaseRegistration extends React.Component<ICreateOrUpdateClie
   style={{
     position: 'absolute',
     top: '-8px', // Adjust this to position the button as needed
-    right: '8px',
-    fontSize: '14px', // Reduce font size
-    padding: '1px 18px', // Adjust padding to make the button smaller
-    backgroundColor: '#f0f0f0', // Light background color
-    borderColor: '#d9d9d9', // Light border color
+    right: '8px',padding: '1px 18px',
   }}
-  ghost // Lighter button appearance
+  // ghost // Lighter button appearance
 />
 
     <Form.Item

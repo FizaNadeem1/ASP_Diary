@@ -70,6 +70,15 @@ export const appRouters: any = [
     component: LoadableComponent(() => import('../../scenes/GenerateLink')),
   },
   {
+    path: '/causeList',
+    permission: '',
+    title: 'CauseList',
+    name: 'CauseList',
+    icon: InfoCircleOutlined,
+    showInMenu: true,
+    component: LoadableComponent(() => import('../../scenes/CauseList')),
+  },
+  {
     path: '/users',
     permission: 'Pages.Users',
     title: 'Users',
