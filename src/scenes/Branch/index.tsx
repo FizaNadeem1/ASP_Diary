@@ -8,7 +8,7 @@ import { EntityDto } from '../../services/dto/entityDto';
 import { L } from '../../lib/abpUtility';
 import Stores from '../../stores/storeIdentifier';
 import { FormInstance } from 'antd/lib/form';
-import { PlusOutlined } from '@ant-design/icons';
+// import { PlusOutlined } from '@ant-design/icons';
 import { GetColorByIndex } from '../../components/Helper/GetColorByIndex';
 import BranchStore from '../../stores/branchStore';
 import CreateOrUpdateBranch from './components/createOrUpdateBranch';
@@ -162,7 +162,7 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
             {' '}
             <h2>{L('Branches')}</h2>
           </Col>
-          <Col
+          {/* <Col
             xs={{ span: 14, offset: 0 }}
             sm={{ span: 15, offset: 0 }}
             md={{ span: 15, offset: 0 }}
@@ -172,7 +172,7 @@ class Branch extends AppComponentBase<IBranchProps, IBranchState> {
           >
             <Button type="primary" icon={<PlusOutlined />} onClick={() => this.createOrUpdateModalOpen({ id: 0 })} >
               {L('Create new')}</Button>
-          </Col>
+          </Col> */}
         </Row>
         <Row>
           <Col sm={{ span: 10, offset: 0 }}>

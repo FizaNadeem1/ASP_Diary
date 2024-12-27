@@ -112,8 +112,10 @@ import { PrinterOutlined, LoginOutlined } from "@ant-design/icons";
 import Logo from "../../assets/images/LegalDiaryLogo.png";
 import "./index.less"; // Import CSS file for print styles
 import http from "../../services/httpService";
+import { useHistory } from "react-router-dom";
 
 const SubscriptionDetail = (props:any) => {
+  const history=useHistory()
   const session_id = props.match.params.session_id;
   console.log("param session id",session_id?.split('=')[1])
   const [details, setdetails] = useState({"userId": 2,
@@ -198,7 +200,7 @@ useEffect(()=>{
           <Card hoverable className="payment-details" title="Payment Details">
             <p><strong>Invoice ID:</strong> {details.id}</p>
             <p><strong>User:</strong> success</p>
-            <p><strong>Tenant:</strong> {details.tenantName}</p>
+            <p><strong>Tenant:</strong> #{details.tenantName}</p>
             <p><strong>Subscription Date:</strong> {details.startSubscriptionDate.split("T")[0]}</p>
             <p>
               <strong>Status:</strong> <Tag color="green" className="status-tag">Paid</Tag>
@@ -228,7 +230,7 @@ useEffect(()=>{
               type="primary"
               icon={<LoginOutlined />}
               className="login-button"
-              onClick={() => alert("Redirect to tenant login")}
+              onClick={() => history.push("/user/login")}
             >
               Log in to {details.tenantName}
             </Button>
@@ -240,7 +242,7 @@ useEffect(()=>{
         {/* Footer Notes */}
         <Card hoverable className="notes-card" title="Additional Notes">
           <p>
-            Note: This invoice is system-generated. Please copy your tenancy name, log in to the tenant portal, and update your details as required.
+           Note: This invoice is system generated (digital invoice). Copy the above tenancy name after #, and click on the login button, then click on change and paste the copy tenancy name into the text box, give username/password, and log in. If you are subscribing to a monthly package then the amount of packages will automatically be deducted at the end of the above-given end date, so before the expiration of the above-mentioned date you must unsubscribe from the package subscription if you do not want to continue with us.
           </p>
         </Card>
       </Card>

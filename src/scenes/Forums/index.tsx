@@ -109,22 +109,6 @@ class Forum extends AppComponentBase<IForumProps, IForumState> {
     this.setState({ filter: value }, async () => await this.getAll());
   };
 
-  handleMaxResultCountChange = (value: number) => {
-    this.setState({ maxResultCount: value });
-    this.setState({ currentPage: 1 }); // Reset to the first page
-  };
-
-  handleNextPage = () => {
-    this.setState((prevState) => ({
-      currentPage: prevState.currentPage + 1,
-    }));
-  };
-  handlePrevPage = () => {
-    this.setState((prevState) => ({
-      currentPage: prevState.currentPage > 1 ? prevState.currentPage - 1 : 1,
-    }));
-  };
-
   public render() {
     const { forums } = this.props.forumStore;
     const columns = [

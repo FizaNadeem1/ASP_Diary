@@ -47,20 +47,20 @@ class CreateOrUpdateBranch extends React.Component<ICreateOrUpdateBranchProps> {
     };
     const tailFormItemLayout = {
       labelCol: {
-        xs: { span: 6 },
-        sm: { span: 6 },
-        md: { span: 6 },
-        lg: { span: 6 },
-        xl: { span: 6 },
-        xxl: { span: 6 },
+        xs: { span: 8 },
+        sm: { span: 8 },
+        md: { span: 8 },
+        lg: { span: 8 },
+        xl: { span: 8 },
+        xxl: { span: 8 },
       },
       wrapperCol: {
-        xs: { span: 18 },
-        sm: { span: 18 },
-        md: { span: 18 },
-        lg: { span: 18 },
-        xl: { span: 18 },
-        xxl: { span: 18 },
+        xs: { span: 16 },
+        sm: { span: 16 },
+        md: { span: 16 },
+        lg: { span: 16 },
+        xl: { span: 16 },
+        xxl: { span: 16 },
       },
     };
 
