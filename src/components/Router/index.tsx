@@ -8,10 +8,12 @@ import utils from '../../utils/utils';
 const Router = () => {
   const UserLayout = utils.getRoute('/user').component;
   const AppLayout = utils.getRoute('/').component;
+  const PublicRoute=utils.getRoute('/tenantclient').component
 
   return (
     <Switch>
       <Route path="/user" render={(props: any) => <UserLayout {...props} />} />
+      <Route path="/tenantclient" render={(props: any) => <PublicRoute {...props} />} />
       <ProtectedRoute path="/" render={(props: any) => <AppLayout {...props} exact />} />
     </Switch>
   );

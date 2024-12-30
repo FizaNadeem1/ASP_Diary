@@ -133,13 +133,13 @@ const CauseList: React.FC = () => {
   };
 
   const columns = [
-    { title: "Case No", dataIndex: "caseNo", key: "caseNo" },
-    { title: "Case Title", dataIndex: "caseTitle", key: "caseTitle" },
-    { title: "Bench Code", dataIndex: "benchCode", key: "benchCode" },
-    { title: "Case Type", dataIndex: "caseType", key: "caseType" },
-    { title: "Proceeding", dataIndex: "proceeding", key: "proceeding" },
-    { title: "Previous Date", dataIndex: "previousDate", key: "previousDate" },
-    { title: "Next Date", dataIndex: "nextDate", key: "nextDate" },
+    { title: "Case No", dataIndex: "caseCaseNo", key: "caseCaseNo" },
+    { title: "Case Title", dataIndex: "caseCaseTitle", key: "caseCaseTitle" },
+    { title: "Bench Code", dataIndex: "benchId", key: "benchId" },
+    { title: "Case Type", dataIndex: "caseCaseTypeCaseTypeName", key: "caseCaseTypeCaseTypeName" },
+    { title: "Proceeding", dataIndex: "proceedingStatusProceedingName", key: "proceedingStatusProceedingName" },
+    { title: "Previous Date", dataIndex: "previousDate", key: "previousDate",render: (text: string) => <div >{text.split("T")[0]}</div>, },
+    { title: "Next Date", dataIndex: "nexttDate", key: "nexttDate",render: (text: string) => <div >{text.split("T")[0]}</div> },
   ];
 
   return (
