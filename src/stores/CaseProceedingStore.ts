@@ -39,7 +39,7 @@ class CaseProceedingStore {
       (x: GetCaseProceedingOutput) => x.id !== entityDto.id
     );
   }
-  
+
   @action
   async getCaseProceedingForEdit(entityDto: EntityDto) {
     let data = await CaseProceedingService.getCaseProceedingForEdit(entityDto);
@@ -68,14 +68,15 @@ class CaseProceedingStore {
       caseId: data.editCaseProceeding.caseId,
       caseCaseNo: data.getCaseDataByCaseNo.caseMainCaseNo,
       caseCaseTitle: data.getCaseDataByCaseNo.caseMainCaseTitle,
-      proceedingStatusId: data.editCaseProceeding.proceedingStatusId.toString()??null,
+      proceedingStatusId: data.editCaseProceeding.proceedingStatusId.toString() ?? null,
       proceedingStatusProceedingName: data.editCaseProceeding.proceedingStatusProceedingName,
       caseMainCourtCaseNo: data.getCaseDataByCaseNo.caseMainCourtCaseNo,
       caseMainFirstPartyName: data.getCaseDataByCaseNo.caseMainFirstPartyName,
       caseMainSecondPartyName: data.getCaseDataByCaseNo.caseMainSecondPartyName,
       caseMainCaseTypeCaseTypeName: data.getCaseDataByCaseNo.caseMainCaseTypeCaseTypeName,
+      new: data.getCaseDataByCaseNo.new,
     };
-this.editCaseProceeding=result
+    this.editCaseProceeding = result;
     return result;
   }
   @action

@@ -47,6 +47,13 @@ export const userRouter: any = [
     component: LoadableComponent(() => import('../../scenes/PaymentSuccess')), 
     showInMenu: false, // Set to true if you want this route to appear in the menu
   },
+  {
+    path:  '/user/newsubscription/:session_id',
+    name: 'success', // Unique name for this route
+    title: 'Success', // Display title for the route
+    component: LoadableComponent(() => import('../../scenes/RenewPaymentSuccess')), 
+    showInMenu: false, // Set to true if you want this route to appear in the menu
+  },
 ];
 
 export const appRouters: any = [
