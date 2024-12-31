@@ -156,7 +156,7 @@ const SubscriptionDetail = (props:any) => {
     console.log("get session data response",result.data.result)
     let params={
       clientRefId:result.data.result.clientReferenceId,
-      status:true,
+      status:false,
       stripeResKey:session_id?.split('=')[1],
       stripeDesKey:result.data.result.paymentIntentId
     }

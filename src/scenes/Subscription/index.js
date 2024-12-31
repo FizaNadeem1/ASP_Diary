@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import http from '../../services/httpService';
+import { message } from 'antd';
 
 const Subscription = () => {
   const [deleteId, setDeleteId] = useState(0);
@@ -17,6 +18,8 @@ const Subscription = () => {
   const [allSubscriptionHeader, setAllSubscriptionHeader] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [skipCount, setSkipCount] = useState(0);
+  const currentDate = new Date(); // Get the current date
+
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -81,7 +84,10 @@ const Subscription = () => {
       setLoading(true);
       const result = await http.get('/api/services/app/SubscriptionDetail/GetAll');
       console.log('response of get subscripitom', result);
-      setAllSubscriptions(result.data.result?.items);
+      const sortedSubscriptions = result.data.result?.items.sort(
+        (a, b) => new Date(b.startSubscriptionDate) - new Date(a.startSubscriptionDate)
+      );
+      setAllSubscriptions(sortedSubscriptions);
       setTotalCount(result.data.result?.totalCount);
       setLoading(false);
     } catch (error) {
@@ -90,7 +96,53 @@ const Subscription = () => {
     }
   };
 
+  const handleFinalize = async () => {
+    try {
+      const result = await http.get('/api/services/app/SubscriptionDetail/FinalizeInvoice');
+      console.log('response of FinalizeInvoice subscription', result);
+    } catch (error) {
+      console.error('Failed to make get all Subscriptions API call', error);
+    }
+  };
+  const handleCancel = async (id) => {
+    try {
+      setLoading(true);
+      const result = await http.post('api/services/app/SubscriptionDetail/CancelSubscription', {
+        id: id,
+      });
+      console.log('response of cancel subscription', result);
+      if (result.status === 200) {
+        message.info('Your subscription has been cancelled successfully');
+      }
+      await getAllSubscriptions();
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to make get all Subscriptions API call', error);
+      setLoading(false);
+    }
+  };
+
+  const handleRenew = async (id) => {
+    try {
+      setLoading(true);
+      const result = await http.post('api/services/app/SubscriptionDetail/RenewSubscription', {
+        id: id,
+      });
+      console.log('response of renew subscription', result);
+      if (result.data.result !== null) {
+        window.location.href = result.data.result;
+      } else {
+        await getAllSubscriptions();
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to make get all Subscriptions API call', error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
+    handleFinalize();
     getAllSubscriptions();
   }, []);
 
@@ -185,7 +237,7 @@ const Subscription = () => {
                               borderRadius: '50px',
                             }}
                           >
-                            {item.paid ? 'Paid' : 'Unpaid'}
+                            {item.paid ? 'Paid' : 'Paid'}
                           </h5>
                         </div>
                       </div>
@@ -240,30 +292,62 @@ const Subscription = () => {
                             display: 'flex',
                             justifyContent: 'flex-end', // Aligns button to the right
                             alignItems: 'center',
+                            color: 'red',
+                            fontSize: '16px',
+                            fontWeight: 700,
                           }}
                         >
-                          <button
-                            style={{
-                              cursor: 'pointer',
-                              padding: '10px 20px',
-                              backgroundColor: 'yellowgreen',
-                              color: 'white',
-                              borderRadius: '25px',
-                              border: 'none',
-                              outline: 'none',
-                              transition: 'all 0.3s ease-in-out',
-                              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                            }}
-                            onMouseEnter={
-                              (e) => (e.target.style.transform = 'translateY(-5px)') // Move up on hover
-                            }
-                            onMouseLeave={
-                              (e) => (e.target.style.transform = 'translateY(0)') // Reset position on leave
-                            }
-                            onClick={() => console.log('Button clicked')}
-                          >
-                            {item.subscriptionStatus ? 'Cancel' : 'Renew Subscription'}
-                          </button>
+                          {(item.subscriptionStatus === true &&
+                            item.cancel === false &&
+                            item.paid === true) ||
+                          (item.subscriptionStatus === true &&
+                            item.cancel === false &&
+                            currentDate > new Date(item.endSubscriptionDate)) ? (
+                            <button
+                              style={{
+                                cursor: 'pointer',
+                                padding: '10px 20px',
+                                backgroundColor: 'yellowgreen',
+                                color: 'white',
+                                borderRadius: '25px',
+                                border: 'none',
+                                outline: 'none',
+                                transition: 'all 0.3s ease-in-out',
+                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                              }}
+                              onMouseEnter={
+                                (e) => (e.target.style.transform = 'translateY(-5px)') // Move up on hover
+                              }
+                              onMouseLeave={
+                                (e) => (e.target.style.transform = 'translateY(0)') // Reset position on leave
+                              }
+                              onClick={() => {
+                                if (
+                                  item.subscriptionStatus === true &&
+                                  item.cancel === false &&
+                                  item.paid === true
+                                ) {
+                                  handleCancel(item.id); // Call the cancel API
+                                } else {
+                                  handleRenew(item.id); // Call the renew API
+                                }
+                              }}
+                            >
+                              {item.subscriptionStatus === true &&
+                              item.cancel === false &&
+                              item.paid === true
+                                ? 'Cancel'
+                                : [
+                                    item.subscriptionStatus === true &&
+                                    item.cancel === false &&
+                                    currentDate > new Date(item.endSubscriptionDate)
+                                      ? 'Renew Subscription'
+                                      : null,
+                                  ]}
+                            </button>
+                          ) : item.subscriptionStatus === true && item.cancel === true ? (
+                            'Subscription cancelled'
+                          ) : null}
                         </div>
                       </div>
                     </div>
