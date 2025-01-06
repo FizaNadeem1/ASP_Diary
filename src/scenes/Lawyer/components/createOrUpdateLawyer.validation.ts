@@ -2,7 +2,10 @@ import { L } from '../../../lib/abpUtility';
 
 const rules = {
   lawyerName: [{ required: true, message: L('ThisFieldIsRequired') }],
-  lawyerMobile:[{ required: true, message: L('ThisFieldIsRequired') }],
+  lawyerMobile:[{ required: true, message: L('ThisFieldIsRequired') },{
+    pattern: /^\+([1-9]{1,4})\s?\(?\d{1,3}\)?[-\s]?\d{3}[-\s]?\d{4}$/, // Regex for phone number with country code
+    message: 'Phone number must start with a valid country code and be in the correct format!',
+  },],
   lawyerLiscene: [{ required: true, message: L('ThisFieldIsRequired') }],
   lawyerAdress: [{ required: true, message: L('ThisFieldIsRequired') }],
   lawyerNotes:[{ required: true, message: L('ThisFieldIsRequired') }],
