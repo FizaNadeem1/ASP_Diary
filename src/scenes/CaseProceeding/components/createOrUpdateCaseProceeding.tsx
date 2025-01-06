@@ -21,12 +21,16 @@ export interface ICreateOrUpdateCaseProceedingProps {
   proceedings: GetProceedings[];
   store: CaseProceedingStore;
   setBenchId: (id: string) => void;
+  
+}
+interface State{
+  isFetchDisabled:boolean,
   isProceedingStatusModalOpen: boolean,
   newProceedingStatus: string,
 
 }
 
-class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCaseProceedingProps> {
+class CreateOrUpdateCaseProceeding extends React.Component<ICreateOrUpdateCaseProceedingProps,State> {
   state = {
     confirmDirty: false,
     isFetchDisabled: true,

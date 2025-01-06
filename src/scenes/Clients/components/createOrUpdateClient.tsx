@@ -14,7 +14,6 @@ import DisplayImage from '../../../components/DisplayImage/DisplayImage';
 const TabPane = Tabs.TabPane;
 interface State {
   confirmDirty: boolean,
-  image: File | null; 
 }
 export interface ICreateOrUpdateClientProps {
   visible: boolean;
@@ -26,17 +25,23 @@ export interface ICreateOrUpdateClientProps {
   clientTypes: GetClientTypes[];
   clientGender: GetGender[];
   formRef: React.RefObject<FormInstance>;
-  store: ClientStore
+  store: ClientStore;
+  image:File|null;
+   setImage:(img: File) => void;
 }
 
 class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps,State> {
   state = {
     confirmDirty: false,
-    image: null,
   };
-  setImage = (img: File) => {
-    this.setState({image:img});
-  };
+  // async componentDidMount() {
+  //   console.log("moda type",this.props.modalType)
+  //   if(this.props.modalType==='edit'){
+  //     let imgPath=this.props.formRef.current?.getFieldValue("clientPhotoPath")
+  //     console.log("img path",imgPath)
+  //     // this.props.setImage(imgPath)
+  //   }
+  // }
   // handleClientChange = async(value:any) => {
   //   console.log("client ma client label",value)
   //   this.props.formRef.current?.setFieldsValue({"clientTypeName":value.label})
@@ -116,7 +121,7 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps,St
                 <Input />
               </Form.Item>
               <Form.Item label={L('Client Code')} {...formItemLayout} name={'clientCode'} >
-                <Input />
+                <Input disabled />
               </Form.Item>
               <Form.Item label={L('Father Name')} {...formItemLayout} name={'clientFatherName'} rules={rules.clientFatherName}>
                 <Input />
@@ -181,7 +186,7 @@ class CreateOrUpdateClient extends React.Component<ICreateOrUpdateClientProps,St
               </Form.Item>
             </TabPane>
             <TabPane tab={L('Business')} key={'Business'} forceRender={true}>
-            <DisplayImage name='clientPhotoPath' image={this.state.image} setImage={this.setImage} />
+            <DisplayImage name='clientPhotoPath' image={this.props.image} setImage={this.props.setImage} />
               <Form.Item label={L('Firm Code')} {...formItemLayout} name={'clientFirmCode'} rules={rules.clientFirmCode}>
                 <Input />
               </Form.Item>

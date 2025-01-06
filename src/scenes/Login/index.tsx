@@ -110,9 +110,9 @@ class Login extends React.Component<ILoginProps> {
                 <Col span={8} offset={8}>
                   <h3>{L('TenancyName')}</h3>
                 </Col>
-                <Col>
+                <Col span={24}>
                   <FormItem name={'tenancyName'}>
-                    <Input placeholder={L('TenancyName')} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" />
+                    <Input placeholder={L('TenancyName')} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)'}} />}  />
                   </FormItem>
                   {!this.formRef.current?.getFieldValue('tenancyName') ? <div>{L('LeaveEmptyToSwitchToHost')}</div> : ''}
                 </Col>

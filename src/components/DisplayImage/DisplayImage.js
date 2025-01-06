@@ -28,8 +28,15 @@ const DisplayImage = ({ image, setImage, name }) => {
         }}
       >
         <img
-          src={image ? URL.createObjectURL(image) : Avatar}
-          alt="Selected or Default Avatar"
+           src={
+            image instanceof File
+              ? URL.createObjectURL(image) // Preview the selected file
+              : image
+              ? `http://localhost:8888${image}` // Display image from server
+              : Avatar // Default avatar
+          }
+          // src={image ? URL.createObjectURL(image) : Avatar}
+          alt="Default Avatar"
           style={{
             borderRadius: "50%",
             height: "100px",

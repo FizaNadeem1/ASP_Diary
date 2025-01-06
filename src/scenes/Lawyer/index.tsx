@@ -14,7 +14,6 @@ import LawyerStore from '../../stores/lawyerStore';
 import CreateOrUpdateLawyer from './components/createOrUpdateLawyer';
 import Avatar from "../../assets/images/formAvatar.png";
 // import ImageUploader from './components/imageUploader';
-
 export interface ILawyerProps {
   lawyerStore: LawyerStore;
 }
@@ -25,6 +24,8 @@ export interface Ilawyerstate {
   skipCount: number;
   lawyerId: number;
   filter: string;
+  image: File | null|string;
+  prevImg:string|null;
 }
 
 const confirm = Modal.confirm;
@@ -41,12 +42,16 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
     skipCount: 0,
     lawyerId: 0,
     filter: '',
+    image: null,
+    prevImg:null,
   };
 
   async componentDidMount() {
     await this.getAll();
   }
-
+  setImage = (img: File) => {
+    this.setState({ image: img });
+  };
   async getAll() {
     await this.props.lawyerStore.getAll({ maxResultCount: this.state.maxResultCount, skipCount: this.state.skipCount, keyword: this.state.filter });
   }
@@ -64,12 +69,12 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
   async createOrUpdateModalOpen(entityDto: EntityDto) {
     if (entityDto.id === 0) {
       await this.props.lawyerStore.createLawyer();
-        await this.props.lawyerStore.getBranches();
-        await this.props.lawyerStore.getSpecialities();
-        await this.props.lawyerStore.getTehsils();
-        await this.props.lawyerStore.getCities();
-        await this.props.lawyerStore.getDivisions();
-        await this.props.lawyerStore.getProvinces();
+      await this.props.lawyerStore.getBranches();
+      await this.props.lawyerStore.getSpecialities();
+      await this.props.lawyerStore.getTehsils();
+      await this.props.lawyerStore.getCities();
+      await this.props.lawyerStore.getDivisions();
+      await this.props.lawyerStore.getProvinces();
     } else {
       await this.props.lawyerStore.get(entityDto);
       await this.props.lawyerStore.getBranches();
@@ -77,13 +82,15 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
       await this.props.lawyerStore.getTehsils();
       await this.props.lawyerStore.getCities();
       await this.props.lawyerStore.getDivisions();
-      await this.props.lawyerStore.getProvinces();    }
+      await this.props.lawyerStore.getProvinces();
+    }
 
     this.setState({ lawyerId: entityDto.id });
     this.Modal();
 
     setTimeout(() => {
       this.formRef.current?.setFieldsValue({ ...this.props.lawyerStore.editLawyer });
+      this.setState({image:this.props.lawyerStore.editLawyer.lawyerPhotoPath,prevImg:this.props.lawyerStore.editLawyer.lawyerPhotoPath})
     }, 100);
   }
 
@@ -105,16 +112,98 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
 
     form!.validateFields().then(async (values: any) => {
       if (this.state.lawyerId === 0) {
-        await this.props.lawyerStore.create(values);
+        const formdata = new FormData();
+
+        // Check if `this.state.image` is a File object
+        if (this.state.image && typeof this.state.image === 'object' && 'size' in this.state.image && 'type' in this.state.image) {
+          formdata.append("profileImage", this.state.image as File);
+        } else {
+          console.error("State image is not a valid File object.");
+        }
+        console.log("FormData before fetch:", formdata);
+        // Send the image to the backend
+        fetch(`http://localhost:8888/saveImage`, {
+          method: "POST",
+          body: formdata,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(async (data) => {
+            console.log("Response data:", data);
+            this.setState({ image: data.newImage });
+
+            // Call create API with the new image path
+            console.log("lawyer create cred", {
+              ...values,
+              lawyerPhotoPath: data.newImage,
+            })
+            await this.props.lawyerStore.create({
+              ...values,
+              lawyerPhotoPath: data.newImage,
+            });
+            await this.getAll();
+            this.setState({ modalVisible: false });
+            form!.resetFields();
+          })
+          .catch((error) => console.log("Error:", error));
       } else {
-        await this.props.lawyerStore.update({ ...values, id: this.state.lawyerId });
+        const formdata = new FormData();
+
+        // Check if `this.state.image` is a File object
+        if (this.state.image && typeof this.state.image === 'object' && 'size' in this.state.image && 'type' in this.state.image) {
+          formdata.append("profileImage", this.state.image as File);
+        
+          // Only append prevProfileImage if it has a valid value
+          if (this.state.prevImg) {
+            formdata.append("prevProfileImage", this.state.prevImg);
+          } else {
+            console.warn("Previous profile image is null or undefined.");
+          }
+        } else {
+          console.error("State image is not a valid File object.");
+        }        
+        console.log("FormData before fetch:", formdata);
+        // Send the image to the backend
+        fetch(`http://localhost:8888/saveImage`, {
+          method: "POST",
+          body: formdata,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(async (data) => {
+            console.log("Response data:", data);
+            this.setState({ image: data.newImage });
+
+            // Call create API with the new image path
+            console.log("lawyer create cred", {
+              ...values,
+              lawyerPhotoPath: data.newImage,
+            })
+            await this.props.lawyerStore.update({
+              ...values,
+              id: this.state.lawyerId,
+              lawyerPhotoPath: data.newImage,
+            });
+            await this.getAll();
+            this.setState({ modalVisible: false });
+            form!.resetFields();
+          })
+          .catch((error) => console.log("Error:", error));
+
       }
 
-      await this.getAll();
-      this.setState({ modalVisible: false });
-      form!.resetFields();
+
     });
   };
+
 
   handleSearch = (value: string) => {
     this.setState({ filter: value }, async () => await this.getAll());
@@ -125,13 +214,13 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
     const columns = [
       {
         title: L('Lawyer Photo'), dataIndex: 'lawyerPhotoPath', key: 'lawyerPhotoPath', width: 'auto',
-        render: (text: string) => <div><img src={Avatar} alt="" style={{height:'25px',width:'25px',borderRadius:100}}/></div>
+        render: (text: string) => <div><img src={`http://localhost:8888${text}` || Avatar} alt="" style={{ height: '25px', width: '25px', borderRadius: 100 }} /></div>
       },
-      {title:L('Lawyer Name'),dataIndex:'lawyerName',key:'lawyerName',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('Lawyer Liscene'),dataIndex:'lawyerLiscene',key:'lawyerLiscene',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('Lawyer Speaciality'),dataIndex:'lawyerSpeacialitySpeacialityName',key:'lawyerSpeacialitySpeacialityName',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('Branch'),dataIndex:'branchBranchName',key:'branchBranchName',width:'auto', render: (text: string) => <div>{text}</div>},
-      {title:L('City'),dataIndex:'cityCityName',key:'cityCityName',width:'auto', render: (text: string) => <div>{text}</div>},
+      { title: L('Lawyer Name'), dataIndex: 'lawyerName', key: 'lawyerName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Lawyer Liscene'), dataIndex: 'lawyerLiscene', key: 'lawyerLiscene', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Lawyer Speaciality'), dataIndex: 'lawyerSpeacialitySpeacialityName', key: 'lawyerSpeacialitySpeacialityName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('Branch'), dataIndex: 'branchBranchName', key: 'branchBranchName', width: 'auto', render: (text: string) => <div>{text}</div> },
+      { title: L('City'), dataIndex: 'cityCityName', key: 'cityCityName', width: 'auto', render: (text: string) => <div>{text}</div> },
       {
         title: L('Actions'),
         key: 'actions',
@@ -242,9 +331,10 @@ class Lawyer extends AppComponentBase<ILawyerProps, Ilawyerstate> {
           speciality={this.props.lawyerStore.speciality}
           branches={this.props.lawyerStore.branches}
           store={this.props.lawyerStore}
-          // selectedProvince={this.props.lawyerStore.selectedProvince}
-          // selectedCity={this.props.lawyerStore.selectedCity}
-          // selectedDivision={this.props.lawyerStore.selectedDivision}
+          image={this.state.image} setImage={this.setImage}
+        // selectedProvince={this.props.lawyerStore.selectedProvince}
+        // selectedCity={this.props.lawyerStore.selectedCity}
+        // selectedDivision={this.props.lawyerStore.selectedDivision}
         />
         {/* <ImageUploader/> */}
       </Card>

@@ -83,7 +83,7 @@ class ClientStore {
       creatorUserId: 0,
       lastModificationTime: moment(),
       lastModifierUserId: 0,
-      clientCode: '',
+      clientCode: 'Diary-Has-Automated-Client-Code-Generator',
       clientTypeName: '',
       clientName: '',
       clientFatherName: '',
